@@ -1,0 +1,40 @@
+.main {
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  background-image: url(../../img/exer_back1.jpg);
+  background-size: cover;
+} 
+.app-title {
+  color: white;
+  font-size: 200px;
+  margin-top: 200px;
+  margin-left: 350px;
+}
+.tem {
+  margin-top: 180px;
+  margin-left: -200px;
+  display: flex;
+  float: left;
+}
+.analysis {
+  border: 10px solid white;
+  border-radius: 50px;
+  padding: 30px 150px;
+  color: white;
+  margin-left: 220px;
+  margin-top: 20px;
+  font-size: 70px;
+}
+.png {
+  margin-left: 200px;
+  margin-top: 50px;
+}
+.but {
+  margin-left: 200px;
+}
