@@ -47,6 +47,11 @@
  ┃ ┃ ┗ 📂exercise <br/>
  ┃ ┃ ┃ ┣ 📂exercise_app <br/>
  ┃ ┃ ┃ ┗ 📂exercise_service <br/>
+ ┃ ┗ 📂home <br/>
+ ┃ ┃ ┃ ┣ 📂led <br/>
+ ┃ ┃ ┃ ┃ ┗ 📜led.ino <br/>
+ ┃ ┃ ┃ ┗ 📂windowBlind <br/>
+ ┃ ┃ ┃ ┃ ┗ 📜windowBlind.ino <br/>
  ┣ 📂main-NoticeAlert <br/>
  ┃ ┣ 📂wallpad <br/> 
  ┃ ┃ ┣ 📂control <br/>
