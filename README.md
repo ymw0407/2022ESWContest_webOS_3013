@@ -3,7 +3,7 @@
 <br/><br/>
 
 ## 파일 구성도
-<br/><br/>
+<br/>
 📦2022ESWContest_webOS_3013 <br/>
  ┣ 📂EC2 <br/>
  ┃ ┣ 📂express_file_server <br/>
