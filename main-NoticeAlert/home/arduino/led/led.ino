@@ -1,15 +1,15 @@
 #include <ESP8266WiFi.h> // Wifi 라이브러리 추가
 #include <PubSubClient.h> // MQTT client 라이브러리 
 
-#define ledPin1 4
-#define ledPin2 16
+#define ledPin1 16
+#define ledPin2 4
 #define ledPin3 14
 
 //----------------------------------------------------------------
 
 const char* ssid = "koss"; //사용하는 Wifi 이름
 const char* password = "a123456789!"; // 비밀번호
-const char* mqtt_server = "43.200.4.58"; // MQTT broker ip
+const char* mqtt_server = "3.34.50.139"; // MQTT broker ip
 const char* clientName = "ledController"; // client 이름
 
 WiFiClient espClient; // 인터넷과 연결할 수 있는 client 생성
@@ -19,13 +19,13 @@ PubSubClient client(espClient); // 해당 client를 mqtt client로 사용할 수
 
 int ledState1 = LOW;
 int previous1 = LOW;
-//int ledPin1 = 4;
-int swPin1 = 0;
+//int ledPin1 = 16;
+int swPin1 = 5;
 
 int ledState2 = LOW;
 int previous2 = LOW;
-//int ledPin2 = 16;
-int swPin2 = 5;
+//int ledPin2 = 4;
+int swPin2 = 0;
 
 int ledState3 = LOW;
 int previous3 = LOW;
@@ -71,6 +71,7 @@ void reconnect() {
       //연결 성공e default branch is considered the “base” branch in your repository, against which all pull requests and code commits are automatically made, unless you specify a different branch
       Serial.println("connected");
       client.subscribe("control/led"); // led 토픽 구독
+      client.subscribe("init/led");
     } 
     else 
     {
@@ -89,14 +90,22 @@ void callback(char* topic, byte* payload, unsigned int uLen) {
   char message[uLen];
   int i;
   for(i = 0; i < uLen; i++){message[i]=(char)payload[i];}
-
+  
   Serial.print("Subscribe ");
   Serial.print(topic);
   Serial.print(": ");
   Serial.println(message); // 1 or 0
 
-  sscanf(message, "{ledState1: %d, ledState2: %d, ledState3: %d}", &ledState1, &ledState2, &ledState3);
-  Serial.println(message);
+  if ((String)topic == "control/led"){
+    sscanf(message, "{\"control\": \"led\", \"led\": {\"ledState1\":%d, \"ledState2\":%d, \"ledState3\":%d}}", &ledState1, &ledState2, &ledState3);
+    Serial.println(message);
+  } else if((String)topic == "init/led") {
+    char ledMessage[100] = "";
+    sprintf(ledMessage, "{\"control\": \"led\", \"led\": {\"ledState1\":%d, \"ledState2\":%d, \"ledState3\":%d}}", ledState1, ledState2, ledState3);
+    Serial.print("Publish message: ");
+    Serial.println(ledMessage);
+    client.publish("status/led", ledMessage); // 만든 문자열을 mqtt 서버에 publish *토픽에 숫자 XXX
+  }
   Serial.println(ledState1);
   Serial.println(ledState2);
   Serial.println(ledState3);
@@ -113,7 +122,7 @@ int ledControl(int ledPin, int swPin, int previous){
         ledState1 = 1-ledState1;
         break;
       case ledPin2:
-        ledState2 = 1-ledState3;
+        ledState2 = 1-ledState2;
         break;
       case ledPin3:
         ledState3 = 1-ledState3;
@@ -121,7 +130,7 @@ int ledControl(int ledPin, int swPin, int previous){
     }
       
     char ledMessage[100] = "";
-    sprintf(ledMessage, "{'control': 'led', 'led': {'ledState1':%d, 'ledState2':%d, 'ledState3\":%d}}", ledState1, ledState2, ledState3);
+    sprintf(ledMessage, "{\"control\": \"led\", \"led\": {\"ledState1\":%d, \"ledState2\":%d, \"ledState3\":%d}}", ledState1, ledState2, ledState3);
     Serial.print("Publish message: ");
     Serial.println(ledMessage);
     client.publish("status/led", ledMessage); // 만든 문자열을 mqtt 서버에 publish *토픽에 숫자 XXX
