@@ -1,6 +1,9 @@
 # 2022ESWContest_webOS_3013
 2022 제 20회 임베디드 소프트웨어 경진대회 webOS 부문 team 방파제
 <br/><br/>
+
+## 파일 구성도
+<br/><br/>
 📦2022ESWContest_webOS_3013 <br/>
  ┣ 📂EC2 <br/>
  ┃ ┣ 📂express_file_server <br/>
