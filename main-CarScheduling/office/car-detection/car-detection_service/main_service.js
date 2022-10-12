@@ -117,7 +117,7 @@ service.register("loop", (msg) => {
 
   mqtt.init(mosquitto);
   client = mqtt.connect(ip);
-  mqtt.subscribe(["car/analyze", "car/detect", "car/data"]);
+  mqtt.subscribe(["car/detect", "car/data"]);
 
   let log = exec("systemctl restart docker");
   console.log(log + "")
