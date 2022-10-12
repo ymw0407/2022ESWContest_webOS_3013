@@ -1,0 +1,50 @@
+<!--
+Copyright (c) 2020-2022 LG Electronics Inc.
+
+SPDX-License-Identifier: Apache-2.0
+-->
+
+<!DOCTYPE html>
+<html>
+<head>
+<title>Example Web App</title>
+<style type="text/css">
+    body {
+        width: 100%;
+        height: 100%;
+        background-color:#202020;
+    }
+    div {
+        position:absolute;
+        height:100%;
+        width:100%;
+        display: table;
+    }
+    h1 {
+        display: table-cell;
+        vertical-align: middle;
+        text-align:center;
+        color:#FFFFFF;
+    }
+</style>
+<script type="text/javascript">
+    var bridge = new WebOSServiceBridge();
+
+    function callMyChild() {
+        console.log("call my service");
+        const url = 'luna://com.reservation.app.service/child';
+        const params = {};
+        bridge.onservicecallback = (msg) => {
+            console.log("child start");
+        }
+        bridge.call(url, JSON.stringify(params));
+    }
+</script>
+</head>
+<body>
+    <div>
+        <h1 id="txt_msg">Hello, Web Application!!</h1>
+        <button onclick="callMyChild()">child</button>
+    </div>
+</body>
+</html>

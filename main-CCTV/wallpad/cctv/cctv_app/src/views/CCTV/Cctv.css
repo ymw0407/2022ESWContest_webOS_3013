@@ -1,0 +1,68 @@
+.Cctv {
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  display: flex;
+  height: 100vh;
+  background-image: url(../../../img/cctv_back.jpg);
+  background-size: cover;
+}
+.app-title {
+  color: white;
+  font-size: 200px;
+  margin-top: 200px;
+  margin-left: 350px;
+  margin-bottom: 30px;
+}
+.tem {
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  display: flex;
+  text-align: center;
+  margin-top: 500px;
+  margin-bottom: 500px;
+}
+.app-list {
+  margin-top: 500px;
+  text-align: center;
+  background: #a1a1a1;
+  color: black;
+  font-size: 100px;
+  font-weight: 600;
+  line-height: 7px;    
+  float: left;
+  margin: 0 auto;
+  padding-right: 140px;
+  width: 2850px;
+}
+.app-list ul {
+  list-style: none;
+}
+.app-list ul li {
+  display: inline-block;
+  padding-left: 200px;
+  padding-right: 200px;
+  text-align: center;
+  cursor: pointer;
+}
+.app-list ul li:hover {
+  color: white;
+}
+.content{
+  text-align: left;
+  margin-top: 200px;
+  margin-right: 60px;
+  background-color: none;
+  height: auto;
+  width: 500px;
+  height: 50px;
+}
+a {
+  color: inherit;
+  text-decoration: none;
+}

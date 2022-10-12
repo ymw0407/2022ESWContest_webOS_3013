@@ -1,0 +1,13 @@
+{
+	"id": "com.control.app",
+	"version": "1.0.0",
+	"vendor": "LGE-SVL",
+	"type": "web",
+	"main": "index.html",
+	"title": "가전제어",
+	"icon": "control.png",
+	"miniicon": "control.png",
+	"largeIcon": "control.png",
+	"uiRevision": 2,
+	"requiredPermissions": ["all"]
+}

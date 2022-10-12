@@ -1,0 +1,17 @@
+{
+  "id": "com.delivery.app.service",
+  "description": "HelloWorld Service",
+  "services": [
+    {
+      "name": "com.delivery.app.service"
+    }
+  ],
+  "version": "1.0.0",
+  "requiredPermissions": [
+    "time.query",
+    "activity.operation",
+    "database.operation",
+    "com.heartbeat.app.service.group",
+    "all"
+  ]
+}

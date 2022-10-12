@@ -1,0 +1,70 @@
+.Cctv {
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.app-title {
+  width:  1024px;
+  margin-left: auto;
+  margin-right: auto;
+  background: #535353;
+  color: white;
+  font-size: 40px;
+  text-align: center;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  letter-spacing: 2px;
+  font-weight: bold;
+}
+
+.tem {
+  width:  1024px;
+  height: 600px;
+  margin-left: auto;
+  margin-right: auto;
+  overflow: hidden;
+  background: #e3e3e3;
+}
+
+.app-list {
+  text-align: center;
+  background: #a1a1a1;
+  color: black;
+  height: 45px;
+  font-size: 20px;
+  line-height: 7px;    
+  float: left;
+  width: 100%;
+  margin: 0 auto;
+  padding-right: 60px;
+}
+.app-list ul {
+  list-style: none;
+}
+.app-list ul li {
+  display: inline-block;
+  padding-left: 25px;
+  padding-right: 25px;
+  text-align: center;
+  cursor: pointer;
+}
+a:hover {
+  color: #ffffff;
+}
+.content{
+  background-color: white;
+  height: auto;
+}
+
+
+a {
+  color: inherit;
+  text-decoration: none;
+}

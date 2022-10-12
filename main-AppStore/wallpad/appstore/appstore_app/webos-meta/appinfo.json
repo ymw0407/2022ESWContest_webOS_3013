@@ -1,0 +1,14 @@
+{
+	"id": "com.appstore.app",
+	"version": "1.0.0",
+	"vendor": "My Company",
+	"type": "web",
+	"main": "index.html",
+	"title": "Home++ App Store",
+	"icon": "icon.jpeg",
+	"requiredPermissions": [
+		"time.query",
+		"activity.operation",
+		"all"
+	]
+}

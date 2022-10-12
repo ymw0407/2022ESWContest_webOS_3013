@@ -1,0 +1,15 @@
+{
+  "id": "com.reservation.app",
+  "version": "1.0.0",
+  "vendor": "My Company",
+  "type": "web",
+  "main": "index.html",
+  "title": "가전제어 추천 서비스 앱",
+  "icon": "icon.png",
+  "requiredPermissions": [
+    "time.query",
+    "activity.operation",
+    "all",
+    "com.reservation.app.service.group"
+  ]
+}

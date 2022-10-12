@@ -1,0 +1,41 @@
+.list {
+  padding-left: -100px;
+  display: flex;
+  float: left;
+  text-align: center;
+  margin-top: 5px;
+  margin-left: -100px;
+}
+.tem1 {
+  padding-right: 250px;
+}
+.tem1 p {
+  font-size: 130px;
+  font-weight: 600;
+  padding-top: 50px;
+  padding-bottom: 250px;
+  margin-left: 30px;
+  color: white;
+}
+.tem2 {
+  padding-right: 250px;
+}
+.tem2 p {
+  font-size: 130px;
+  font-weight: 600;
+  padding-top: 50px;
+  padding-bottom: 250px;
+  margin-left: 30px;
+  color: white;
+}
+.tem3 {
+  padding-right: 150px;
+}
+.tem3 p {
+  font-size: 130px;
+  font-weight: 600;
+  padding-top: 50px;
+  padding-bottom: 250px;
+  margin-left: 30px;
+  color: white;
+}

@@ -1,0 +1,16 @@
+{
+  "id": "com.cardetection.app",
+  "version": "1.0.0",
+  "vendor": "My Company",
+  "type": "web",
+  "main": "index.html",
+  "title": "CarDetection",
+  "icon": "icon.png",
+  "requiredPermissions": [
+    "time.query",
+    "activity.operation",
+    "database.operation",
+    "com.heartbeat.app.service.group",
+    "all"
+  ]
+}

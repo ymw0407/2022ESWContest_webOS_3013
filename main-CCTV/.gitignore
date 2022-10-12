@@ -1,0 +1,4 @@
+*.ipk
+com.*
+node_modules
+yarn-error.log

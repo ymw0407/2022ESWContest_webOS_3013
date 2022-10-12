@@ -1,0 +1,75 @@
+.first {
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  display: flex;
+  /*flex-direction: column;*/
+  height: 100vh;
+  background-image: url(../img/control_back.jpg);
+  background-size: cover;
+} 
+.app-title {
+  color: white;
+  font-size: 200px;
+  margin-top: 200px;
+  margin-left: 350px;
+  margin-bottom: 30px;
+}
+.tem {
+  margin-top: 100px;
+}
+.lbox1 {
+  padding-right: 200px;
+}
+.lbox1 p {
+  font-size: 130px;
+  font-weight: 600;
+  padding-top: 50px;
+  padding-bottom: 250px;
+  margin-left: 30px;
+  color: white;
+}
+.light {
+  display: flex;
+  float: left;
+  text-align: center;
+  margin-top: 500px;
+  margin-left: -740px;
+}
+.window {
+  display: flex;
+  float: left;
+  margin-top: 490px;
+  margin-left: 100px;
+}
+.window1 {
+  margin-left: 200px;
+  margin-top: 2px;
+}
+.window1 p {
+  font-size: 130px;
+  font-weight: 600;
+  padding-top: 50px;
+  margin-left: 160px;
+  color: white;
+}
+
+.blind {
+  display: flex;
+  float: left;
+  margin-top: 490px;
+  margin-left: 100px;
+}
+.blind1 {
+  margin-left: 300px;
+}
+.blind1 p {
+  font-size: 130px;
+  font-weight: 600;
+  padding-top: 50px;
+  margin-left: 40px;
+  color: white;
+}
+
