@@ -1,0 +1,33 @@
+{
+  "name": "post_backend",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "air-datepicker": "^3.3.0",
+    "body-parser": "^1.20.0",
+    "cheerio": "^1.0.0-rc.12",
+    "connect-flash": "^0.1.1",
+    "dotenv": "^16.0.2",
+    "ejs": "^3.1.8",
+    "express": "^4.18.1",
+    "express-session": "^1.17.3",
+    "express-validator": "^6.14.2",
+    "method-override": "^3.0.0",
+    "moment": "^2.29.4",
+    "moment-timezone": "^0.5.34",
+    "mongoose": "^6.5.2",
+    "mqtt": "^4.3.7",
+    "node-schedule": "^2.1.0",
+    "parse": "^3.4.3",
+    "prompt-sync": "^4.2.0",
+    "request": "^2.88.2",
+    "schedular": "^0.0.1",
+    "xml2js": "^0.4.23"
+  }
+}
