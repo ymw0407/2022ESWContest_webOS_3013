@@ -33,6 +33,13 @@ AWS EC2(클라우드 서버):
     - 추후, 복잡한 앱들의 초기 설정을 IPK 설치와 함께하게 개선하고자 한다.(ex. docker 설정, 파일 권한 설정 등)
 <br>
 
+## Quick Start
+ares-setup-device에서 default를 자신이 설치할 webOS의 IP로 설정하세요.
+```bash
+source wallpad.setup.sh
+```
+<br>
+
 ## 장애 요인
 
 1. 기존에는 IPK 파일을 앱, 서비스와 함께 패키징하여 올리고자 하였으나, IPK파일은 함께 패키징 되지 않는다.<br> 
