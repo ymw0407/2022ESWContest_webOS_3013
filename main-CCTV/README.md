@@ -30,7 +30,7 @@ const char* ssid = "wifi"; // wifi SSID
 const char* password = "12345678"; // wifi password
 ```
 <br>
-각각의 ESP32-CAM에 할당된 IP들을 조회하여 바꿔줍니다.
+각각의 ESP32-CAM에 할당된 IP들을 조회하여 바꿔줍니다. <a href="https://github.com/ymw0407/2022ESWContest_webOS_3013/tree/master/main-CCTV/wallpad/cctv/cctv_app/src/views/CCTV">링크</a>
 
 ```JavaScript
 var ip = "192.168.1.28";
