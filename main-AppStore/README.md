@@ -35,7 +35,7 @@ webOS(월패드):
 <br><br>
 
 ## Customize
-AWS EC2를 자신이 새로 만들어 쓰게 된다면, 해당 부분만을 바꿔주면 됩니다.
+AWS EC2를 자신이 새로 만들어 쓰게 된다면, 해당 부분만을 바꿔주면 됩니다. <a href="https://github.com/ymw0407/2022ESWContest_webOS_3013/blob/master/main-AppStore/wallpad/appstore/appstore_service/luna_service.js">링크</a>
 ```javascript
 const EC2_IP = "3.34.50.139:8000";
 ```
