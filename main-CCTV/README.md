@@ -23,7 +23,7 @@ webOS(월패드):
     - 라우팅을 통해서 현관, 놀이터, 주차장 CCTV 페이지를 나누었다. <br><br> 
 
 ## Customize
-ssid에 2.4GHz의 wifi의 이름을, password에는 wifi의 비번을 각각 자신의 것으로 바꿔주면 됩니다.
+ssid에 2.4GHz의 wifi의 이름을, password에는 wifi의 비번을 각각 자신의 것으로 바꿔주면 됩니다. <a href="https://github.com/ymw0407/2022ESWContest_webOS_3013/blob/master/main-CCTV/outside/arduino/cctv/cctv.ino">링크</a>
 
 ```C++
 const char* ssid = "wifi"; // wifi SSID
