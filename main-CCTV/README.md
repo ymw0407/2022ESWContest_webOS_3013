@@ -1,56 +1,50 @@
-# CCTV 기능
-## 기능 설명
-<a href="https://github.com/webOS-KOSS/entrance_cam/issues/2">이슈 참조</a><br/>
-~~Raspbian OS에 연결된 V4L2 지원 카메라에 UV4L로 WebRTC 프로토콜 라이브 스트리밍을 하여 월패드에서 현관, 놀이터, 주차장의 CCTV를 모니터링 할 수 있게 한다.~~ <br/>
-<br/>
-<a href="https://github.com/webOS-KOSS/CCTV/issues/1">이슈 참조</a><br/>
-ESP32-CAM을 사용하여 web server에 영상을 스트리밍하고, 해당 영상을 html의 src태그를 통해서 스트리밍하여 월패드에서 현관, 놀이터, 주차장의 CCTV를 모니터링할 수 있게 한다. <br/>
-<br/>
-~~ESP32-CAM을 사용하여 media server에 영상을 스트리밍하고, media server에서 재공급해주는 영상을 통해서 월패드(webOS)의 웹앱에서 현관, 놀이터, 주차장의 CCTV를 모니터링할 수 있게 한다.~~ 
+# CCTV
+![CCTV](CCTV.png)
+<br>
 
-## 파일 구조
-### CCTV_ENACT_APP
-<li>Deivce : Raspberry Pi 4 webOS wallpad </li>
-<li>Type : webOS's Enact App </li>
-<li>App_id : com.cctv.app </li>
-<li>App_name : CCTV </li>
-<br/>
+## 소개
 
-__개인별 수정할 부분__ : ESP32-CAM의 Ip Address를 CCTV_ENACT_APP/src/views/CCTV의 Frontdoor.js, Parking.js, Playground.js 이 세 개의 파일에서 <br />
+ESP32-CAM을 활용하여 현관, 주차장, 놀이터 등 다양한 곳을 한 번에 확인할 수 있게 한다.<br><br>
 
-```javascript
-  <img src="http://***.***.***.***/" />
+## System Architecture
+
+![SystemArchitecture](SystemArchitecture.jpg)
+<br><br>
+
+## 기술 소개
+
+ESP32-CAM(현관, 주차장, 놀이터 CCTV)
+- Arduino
+    - client가 ESP32-CAM의 HTTP 서버에 접근하면, 영상을 전송해준다.
+    - 추후, media서버를 EC2 서버에 만들어서, 1:1 접근 뿐만이 아니라 1:n 접근 또한 가능하게 개선할 것이다. <br><br>
+
+webOS(월패드):
+- ENACT(com.cctv.app)
+    - 라우팅을 통해서 현관, 놀이터, 주차장 CCTV 페이지를 나누었다. <br><br> 
+
+## Customize
+ssid에 2.4GHz의 wifi의 이름을, password에는 wifi의 비번을 각각 자신의 것으로 바꿔주면 됩니다.
+
+```C++
+const char* ssid = "wifi"; // wifi SSID
+const char* password = "12345678"; // wifi password
 ```
-해당 부분의 IP를 ESP32-CAM의 IP와 맞게 수정하시면 됩니다.
-<br/>
+<br>
+각각의 ESP32-CAM에 할당된 IP들을 조회하여 바꿔줍니다.
 
-__Enact 환경 설정__ : <a href="https://github.com/webOS-KOSS/main-setting/blob/main/webOS/Enact.md">Enact 환경 설정</a>
+```JavaScript
+var ip = "192.168.1.28";
+```
+<br>
 
----
-
-### Arduino_CCTV
-<li>Device : Arduino ESP32-CAM 현관, 주차장, 놀이터 </li>
-<li>Type : Arduino AI Thinker ESP32-CAM </li>
-<br/>
-
-__ESP32-CAM 환경 설정__ : <a href="https://github.com/webOS-KOSS/main-setting/blob/main/Arduino/ESP32-CAM.md">ESP32-CAM 환경 설정</a>
-
----
-
-### IPK
-Description : ENACT app의 ipk 파일을 제공합니다.
-
+## Quick Start
+ares-setup-device에서 default를 자신이 설치할 webOS의 IP로 설정하세요.
 ```bash
-ares-install com.cctv.app_1.0.0_all.ipk
+source wallpad.setup.sh
 ```
-## 진행 상황
+각각의 ESP32-CAM에 cctv.ino를 업로드 하세요.
+<br><br>
 
-- [X] ESP32-CAM 영상 스트리밍
-- [ ] ~~media server 제작~~
-- [X] webOS 웹앱(CCTV 모니터링)
----
-- [X] 최종 구현(연계)
-
-## 구성도
-
-![구성도](CCTV.jpg)
+## 장애 요인
+1. 기존에는 Raspbian OS를 사용하기로 하였으나, CCTV에 많은 기능이 들어가는 것이 아니기 때문에 효율의 측면에서 ESP32-CAM을 사용하기로 했다. <a href="https://github.com/webOS-KOSS/entrance_cam/issues/2"><이슈 참조></a>
+2. ESP32-CAM에서는 한 명의 client만을 받을 수 있게 되어있다. 하지만 ESP32-CAM이라는 하드웨어의 문제가 있기 때문에, 이를 해결하고 1:n의 client를 받을 수 있게 하려면 외부에 media 서버를 두어야 된다. 추후에 추가하기로 하였다. <a href="https://github.com/webOS-KOSS/CCTV/issues/1"><이슈 참조></a><br/><br/>

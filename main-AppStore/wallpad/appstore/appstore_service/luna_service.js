@@ -1,5 +1,7 @@
 const execSync = require("child_process").execSync;
 var ls2 = undefined;
+const EC2_IP = "3.34.50.139:8000";
+
 
 function init(service){
     ls2 = service;
@@ -42,7 +44,7 @@ function launchApp(app_id){
 }
 
 async function appDownload(app_id, app_name, path){
-    execSync("wget -P ./app/ \"http://3.34.50.139:8000/apps/" + app_name + "\"");
+    execSync("wget -P ./app/ \"http://" + EC2_IP + "/apps/" + app_name + "\"");
     let appDownload_url = "luna://com.webos.appInstallService/dev/install";
     let appDownload_params = {
         id: app_id,

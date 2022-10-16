@@ -1,6 +1,7 @@
 import React from "react";
 import './Cctv.css';
 import { Link } from "react-router-dom";
+var ip = "192.168.1.110";
 
 const Playground = ({ children }) => {
   return (
@@ -16,7 +17,7 @@ const Playground = ({ children }) => {
           </ul>
         </div>
         <div className="content">
-          <img src="http://192.168.1.110/" style={{width:'1000px', marginLeft:'-1367px'}}/>  
+          <img src={"http://" + ip + "/"} style={{width:'1000px', marginLeft:'-1367px'}}/>  
         </div>
       </div>
   </div>
