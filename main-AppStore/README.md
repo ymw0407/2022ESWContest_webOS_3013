@@ -34,6 +34,14 @@ webOS(월패드):
     - 추후, 복잡한 앱들의 초기 설정을 IPK 설치와 함께하게 개선하고자 한다.(ex. docker 설정, 파일 권한 설정 등)
 <br><br>
 
+## 개발환경 및 개발언어
+- 운영체제 : Windows 11, Ubuntu 20.04.5 LTS, webOS 2.18.0
+- 디바이스 구성 : Raspberry Pi 4B
+- IDE : Visual Studio Code
+- 개발 언어 : ENACT, Node.JS
+- package manager : npm
+<br><br>
+
 ## Customize
 AWS EC2를 자신이 새로 만들어 쓰게 된다면, 해당 부분만을 바꿔주면 됩니다. <a href="https://github.com/ymw0407/2022ESWContest_webOS_3013/blob/master/main-AppStore/wallpad/appstore/appstore_service/luna_service.js">링크</a>
 ```javascript

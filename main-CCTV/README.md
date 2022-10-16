@@ -27,6 +27,7 @@ webOS(월패드):
 - 디바이스 구성 : AI-Thinker ESP32-CAM, Raspberry Pi 4B
 - IDE : Visual Studio Code, Arduino IDE
 - 개발 언어 : Arduino, ENACT, REACT
+- package manager : npm, yarn
 
 <a href="https://github.com/webOS-KOSS/main-setting/blob/main/Arduino/ESP32-CAM.md">ESP32-CAM Setting</a>
 <br><br>
