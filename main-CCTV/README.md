@@ -20,7 +20,16 @@ ESP32-CAM(현관, 주차장, 놀이터 CCTV)
 
 webOS(월패드):
 - ENACT(com.cctv.app)
-    - 라우팅을 통해서 현관, 놀이터, 주차장 CCTV 페이지를 나누었다. <br><br> 
+    - 라우팅을 통해서 현관, 놀이터, 주차장 CCTV 페이지를 나누었다. <br><br>
+
+## 개발환경 및 개발언어
+- 운영체제 : Windows 11, Ubuntu 20.04.5 LTS, webOS 2.18.0
+- 디바이스 구성 : AI-Thinker ESP32-CAM, Raspberry Pi 4B
+- IDE : Visual Studio Code, Arduino IDE
+- 개발 언어 : Arduino, ENACT, REACT
+
+<a href="https://github.com/webOS-KOSS/main-setting/blob/main/Arduino/ESP32-CAM.md">ESP32-CAM Setting</a>
+<br><br>
 
 ## Customize
 ssid에 2.4GHz의 wifi의 이름을, password에는 wifi의 비번을 각각 자신의 것으로 바꿔주면 됩니다. <a href="https://github.com/ymw0407/2022ESWContest_webOS_3013/blob/master/main-CCTV/outside/arduino/cctv/cctv.ino">링크</a>
