@@ -1,4 +1,4 @@
-const schedule = require('node-schedule');
+// const schedule = require('node-schedule');
 
 function carSchema(mongoose, collection){
     carModel = mongoose.Schema({
