@@ -13,7 +13,6 @@ var car = require('./car_expire/car_expire')
 
 // DB setting
 mongoose.connect("mongodb://3.34.50.139:27017/DB");
-//mongoose.connect("mongodb+srv://yun1211:yunbird1211@cluster0.znfuk.mongodb.net/CAR?retryWrites=true&w=majority");
 var db = mongoose.connection;
 db.once('open', function(){
   console.log('DB connected');
