@@ -11,6 +11,11 @@ ESP32-CAM을 활용하여 현관, 주차장, 놀이터 등 다양한 곳을 한 
 ![SystemArchitecture](SystemArchitecture.jpg)
 <br><br>
 
+## Flow Chart
+
+![FlowChart](FlowChart.png)
+<br><br>
+
 ## 기술 소개
 
 ESP32-CAM(현관, 주차장, 놀이터 CCTV)

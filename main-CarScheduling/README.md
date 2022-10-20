@@ -14,6 +14,11 @@
 ![SystemArchitecture](SystemArchitecture.jpg)
 <br><br>
 
+## Flow Chart
+
+![FlowChart](FlowChart.png)
+<br><br>
+
 ## 기술 소개
 
 AWS EC2(클라우드 서버):
