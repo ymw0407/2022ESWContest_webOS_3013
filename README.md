@@ -1,17 +1,20 @@
 # 제 20회 임베디드 소프트웨어 경진대회 webOS부문 방파제팀
-2022 ESWContest webOS - 영상데이터 기반 스마트 서비스 개발
-[![GitHub](https://img.shields.io/badge/github-%23121011.svg?style=for-the-badge&logo=github&logoColor=white)](https://github.com/webOS-KOSS)
-[![YouTube](https://img.shields.io/badge/YouTube-%23FF0000.svg?style=for-the-badge&logo=YouTube&logoColor=white)](https://www.youtube.com/watch?v=NKqtxh3rhbs)
+<div align="right">
+<a href="https://github.com/webOS-KOSS"><img src="https://img.shields.io/badge/github-%23121011.svg?style=for-the-badge&logo=github&logoColor=white"/></a>
+<a href="https://www.youtube.com/watch?v=NKqtxh3rhbs"><img src="https://img.shields.io/badge/YouTube-%23FF0000.svg?style=for-the-badge&logo=YouTube&logoColor=white"/></a>
+</div>
 
-<br>
 
-## 개발 요약
-### 작품명 : Home++
+<!-- ## 개발 요약 -->
 <div align="center"><img src="Home.jpg" width="500px;" alt="" /></div>
+
+### 작품명 : Home++
 
 - 기존 월패드의 한계를 보완하여 개발한 Home++ 월패드는 플랫폼으로, 자체 앱 스토어가 탑재돼 유연하게 앱을 다운받을 수 있으며, 운동 보조 기능과 배달 물품 조회 기능, 차량 스케줄링 기능, 가전 제어 기능, CCTV 기능을 제공한다.
 
 <br>
+
+
 
 ## 기능
 
