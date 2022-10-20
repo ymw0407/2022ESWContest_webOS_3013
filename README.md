@@ -1,15 +1,26 @@
 # 제 20회 임베디드 소프트웨어 경진대회 webOS부문 방파제팀
 2022 ESWContest webOS - 영상데이터 기반 스마트 서비스 개발
 
-**작품명**
+## 개발 요약
+### 작품명 : Home++
+![Home++](Home.jpg)
 
-- Home++
-
-**작품 설명**
-
-- 기존 월패드의 한계를 보완하여 개발한 Home++ 월패드는 플랫폼으로, 자체 앱 스토어가 탑재돼 유연하게 앱을 다운받을 수 있으며, 운동 보조 기능과 배달 물품 조회 기능, 차량 스케줄링 기능, 가전 제어 기능, cctv 기능을 제공한다.
+- 기존 월패드의 한계를 보완하여 개발한 Home++ 월패드는 플랫폼으로, 자체 앱 스토어가 탑재돼 유연하게 앱을 다운받을 수 있으며, 운동 보조 기능과 배달 물품 조회 기능, 차량 스케줄링 기능, 가전 제어 기능, CCTV 기능을 제공한다.
 
 <br/>
+
+## 기능
+
+- <a href="">앱 스토어</a>
+- <a href="">배달 도난 방지 기능</a>
+- <a href="">CCTV 기능</a>
+- <a href="">운동 보조 기능</a>
+- <a href="">가전 제어 기능 & 게시판 기능</a>
+- <a href="">차량 스케줄링 기능</a>
+---
+- <a href="">EC2 서버</a>
+
+<br>
 
 ## 파일 구성도
 <br/>
@@ -70,18 +81,13 @@
  ┃ ┃ ┃ ┣ 📂reservation_app <br/>
  ┃ ┃ ┃ ┗ 📂reservation_service <br/>
  ┗ 📜README.md
-<br>
+<br><br>
 
 ## 팀 명단
-<table>
-  <tr>
-    <td align="center"><a href="https://github.com/ymw0407"><img src="https://avatars.githubusercontent.com/u/77202633?v=4" width="100px;" alt=""/><br/><sub><b>윤민우</b><sub></a></td>
-    <td align="center"><a href="https://github.com/seiyoon"><img src="https://avatars.githubusercontent.com/seiyoon" width="100px;" alt=""/><br/><sub><b>황세윤</b><sub></a></td>
-    <td align="center"><a href="https://github.com/judyzero"><img src="https://avatars.githubusercontent.com/u/100904133?v=4" width="100px;" alt=""/><br/><sub><b>유다영</b></sub></a></td>
-    <td align="center"><a href="https://github.com/jjunh33"><img src="https://avatars.githubusercontent.com/u/57091983?v=4" width="100px;" alt=""/><br/><sub><b>이준혁</b></sub></a></td>
-    <td align="center"><a href="https://github.com/bentshrimp"><img src="https://avatars.githubusercontent.com/u/39232867?v=4" width="100px;" alt=""/><br/><sub><b>박진우</b></sub></a></td>
-  </tr>
-  <tr>
-    <td align="center">팀장</td><td align="center">팀원</td><td align="center">팀원</td><td align="center">팀원</td><td align="center">팀원</td>
-  </tr>
-</table>
+| Profile | Role | Part | Tech Stack |
+| ------- | ---- | ---- | ---------- |
+| <div align="center"><a href="https://github.com/ymw0407"><img src="https://avatars.githubusercontent.com/u/77202633?v=4" width="70px;" alt=""/><br/><sub><b>윤민우</b><sub></a></div> | 팀장 | PM, Server, Service, HW, Network | NodeJS, ReactJS, Arduino, MongoDB, AWS EC2, Docker |
+| <div align="center"><a href="https://github.com/seiyoon"><img src="https://avatars.githubusercontent.com/seiyoon" width="70px;" alt=""/><br/><sub><b>황세윤</b><sub></a></div> | 팀원 | UI | ReactJS |
+| <div align="center"><a href="https://github.com/judyzero"><img src="https://avatars.githubusercontent.com/u/100904133?v=4" width="70px;" alt=""/><br/><sub><b>유다영</b></sub></a></div> | 팀원 | Server, DB | NodeJS, MongoDB |
+| <div align="center"><a href="https://github.com/jjunh33"><img src="https://avatars.githubusercontent.com/u/57091983?v=4" width="70px;" alt=""/><br/><sub><b>이준혁</b></sub></a></div> | 팀원 | Service, HW, CV | Arduino, NodeJS, Python, Media Pipe |
+| <div align="center"><a href="https://github.com/bentshrimp"><img src="https://avatars.githubusercontent.com/u/39232867?v=4" width="70px;" alt=""/><br/><sub><b>박진우</b></sub></a></div> | 팀원 | Service, UI, Server | ReactJS, EnactJS, NodeJS, Python, Yolo V5 |
