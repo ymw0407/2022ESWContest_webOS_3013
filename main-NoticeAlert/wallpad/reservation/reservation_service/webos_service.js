@@ -57,7 +57,7 @@ service.register("child", function(message) {
                 control = obj.control;
                 control_time = obj.time;
                 console.log(control);
-                var params = `{ \"message\":\" ${obj.content.title}/${obj.content.body}\",\"buttons\":[{\"label\":\"Yes\",\"onclick\":\"luna://com.actest.app.service/control\"}, {"label":"No"}]}`;
+                var params = `{ \"message\":\" ${obj.content.title}/${obj.content.body}\",\"b0uttons\":[{\"label\":\"Yes\",\"onclick\":\"luna://com.reservation.app.service/control\"}, {"label":"No"}]}`;
                 luna.alert(params);
             }
         }
