@@ -1,0 +1,1 @@
+var AsyncNodeLoader=require("../lib/AsyncNodeLoader.js"),ilib=require("../lib/ilib.js");ilib.setLoaderCallback(AsyncNodeLoader(ilib)),ilib._dyncode=!0,ilib._dyndata=!0,module.exports=ilib;
