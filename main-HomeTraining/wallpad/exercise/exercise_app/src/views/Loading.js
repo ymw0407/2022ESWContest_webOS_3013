@@ -13,7 +13,7 @@ const Loading = (props) => {
     console.log("effect");
     let params = {};
     let lsRequest = {
-      service: "luna://com.exercise.app.service",
+      service: "luna://com.exercisedemo.app.service",
       method: "child",
       parameters: params,
       onSuccess: (msg) => {
@@ -25,6 +25,7 @@ const Loading = (props) => {
         console.log(obj.img);
         //console.log(res.count)
         nextPage();
+        //setTimeout(() => nextPage(), 5000);
       },
       onFailure: (err) => {
         console.log(err)
@@ -35,6 +36,7 @@ const Loading = (props) => {
 
   const nextPage = () => {
     history.push({pathname: '/main', state: obj});
+    //history.push('/main');
   }
 
   return (
