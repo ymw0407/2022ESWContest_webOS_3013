@@ -1,10 +1,10 @@
 {
-	"id": "com.exercisedemo.app",
+	"id": "com.exercise.app",
 	"version": "1.0.0",
 	"vendor": "LGE-SVL",
 	"type": "web",
 	"main": "index.html",
-	"title": "운동보조(demo)",
+	"title": "운동보조",
 	"icon": "exer.png",
 	"miniicon": "exer.png",
 	"largeIcon": "exer.png",
@@ -13,6 +13,6 @@
 		"time.query",
 		"activity.operation",
 		"all",
-		"com.exercisedemo.app.service.group"
+		"com.exercise.app.service.group"
 	  ]
 }

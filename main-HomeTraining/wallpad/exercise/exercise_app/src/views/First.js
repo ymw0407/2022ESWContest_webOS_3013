@@ -32,7 +32,7 @@ const First = () => {
     console.log("cam on");
     let params = {};
     let lsRequest = {
-      service: "luna://com.exercisedemo.app.service",
+      service: "luna://com.exercise.app.service",
       method: "serviceStart",
       parameters: params,
       onSuccess: (msg) => {
@@ -51,7 +51,7 @@ const First = () => {
     setch(prevch => !prevch);
     let params = {};
     let lsRequest = {
-      service: "luna://com.exercisedemo.app.service",
+      service: "luna://com.exercise.app.service",
       method: "record",
       parameters: params,
       onSuccess: (msg) => {

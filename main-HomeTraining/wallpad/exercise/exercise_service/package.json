@@ -1,5 +1,5 @@
 {
-  "name": "com.exercisedemo.app.service",
+  "name": "com.exercise.app.service",
   "version": "1.0.0",
   "description": "Helloworld service",
   "main": "webos_service.js",

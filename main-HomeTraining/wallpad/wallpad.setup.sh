@@ -10,4 +10,4 @@ npm install
 
 cd ..
 ares-package exercise_app/dist exercise_service
-ares-install com.exercisedemo.app_1.0.0_all.ipk
+ares-install com.exercise.app_1.0.0_all.ipk
