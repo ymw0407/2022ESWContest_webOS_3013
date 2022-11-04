@@ -57,8 +57,13 @@ service.register("child", function(message) {
         result = data.toString();
         console.log(result);
         cnt++;
-        if(cnt == 4)
-        {
+        // if(cnt == 4)
+        // {
+        //     message.respond({
+        //         reply:result
+        //     }); 
+        // }
+        if(cnt == 2){
             message.respond({
                 reply:result
             }); 
