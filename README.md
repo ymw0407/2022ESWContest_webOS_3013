@@ -112,3 +112,4 @@
 | <div align="center"><a href="https://github.com/judyzero"><img src="https://avatars.githubusercontent.com/u/100904133?v=4" width="70px;" alt=""/><br/><sub><b>유다영</b></sub></a></div> | 팀원 | Server, DB | NodeJS, MongoDB |
 | <div align="center"><a href="https://github.com/jjunh33"><img src="https://avatars.githubusercontent.com/u/57091983?v=4" width="70px;" alt=""/><br/><sub><b>이준혁</b></sub></a></div> | 팀원 | Service, HW, CV | Arduino, NodeJS, Python, Media Pipe |
 | <div align="center"><a href="https://github.com/bentshrimp"><img src="https://avatars.githubusercontent.com/u/39232867?v=4" width="70px;" alt=""/><br/><sub><b>박진우</b></sub></a></div> | 팀원 | Service, UI, Server, CV | ReactJS, EnactJS, NodeJS, Python, YOLOv5 |
+
