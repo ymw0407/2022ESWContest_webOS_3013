@@ -19,7 +19,7 @@ service.register("getInstalledApps", (msg) => {
       installedApps.unshift(app);
     });
     console.log(installedApps);
-    msg.respond({ apps: installedApps, returnValue: true });
+    msg.respond({ installedApps: installedApps, returnValue: true });
   });
 });
 
