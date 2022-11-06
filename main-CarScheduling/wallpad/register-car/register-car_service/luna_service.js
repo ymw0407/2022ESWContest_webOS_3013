@@ -1,15 +1,15 @@
 var ls2 = undefined;
 
-function init(service){
+function init(service) {
     ls2 = service;
 }
 
-function tts(text){
+function tts(text) {
     let tts_url = "luna://com.webos.service.tts/speak";
     let tts_params = {
-        "text": text,
-        "language" :"ko-KR",
-        "clear":true
+        text: text,
+        language: "ko-KR",
+        clear: true,
     };
     var callback = (m) => {
         console.log("[tts] called : " + text);
@@ -17,17 +17,16 @@ function tts(text){
     ls2.call(tts_url, tts_params, callback);
 }
 
-function toast(msg){
+function toast(msg) {
     let toast_url = "luna://com.webos.notification/createToast";
     let toast_params = {
-        message: msg
+        message: msg,
     };
-    let callback = (m) =>{
-        console.log("[Toast] called : "+ msg);
-    }
+    let callback = (m) => {
+        console.log("[Toast] called : " + msg);
+    };
     ls2.call(toast_url, toast_params, callback);
 }
-
 
 exports.init = init;
 exports.toast = toast;
