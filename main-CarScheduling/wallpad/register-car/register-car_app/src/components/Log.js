@@ -19,7 +19,6 @@ const LogBase = kind({
         children: Proptypes.string,
         index: Proptypes.number,
         remove: Proptypes.func,
-        test: Proptypes.func,
     },
 
     handlers: {
@@ -44,10 +43,6 @@ const LogBase = kind({
             };
             bridge.send(lsRequest);
         },
-
-        test: () => {
-            props.test2("test");
-        },
         //--------------------------------------------------------
     },
 
@@ -59,7 +54,6 @@ const LogBase = kind({
                     <Button
                         onClick={() => {
                             remove(children);
-                            test();
                         }}
                         className={css.button}
                     >

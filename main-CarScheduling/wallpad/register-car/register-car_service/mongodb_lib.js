@@ -70,12 +70,19 @@ function showRegisterCarData(Car) {
                 console.log("show...");
                 let carArray = [];
                 for (car of cars) {
+                    let status;
+                    Date.parse(car.startAt.split("T")[0]) <= Date.now()
+                        ? (status = "activate")
+                        : (status = "deactivate");
+
                     let parsingData = "";
                     parsingData += car.carNumber;
                     parsingData += " | ";
                     parsingData += car.startAt.substr(0, 10);
                     parsingData += " | ";
                     parsingData += car.expireAt.substr(0, 10);
+                    parsingData += " | ";
+                    parsingData += status;
                     carArray.push(parsingData);
                 }
                 resolve(carArray);
