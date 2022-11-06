@@ -2,7 +2,7 @@ import { Panel, Header } from "@enact/sandstone/Panels";
 import Scroller from "@enact/sandstone/Scroller";
 import LS2Request from "@enact/webos/LS2Request";
 import Tile from "../components/Tile";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useLayoutEffect } from "react";
 import Proptypes from "prop-types";
 import css from "./Tiles.module.less";
 

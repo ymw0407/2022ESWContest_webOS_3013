@@ -9,8 +9,8 @@ import thumbnail4 from "../../resources/4.png";
 import thumbnail5 from "../../resources/5.png";
 const icons = [thumbnail1, thumbnail2, thumbnail3, thumbnail4, thumbnail5];
 
-const Tile = ({ apps, installedApps }) =>
-  apps.map((app) => (
+const Tile = ({ apps, installedApps }) => {
+  const appList = apps.map((app) => (
     <li key={apps.indexOf(app)}>
       <div className={css.tileBox}>
         <div className={css.tile}>
@@ -29,6 +29,8 @@ const Tile = ({ apps, installedApps }) =>
       </div>
     </li>
   ));
+  return <div>{appList}</div>;
+};
 
 Tile.propTypes = {
   apps: Proptypes.array,

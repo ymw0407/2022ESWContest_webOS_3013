@@ -10,6 +10,12 @@ const Btn = ({ app, installedApps }) => {
   const [installToggle, chInstallToggle] = useState("Install");
   const [removeToggle, chRemoveToggle] = useState("Remove");
 
+  const [btn, chBtn] = useState(
+    <div className={css.btn}>
+      <Button onClick={() => installToRemove()}>{installToggle}</Button>
+    </div>
+  );
+
   const app_file = app.id + "_1.0.0_all.ipk";
 
   // createToast 함수 - 올바른 값을 넣지 않았을때 toast, 즉 텍스트로 알림해주는 역할을 한다.
@@ -120,21 +126,17 @@ const Btn = ({ app, installedApps }) => {
     }
   }
 
-  if (true) {
-    console.log(installedApps);
-    return (
+  console.log(app, installedApps);
+
+  if (installedApps) {
+    chBtn(
       <div className={css.btn}>
         <Button onClick={() => removetoInstall()}>{removeToggle}</Button>
         <Button onClick={() => console.log("open")}>{"open"}</Button>
       </div>
     );
-  } else {
-    return (
-      <div className={css.btn}>
-        <Button onClick={() => installToRemove()}>{installToggle}</Button>
-      </div>
-    );
   }
+  return btn;
 };
 
 Btn.propTypes = {
