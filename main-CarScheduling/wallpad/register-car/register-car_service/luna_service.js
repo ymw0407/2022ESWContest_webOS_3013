@@ -12,7 +12,7 @@ function tts(text) {
         clear: true,
     };
     var callback = (m) => {
-        console.log("[tts] called : " + text);
+        console.log("[luna] TTS : " + text);
     };
     ls2.call(tts_url, tts_params, callback);
 }
@@ -23,7 +23,7 @@ function toast(msg) {
         message: msg,
     };
     let callback = (m) => {
-        console.log("[Toast] called : " + msg);
+        console.log("[Luna] Toast : " + msg);
     };
     ls2.call(toast_url, toast_params, callback);
 }

@@ -50,7 +50,7 @@ function showGeneralCarData(Car) {
         Car.find({ category: "general", APTNumber: APT_NUMBER })
             .sort("createdAt") //startAt순서대로 정렬(내림차순이라 -붙음)
             .exec(function (err, cars) {
-                console.log("show...");
+                console.log("[MongoDB] Show General Car");
                 let carArray = [];
                 for (car of cars) {
                     let parsingData = "";
@@ -67,7 +67,7 @@ function showRegisterCarData(Car) {
         Car.find({ category: "register", APTNumber: APT_NUMBER })
             .sort("startAt") //startAt순서대로 정렬(내림차순이라 -붙음)
             .exec(function (err, cars) {
-                console.log("show...");
+                console.log("[MongoDB] Show Register Car");
                 let carArray = [];
                 for (car of cars) {
                     let status;
