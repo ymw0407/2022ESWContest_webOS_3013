@@ -31,8 +31,7 @@ const apps = [
 ];
 
 const Tiles = ({ ...rest }) => {
-  let installedApps = ["com.exercise.app"];
-
+  const [List, setList] = useState([]);
   const bridge = new LS2Request();
 
   const getInstalledApps = () => {
@@ -42,8 +41,8 @@ const Tiles = ({ ...rest }) => {
       method: "getInstalledApps",
       parameter: params,
       onSuccess: (msg) => {
-        console.log(msg);
-        installedApps = msg.installedApps;
+        setList(msg.installedApps);
+        console.log("getInstalledApps", msg.installedApps, List);
       },
       onFailure: (err) => {
         console.log(err);
@@ -52,7 +51,7 @@ const Tiles = ({ ...rest }) => {
     bridge.send(lsRequest);
   };
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     getInstalledApps();
   }, []);
 
@@ -60,7 +59,7 @@ const Tiles = ({ ...rest }) => {
     <Panel className={css.gnd} {...rest}>
       <Header className={css.gnd} title="Home++ App Store" />
       <Scroller direction="vertical">
-        <Tile apps={apps} installedApps={installedApps}></Tile>
+        <Tile apps={apps} installedApps={List}></Tile>
         <p className={css.madeby}>Copyright © 2022 방파제</p>
       </Scroller>
     </Panel>

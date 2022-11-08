@@ -12,11 +12,12 @@ const Btn = ({ app, installedApps }) => {
   const app_file = app.id + "_1.0.0_all.ipk";
 
   useEffect(() => {
-    console.log("btnInit");
     btnInit();
-  }, []);
+  }, [installedApps]);
+
   function btnInit() {
-    if (installedApps.includes(app)) {
+    console.log(app, installedApps);
+    if (installedApps.includes(app.id)) {
       setState("remove");
     }
   }
@@ -110,7 +111,6 @@ const Btn = ({ app, installedApps }) => {
   }
 
   function buttonOnClick() {
-    console.log("click!");
     // install
     if (state === "install") {
       setState("Installing...");
