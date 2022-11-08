@@ -7,16 +7,19 @@ import Proptypes from "prop-types";
 const bridge = new LS2Request();
 
 const Btn = ({ app, installedApps }) => {
-  const [installToggle, chInstallToggle] = useState("Install");
-  const [removeToggle, chRemoveToggle] = useState("Remove");
-
-  const [btn, chBtn] = useState(
-    <div className={css.btn}>
-      <Button onClick={() => installToRemove()}>{installToggle}</Button>
-    </div>
-  );
+  const [state, setState] = useState("install");
 
   const app_file = app.id + "_1.0.0_all.ipk";
+
+  useEffect(() => {
+    console.log("btnInit");
+    btnInit();
+  }, []);
+  function btnInit() {
+    if (installedApps.includes(app)) {
+      setState("remove");
+    }
+  }
 
   // createToast 함수 - 올바른 값을 넣지 않았을때 toast, 즉 텍스트로 알림해주는 역할을 한다.
   function toast(text) {
@@ -58,17 +61,24 @@ const Btn = ({ app, installedApps }) => {
 
   function appInstall(app, appname, app_id) {
     console.log("[install] " + app);
+    console.log("Installing...");
+    toast("Installing...");
+    tts("Installing...");
     var lsRequest = {
       service: "luna://com.appstore.app.service",
       method: "install",
       parameters: { app: app, appname: appname, appid: app_id },
       onSuccess: (msg) => {
         console.log(msg.reply);
-        chInstallToggle("Remove");
+        setState("remove");
       },
       onFailure: (msg) => {
         console.log(msg);
         console.log("error");
+        setState("Failed to install");
+        setTimeout(() => {
+          setState("install");
+        }, 500);
       },
     };
     bridge.send(lsRequest);
@@ -76,67 +86,48 @@ const Btn = ({ app, installedApps }) => {
 
   function appRemove(app, appname, app_id) {
     console.log("[remove] " + app);
+    console.log("Removing...");
+    toast("Removing...");
+    tts("Removing...");
     var lsRequest = {
       service: "luna://com.appstore.app.service",
       method: "remove",
       parameters: { app: app, appname: appname, appid: app_id },
       onSuccess: (msg) => {
         console.log(msg.reply);
-        chInstallToggle("Install");
+        setState("install");
       },
       onFailure: (msg) => {
         console.log(msg);
         console.log("error");
+        setState("Failed to remove");
+        setTimeout(() => {
+          setState("remove");
+        }, 500);
       },
     };
     bridge.send(lsRequest);
   }
 
-  function installToRemove() {
-    if (removeToggle === "Install") {
-      chRemoveToggle("Installing...");
+  function buttonOnClick() {
+    console.log("click!");
+    // install
+    if (state === "install") {
+      setState("Installing...");
       appInstall(app.name, app_file, app.id);
-    } else if (removeToggle === "Installing...") {
-      console.log("Installing...");
-      toast("Installing...");
-      tts("Installing...");
-    } else if (removeToggle === "Remove") {
-      chRemoveToggle("Removing...");
+      // remove
+    } else if (state === "remove") {
+      setState("Removing...");
       appRemove(app.name, app_file, app.id);
-    } else if (removeToggle === "Removing...") {
-      toast("Removing...");
-      tts("Removing...");
     }
   }
 
-  function removetoInstall() {
-    if (removeToggle === "Install") {
-      chInstallToggle("Installing...");
-      appInstall(app.name, app_file, app.id);
-    } else if (removeToggle === "Installing...") {
-      console.log("Installing...");
-      toast("Installing...");
-      tts("Installing...");
-    } else if (removeToggle === "Remove") {
-      chInstallToggle("Removing...");
-      appRemove(app.name, app_file, app.id);
-    } else if (removeToggle === "Removing...") {
-      toast("Removing...");
-      tts("Removing...");
-    }
-  }
-
-  console.log(app, installedApps);
-
-  if (installedApps) {
-    chBtn(
-      <div className={css.btn}>
-        <Button onClick={() => removetoInstall()}>{removeToggle}</Button>
-        <Button onClick={() => console.log("open")}>{"open"}</Button>
-      </div>
-    );
-  }
-  return btn;
+  return (
+    <div className={css.btn}>
+      <Button onClick={() => buttonOnClick()}>{state}</Button>
+      {state === "remove" && <Button>open</Button>}
+    </div>
+  );
 };
 
 Btn.propTypes = {

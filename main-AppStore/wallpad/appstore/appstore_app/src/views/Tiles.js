@@ -31,7 +31,7 @@ const apps = [
 ];
 
 const Tiles = ({ ...rest }) => {
-  let installedApps;
+  let installedApps = ["com.exercise.app"];
 
   const bridge = new LS2Request();
 
@@ -52,7 +52,7 @@ const Tiles = ({ ...rest }) => {
     bridge.send(lsRequest);
   };
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     getInstalledApps();
   }, []);
 
