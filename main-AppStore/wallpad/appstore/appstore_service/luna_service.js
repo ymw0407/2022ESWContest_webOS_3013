@@ -1,4 +1,4 @@
-const execSync = require("child_process").execSync;
+const exec = require("child_process").exec;
 var ls2 = undefined;
 const EC2_IP = "3.34.50.139:8000";
 
@@ -51,18 +51,30 @@ function launchApp(app_id) {
  * @param {string} path
  * ipk 파일이 저장되는 경로
  */
-async function appDownload(app_id, app_name, path) {
-  execSync('wget -P ./app/ "http://' + EC2_IP + "/apps/" + app_name + '"');
-  let appDownload_url = "luna://com.webos.appInstallService/dev/install";
-  let appDownload_params = {
-    id: app_id,
-    ipkUrl: path,
-    subscribe: true,
-  };
-  var callback = (m) => {
-    console.log("[app install] called : " + app_id);
-  };
-  ls2.call(appDownload_url, appDownload_params, callback);
+async function appDownload(app_id, path) {
+  exec(
+    'wget -P ./apps/ "http://' +
+      EC2_IP +
+      "/apps/" +
+      app_id +
+      "_1.0.0_all.ipk" +
+      '"',
+    (err) => {
+      if (err) {
+        console.log(err);
+      }
+      let appDownload_url = "luna://com.webos.appInstallService/dev/install";
+      let appDownload_params = {
+        id: app_id,
+        ipkUrl: path,
+        subscribe: true,
+      };
+      var callback = (m) => {
+        console.log("[app install] called : " + app_id);
+      };
+      ls2.call(appDownload_url, appDownload_params, callback);
+    }
+  );
 }
 /**
  * 앱 아이디를 입력하면 해당 앱 삭제

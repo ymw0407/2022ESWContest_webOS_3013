@@ -9,8 +9,6 @@ const bridge = new LS2Request();
 const Btn = ({ app, installedApps }) => {
   const [state, setState] = useState("install");
 
-  const app_file = app.id + "_1.0.0_all.ipk";
-
   useEffect(() => {
     btnInit();
   }, [installedApps]);
@@ -60,15 +58,15 @@ const Btn = ({ app, installedApps }) => {
     bridge.send(lsRequest);
   }
 
-  function appInstall(app, appname, app_id) {
-    console.log("[install] " + app);
+  function appInstall(app_name, app_id, app_file) {
+    console.log("[install] " + app_name);
     console.log("Installing...");
     toast("Installing...");
     tts("Installing...");
     var lsRequest = {
       service: "luna://com.appstore.app.service",
       method: "install",
-      parameters: { app: app, appname: appname, appid: app_id },
+      parameters: { app_name: app_name, app_id: app_id, app_file: app_file },
       onSuccess: (msg) => {
         console.log(msg.reply);
         setState("remove");
@@ -85,15 +83,15 @@ const Btn = ({ app, installedApps }) => {
     bridge.send(lsRequest);
   }
 
-  function appRemove(app, appname, app_id) {
-    console.log("[remove] " + app);
+  function appRemove(app_name, app_id, app_file) {
+    console.log("[remove] " + app_name);
     console.log("Removing...");
     toast("Removing...");
     tts("Removing...");
     var lsRequest = {
       service: "luna://com.appstore.app.service",
       method: "remove",
-      parameters: { app: app, appname: appname, appid: app_id },
+      parameters: { app_name: app_name, app_id: app_id, app_file: app_file },
       onSuccess: (msg) => {
         console.log(msg.reply);
         setState("install");
@@ -110,15 +108,16 @@ const Btn = ({ app, installedApps }) => {
     bridge.send(lsRequest);
   }
 
+  const app_file = app.id + "_1.0.0_all.ipk";
   function buttonOnClick() {
     // install
     if (state === "install") {
       setState("Installing...");
-      appInstall(app.name, app_file, app.id);
+      appInstall(app.name, app.id, app_file);
       // remove
     } else if (state === "remove") {
       setState("Removing...");
-      appRemove(app.name, app_file, app.id);
+      appRemove(app.name, app.id, app_file);
     }
   }
 

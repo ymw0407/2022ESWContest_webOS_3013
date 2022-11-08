@@ -25,34 +25,31 @@ service.register("getInstalledApps", (msg) => {
 
 service.register("install", (msg) => {
   luna.init(service);
-  luna.tts(msg.payload.app + "앱이 설치됩니다.");
-  luna.toast(msg.payload.app + "앱이 설치됩니다.");
-  luna.appDownload(
-    msg.payload.appid,
-    msg.payload.appname,
-    PWD + "/app/" + msg.payload.appname
-  );
+  console.log(msg.payload);
+  luna.tts(msg.payload.app_name + "앱이 설치됩니다.");
+  luna.toast(msg.payload.app_name + "앱이 설치됩니다.");
+  luna.appDownload(msg.payload.app_id, PWD + "/apps/" + msg.payload.app_file);
   msg.respond({ reply: "install success" });
 
   //----------------------------앱별 추가 설치------------------------------
 
-  if (msg.payload.app == "배달") {
+  if (msg.payload.app_name == "배달") {
     console.log("배달 앱은 추가로 설치되는 환경 설정이 없습니다!");
   }
 
-  if (msg.payload.app == "차량") {
+  if (msg.payload.app_name == "차량") {
     console.log("임시 차량 등록 앱은 추가로 설치되는 환경이 없습니다!"); // client가 아닌 경비실용 차량 앱은 환경 설정이 필요하지만 해당 앱은 client에게 제공되는 앱입니다
   }
-  if (msg.payload.app == "CCTV") {
+  if (msg.payload.app_name == "CCTV") {
     console.log("CCTV 앱은 추가로 설치되는 환경 설정이 없습니다!");
   }
 
-  if (msg.payload.app == "가전제어") {
+  if (msg.payload.app_name == "가전제어") {
     // console.log("가전제어 앱은 bareapp을 수정하여 사용합니다!")
     // execSync("wget http://3.34.50.139:8000/apps/bareapp -O ")
   }
 
-  if (msg.payload.app == "운동보조") {
+  if (msg.payload.app_name == "운동보조") {
     console.log(
       "운동보조 앱은 추가로 mediapipe 관련 환경 설정, camera2 및 media LS2 API 설정이 필요합니다!"
     );
@@ -75,10 +72,11 @@ service.register("install", (msg) => {
 
 service.register("remove", function (msg) {
   luna.init(service);
-  luna.tts(msg.payload.app + "앱이 삭제됩니다");
-  luna.toast(msg.payload.app + "앱이 삭제됩니다.");
-  luna.appRemove(msg.payload.appname);
-  execSync("rm -f " + PWD + "/app/" + msg.payload.appname);
+  console.log(msg.payload);
+  luna.tts(msg.payload.app_name + "앱이 삭제됩니다");
+  luna.toast(msg.payload.app_name + "앱이 삭제됩니다.");
+  luna.appRemove(msg.payload.app_id);
+  execSync("rm -f " + PWD + "/apps/" + msg.payload.app_file);
   msg.respond({ reply: "remove success" });
 
   //------------------------- heartbeat 구독 -------------------------
