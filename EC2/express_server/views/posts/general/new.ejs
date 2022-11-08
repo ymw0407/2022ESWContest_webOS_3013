@@ -6,27 +6,27 @@
   <body>
     <%- include('../../partials/nav') %>
 
-    <div class="container mb-3">
+    <div class="container4">
       <form action="/general" method="post">
-        <h5>일반 글쓰기</h5>
+        <h5>General</h5>
         <div class="form-group">
           <label for="title">Title</label>
-          <input type="text" id="title" name="title" value="" class="form-control" placeholder="Title">
+          <input type="text" id="title" name="title" value="" class="form-control" placeholder="제목">
         </div>
         
         <div class="form-group">
           <label for="body">Content</label>
-          <textarea id="body" name="body" rows="5" class="form-control" placeholder="Content"></textarea>
+          <textarea id="body" name="body" rows="5" class="form-control" placeholder="내용"></textarea>
         </div>
 
         <div class="form-group">
           <label for="password">Password</label>
-          <input type="password" id="password" name="password" class="form-control" placeholder="Password" required> 
+          <input type="password" id="password" name="password" class="form-control" placeholder="비밀번호" required> 
         </div>
 
         <div>
-          <a class="btn btn-primary" href="/">Back</a>
-          <button type="submit" class="btn btn-primary">Submit</button>
+          <button type="submit" class="btn btn-info">Submit</button>
+          <a class="btn btn2 btn-secondary" href="/">Back</a>
         </div>
 
       </form>
