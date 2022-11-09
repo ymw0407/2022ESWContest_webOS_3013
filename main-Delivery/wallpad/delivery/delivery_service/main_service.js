@@ -134,11 +134,13 @@ service.register("getVids", (msg) => {
     request.get(options, (err, res, body) => {
         if (err) {
             console.log("[getVids] " + err);
+            msg.respond({ returnValue: false });
+        } else {
+            console.log("[getVids] " + body);
+            let vidlist = JSON.parse(body).vidlist;
+            console.log("[getVids] " + vidlist);
+            msg.respond({ returnValue: true, vidlist: vidlist });
         }
-        console.log("[getVids] " + body);
-        let vidlist = JSON.parse(body).vidlist;
-        console.log("[getVids] " + vidlist);
-        msg.respond({ returnValue: true, vidlist: vidlist });
     });
 });
 

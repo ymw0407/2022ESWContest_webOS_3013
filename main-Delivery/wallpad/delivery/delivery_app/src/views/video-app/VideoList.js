@@ -9,46 +9,52 @@ import css from "./VideoList.module.less";
 import Tiles from "./Tiles";
 
 const VideoList = ({ onSelectVid, onClick, ...rest }) => {
-  const [tiles, setTiles] = useState(["loading"]);
+    const [tiles, setTiles] = useState(["loading"]);
 
-  const bridge = new LS2Request();
-  const getVids = () => {
-    let params = {};
-    let lsRequest = {
-      service: "luna://com.delivery.app.service",
-      method: "getVids",
-      parameter: params,
-      onSuccess: (msg) => {
-        console.log(msg);
-        setTiles(msg.vidlist);
-      },
-      onFailure: (err) => {
-        console.log(err);
-      },
+    const bridge = new LS2Request();
+    const getVids = () => {
+        let params = {};
+        let lsRequest = {
+            service: "luna://com.delivery.app.service",
+            method: "getVids",
+            parameter: params,
+            onSuccess: (msg) => {
+                console.log(msg);
+                setTiles(msg.vidlist);
+            },
+            onFailure: (err) => {
+                console.log(err);
+                setTimeout(() => {
+                    console.log(
+                        "[getVids] waiting for 1 seconds to reconnect fileServer"
+                    );
+                }, 1000);
+                getVids();
+            },
+        };
+        bridge.send(lsRequest);
     };
-    bridge.send(lsRequest);
-  };
 
-  useEffect(() => {
-    getVids();
-  }, []);
+    useEffect(() => {
+        getVids();
+    }, []);
 
-  return (
-    <Panel className={css.gnd} {...rest}>
-      <Header className={css.gnd} title="영상 조회" />
-      <Button className={css.btn} onClick={onClick}>
-        배달 기록 조회
-      </Button>
-      <Scroller>
-        <Tiles onSelectVid={onSelectVid}>{tiles}</Tiles>
-      </Scroller>
-    </Panel>
-  );
+    return (
+        <Panel className={css.gnd} {...rest}>
+            <Header className={css.gnd} title="영상 조회" />
+            <Button className={css.btn} onClick={onClick}>
+                배달 기록 조회
+            </Button>
+            <Scroller>
+                <Tiles onSelectVid={onSelectVid}>{tiles}</Tiles>
+            </Scroller>
+        </Panel>
+    );
 };
 
 VideoList.prototype = {
-  onSelectVid: Proptype.func,
-  onClick: Proptype.func,
+    onSelectVid: Proptype.func,
+    onClick: Proptype.func,
 };
 
 export default VideoList;
