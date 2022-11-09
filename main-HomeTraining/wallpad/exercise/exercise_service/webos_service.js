@@ -63,11 +63,9 @@ service.register("child", function(message) {
         //         reply:result
         //     }); 
         // }
-        if(cnt == 2){
-            message.respond({
-                reply:result
-            }); 
-        }
+        message.respond({
+            reply:result
+        });
     }); // 실행 결과
       
     py_pro.stderr.on("data", function (data) {
@@ -144,4 +142,3 @@ heartbeat.on("cancel", function(message) {
         heartbeatinterval = undefined;
     } 
 });
-

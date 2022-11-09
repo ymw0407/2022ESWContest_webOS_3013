@@ -188,6 +188,9 @@ async function cameraReady(device){
     console.log(key);
     let load = await mediaLoad(key).then((result) => {mediaId = result.slice(1, -1)}).catch((error) => {console.log(error)});
     console.log(mediaId);
+    const wait = (timeToDelay) => new Promise((resolve) => setTimeout(resolve, timeToDelay));
+    await wait(1000);
+    console.log("Wait for 1 sec");
     let play = await mediaPlay(mediaId).then((result) => {mediaId = result}).catch((error) => {console.log(error)});
     console.log(mediaId);
 }
