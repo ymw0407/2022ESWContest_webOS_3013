@@ -3,7 +3,7 @@
 # import mediapipe as mp
 # import numpy as np
 # import time
-# import os
+import os
 # import base64
 
 # def angle(a, b, c):
@@ -23,11 +23,11 @@
 # mp_drawing_styles = mp.solutions.drawing_styles
 # mp_pose = mp.solutions.pose
 
-file_path = "media/videos"
+file_path = "/media/videos"
 vids = []
 for file in sorted(os.listdir(file_path)):
     vids.append(file)
-
+file_name = file_path + "/" + vids[0]
 # cap = cv2.VideoCapture(file_path + "/" + vids[0])
 
 # # cap = cv2.VideoCapture('example.mp4')
@@ -181,6 +181,8 @@ for file in sorted(os.listdir(file_path)):
 # with open('./result.png', 'rb') as img:
 #     base64_string = base64.b64encode(img.read())
 # print("{\"count\": %d, \"time\": %d, \"max pace(5s)\": %d, \"min pace(5s)\": %d, \"img\": %s}" % (cnt, total_time, max(graph_y), min(graph_y), base64_string))
-os.system(f"python3 upload.py --vid {file_path + "/" + vids[0]}.mp4")
-os.system(f"rm -f {file_path + "/" + vids[0]}.mp4 result.png")
-print(file_path + "/" + vids[0])
+final = file_path + "/output.mp4"
+os.system(f"mv {file_name} {final}")
+os.system(f"python3 upload.py --vid {final}")
+os.system(f"rm -f {final}")
+print(file_name, final)
