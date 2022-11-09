@@ -51,7 +51,7 @@ function launchApp(app_id) {
  * @param {string} path
  * ipk 파일이 저장되는 경로
  */
-async function appDownload(app_id, path) {
+function appDownload(app_id, path) {
   exec(
     'wget -P ./apps/ "http://' +
       EC2_IP +
@@ -76,6 +76,7 @@ async function appDownload(app_id, path) {
     }
   );
 }
+
 /**
  * 앱 아이디를 입력하면 해당 앱 삭제
  * @param {string} app_id

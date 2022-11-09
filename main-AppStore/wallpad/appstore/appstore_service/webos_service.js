@@ -6,7 +6,7 @@ const service = new Service(pkgInfo.name); // Create service by service name on 
 const logHeader = "[" + pkgInfo.name + "]";
 const fs = require("fs");
 const PWD = __dirname;
-const execSync = require("child_process").execSync;
+const exec = require("child_process").exec;
 
 service.register("getInstalledApps", (msg) => {
   const installPath = "/media/developer/apps/usr/palm/applications/";
@@ -28,8 +28,9 @@ service.register("install", (msg) => {
   console.log(msg.payload);
   luna.tts(msg.payload.app_name + "앱이 설치됩니다.");
   luna.toast(msg.payload.app_name + "앱이 설치됩니다.");
+  msg.respond({ reply: "install success", returnValue: true });
   luna.appDownload(msg.payload.app_id, PWD + "/apps/" + msg.payload.app_file);
-  msg.respond({ reply: "install success" });
+  console.log("install complete");
 
   //----------------------------앱별 추가 설치------------------------------
 
@@ -76,8 +77,15 @@ service.register("remove", function (msg) {
   luna.tts(msg.payload.app_name + "앱이 삭제됩니다");
   luna.toast(msg.payload.app_name + "앱이 삭제됩니다.");
   luna.appRemove(msg.payload.app_id);
-  execSync("rm -f " + PWD + "/apps/" + msg.payload.app_file);
-  msg.respond({ reply: "remove success" });
+  exec("rm -f " + PWD + "/apps/" + msg.payload.app_file, (err) => {
+    if (err) {
+      console.log(err);
+      msg.respond({ returnValue: false });
+    } else {
+      console.log(msg);
+      msg.respond({ returnValue: true });
+    }
+  });
 
   //------------------------- heartbeat 구독 -------------------------
   const sub = service.subscribe(`luna://${pkgInfo.name}/heartbeat`, {
@@ -92,6 +100,13 @@ service.register("remove", function (msg) {
     }
   });
   //------------------------- heartbeat 구독 -------------------------
+});
+
+service.register("open", (msg) => {
+  luna.init(service);
+  console.log(msg.payload);
+  luna.launchApp(msg.payload.app_id);
+  msg.respond({ returnValue: true });
 });
 
 //----------------------------------------------------------------------heartbeat----------------------------------------------------------------------

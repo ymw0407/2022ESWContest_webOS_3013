@@ -66,7 +66,12 @@ const Btn = ({ app, installedApps }) => {
     var lsRequest = {
       service: "luna://com.appstore.app.service",
       method: "install",
-      parameters: { app_name: app_name, app_id: app_id, app_file: app_file },
+      parameters: {
+        app_name: app_name,
+        app_id: app_id,
+        app_file: app_file,
+        subscribe: true,
+      },
       onSuccess: (msg) => {
         console.log(msg.reply);
         setState("remove");
@@ -91,7 +96,12 @@ const Btn = ({ app, installedApps }) => {
     var lsRequest = {
       service: "luna://com.appstore.app.service",
       method: "remove",
-      parameters: { app_name: app_name, app_id: app_id, app_file: app_file },
+      parameters: {
+        app_name: app_name,
+        app_id: app_id,
+        app_file: app_file,
+        subscribe: true,
+      },
       onSuccess: (msg) => {
         console.log(msg.reply);
         setState("install");
@@ -108,6 +118,23 @@ const Btn = ({ app, installedApps }) => {
     bridge.send(lsRequest);
   }
 
+  function appOpen(app_id) {
+    var lsRequest = {
+      service: "luna://com.appstore.app.service",
+      method: "open",
+      parameters: {
+        app_id: app_id,
+        subscribe: true,
+      },
+      onSuccess: (msg) => {
+        console.log(msg.reply);
+      },
+      onFailure: (msg) => {
+        console.log(msg);
+      },
+    };
+    bridge.send(lsRequest);
+  }
   const app_file = app.id + "_1.0.0_all.ipk";
   function buttonOnClick() {
     // install
@@ -124,7 +151,9 @@ const Btn = ({ app, installedApps }) => {
   return (
     <div className={css.btn}>
       <Button onClick={() => buttonOnClick()}>{state}</Button>
-      {state === "remove" && <Button>open</Button>}
+      {state === "remove" && (
+        <Button onClick={() => appOpen(app.id)}>open</Button>
+      )}
     </div>
   );
 };

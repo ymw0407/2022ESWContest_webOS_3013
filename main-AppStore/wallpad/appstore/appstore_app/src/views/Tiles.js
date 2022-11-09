@@ -15,7 +15,7 @@ const apps = [
   {
     name: "차량",
     desc: "방문 차량 접수도 간단하게! 차량 스케줄링 기능",
-    id: "com.register.app",
+    id: "com.registercar.app",
   },
   {
     name: "cctv",
