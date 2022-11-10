@@ -28,9 +28,8 @@ service.register("install", (msg) => {
   console.log(msg.payload);
   luna.tts(msg.payload.app_name + "앱이 설치됩니다.");
   luna.toast(msg.payload.app_name + "앱이 설치됩니다.");
-  msg.respond({ reply: "install success", returnValue: true });
   luna.appDownload(msg.payload.app_id, PWD + "/apps/" + msg.payload.app_file);
-  console.log("install complete");
+  msg.respond({ reply: "install success", returnValue: true });
 
   //----------------------------앱별 추가 설치------------------------------
 
@@ -77,6 +76,7 @@ service.register("remove", function (msg) {
   luna.tts(msg.payload.app_name + "앱이 삭제됩니다");
   luna.toast(msg.payload.app_name + "앱이 삭제됩니다.");
   luna.appRemove(msg.payload.app_id);
+  // ipk 파일 삭제
   exec("rm -f " + PWD + "/apps/" + msg.payload.app_file, (err) => {
     if (err) {
       console.log(err);
