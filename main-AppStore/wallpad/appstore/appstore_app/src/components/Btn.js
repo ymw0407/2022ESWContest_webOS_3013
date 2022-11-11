@@ -135,6 +135,7 @@ const Btn = ({ app, installedApps }) => {
     };
     bridge.send(lsRequest);
   }
+
   const app_file = app.id + "_1.0.0_all.ipk";
   function buttonOnClick() {
     // install

@@ -109,6 +109,14 @@ service.register("open", (msg) => {
   msg.respond({ returnValue: true });
 });
 
+service.register("close", (msg) => {
+  luna.init(service);
+  console.log(msg.payload);
+  luna.closeApp(msg.payload.app_id);
+  luna.launchApp("com.webos.app.home");
+  msg.respond({ returnValue: true });
+});
+
 //----------------------------------------------------------------------heartbeat----------------------------------------------------------------------
 // handle subscription requests
 const subscriptions = {};

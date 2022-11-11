@@ -59,6 +59,21 @@ function launchApp(app_id) {
 }
 
 /**
+ * 해당 앱을 종료
+ * @param {string} app_id 종료시킬 앱 아이디
+ */
+function closeApp(app_id) {
+  let closeApp_url = "luna://com.webos.service.applicationmanager/close";
+  let closeApp_params = {
+    id: app_id,
+  };
+  let callback = (m) => {
+    console.log("[close app] called : " + app_id);
+  };
+  ls2.call(closeApp_url, closeApp_params, callback);
+}
+
+/**
  * 기기 내 ipk 파일을 설치
  * @param {string} app_id 설치할 파일의 아이디
  * @param {string} path ipk 파일이 저장되는 경로
@@ -110,5 +125,6 @@ exports.init = init;
 exports.toast = toast;
 exports.tts = tts;
 exports.launchApp = launchApp;
+exports.closeApp = closeApp;
 exports.appDownload = appDownload;
 exports.appRemove = appRemove;

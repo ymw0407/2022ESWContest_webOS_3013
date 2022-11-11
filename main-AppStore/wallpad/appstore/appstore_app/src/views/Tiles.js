@@ -6,6 +6,8 @@ import { useState, useEffect, useLayoutEffect } from "react";
 import Proptypes from "prop-types";
 import css from "./Tiles.module.less";
 
+const APP_ID = "com.appstore.app";
+
 const apps = [
   {
     name: "배달",
@@ -51,13 +53,35 @@ const Tiles = ({ ...rest }) => {
     bridge.send(lsRequest);
   };
 
+  function appClose(app_id) {
+    var lsRequest = {
+      service: "luna://com.appstore.app.service",
+      method: "close",
+      parameters: {
+        app_id: app_id,
+        subscribe: true,
+      },
+      onSuccess: (msg) => {
+        console.log(msg.reply);
+      },
+      onFailure: (msg) => {
+        console.log(msg);
+      },
+    };
+    bridge.send(lsRequest);
+  }
+
   useEffect(() => {
     getInstalledApps();
   }, []);
 
   return (
     <Panel className={css.gnd} {...rest}>
-      <Header className={css.gnd} title="Home++ App Store" />
+      <Header
+        onClose={() => appClose(APP_ID)}
+        className={css.gnd}
+        title="Home++ App Store"
+      />
       <Scroller direction="vertical">
         <Tile apps={apps} installedApps={List}></Tile>
         <p className={css.madeby}>Copyright © 2022 방파제</p>
