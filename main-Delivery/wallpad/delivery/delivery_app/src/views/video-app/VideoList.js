@@ -1,4 +1,4 @@
-import { Header, Panel } from "@enact/sandstone/Panels";
+import { Header, Panel, Panels } from "@enact/sandstone/Panels";
 import Scroller from "@enact/ui/Scroller";
 import Button from "@enact/sandstone/Button";
 import Proptype from "prop-types";
@@ -28,8 +28,8 @@ const VideoList = ({ onSelectVid, onClick, ...rest }) => {
                     console.log(
                         "[getVids] waiting for 1 seconds to reconnect fileServer"
                     );
+                    getVids();
                 }, 1000);
-                getVids();
             },
         };
         bridge.send(lsRequest);

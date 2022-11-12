@@ -15,7 +15,7 @@ const kindID = "com.log.db:2";
 const MQTT_IP = process.env.MQTT_BROKER;
 const EXPRESS_IP = process.env.EXPRESS_SERVER;
 var jsonMsg = undefined;
-var loopFlag = false;
+var serviceFlag = false;
 
 const putKind = (msg) => {
     service.call(
@@ -110,6 +110,18 @@ const find = (msg) => {
 //   });
 // };
 
+serviceCheck = () => {
+    return new Promise((resolve, reject) => {
+        setTimeout(() => {
+            if (!serviceFlag) {
+                sub.cancel();
+                serviceFlag = true;
+                resolve(true);
+            }
+        }, 100);
+    });
+};
+
 service.register("delVid", (msg) => {
     const options = {
         uri: EXPRESS_IP + `/package/${jsonMsg.time}.mp4`,
@@ -144,66 +156,95 @@ service.register("getVids", (msg) => {
     });
 });
 
+const checking = () => {
+    return new Promise((resolve, reject) => {
+        if (!serviceFlag) {
+            resolve(true);
+        } else {
+            reject(false);
+        }
+    });
+};
+
+const serviceCheck = async (sub, client, serviceCheck) => {
+    let check;
+    await checking
+        .then((result) => (check = result))
+        .catch((result) => (check = result));
+
+    if (!check) {
+        serviceFlag = false;
+        sub.cancel();
+        client.end;
+        return false;
+    }
+
+    const wait = (timeToDelay) =>
+        new Promise((resolve) => setTimeout(resolve, timeToDelay));
+    await wait(1000);
+
+    serviceCheck();
+};
+
 service.register("init", (msg) => {
     console.log("[init] init");
     putKind(msg);
 });
 
-service.register("loop", (msg) => {
-    if (!loopFlag) {
-        loopFlag = true;
-        luna.init(service);
+service.register("loop", async (msg) => {
+    luna.init(service);
 
-        mqtt.init(mosquitto);
-        client = mqtt.connect(MQTT_IP);
-        mqtt.subscribe(["delivery/arrived", "delivery/received"]);
+    mqtt.init(mosquitto);
+    client = mqtt.connect(MQTT_IP);
+    mqtt.subscribe(["delivery/arrived", "delivery/received"]);
 
-        client.on("message", (topic, message, packet) => {
-            console.log("[loop] message : " + message);
-            console.log("[loop] topic : " + topic);
-            jsonMsg = JSON.parse(String(message));
-            console.log("[loop] " + jsonMsg);
-            put(jsonMsg, msg);
+    client.on("message", (topic, message, packet) => {
+        console.log("[loop] message : " + message);
+        console.log("[loop] topic : " + topic);
+        jsonMsg = JSON.parse(String(message));
+        console.log("[loop] " + jsonMsg);
+        put(jsonMsg, msg);
 
-            if (topic == "delivery/arrived") {
-                // ESP8266으로부터 차량이 도착한 정보를 받으면 사진을 찍어 tesseract에 넘긴다.
-                luna.tts("배달 물품이 현관에 도착했습니다.");
-                luna.toast("배달 물품이 현관에 도착했습니다.");
-                console.log("[loop] 배달 물품이 현관에 도착했습니다.");
-            }
-            if (topic == "delivery/received") {
-                luna.tts("배달 물품이 현관에서 사라졌습니다.");
-                luna.toast("배달 물품이 현관에서 사라졌습니다.");
-                console.log("[loop] 배달 물품이 현관에서 사라졌습니다.");
-                let params = `{ \"message\":\" ${jsonMsg.time}에 배달 물품을 수령하셨습니까?",\"buttons\":[{\"label\":\"Yes\",\"onclick\":\"luna://com.delivery.app.service/delVid\"}, {"label":"No"}]}`;
-                luna.alert(params);
-                msg.respond({
-                    returnValue: true,
-                    time: jsonMsg.time,
-                    status: jsonMsg.status,
-                });
-            }
-        });
+        if (topic == "delivery/arrived") {
+            // ESP8266으로부터 차량이 도착한 정보를 받으면 사진을 찍어 tesseract에 넘긴다.
+            luna.tts("배달 물품이 현관에 도착했습니다.");
+            luna.toast("배달 물품이 현관에 도착했습니다.");
+            console.log("[loop] 배달 물품이 현관에 도착했습니다.");
+        }
+        if (topic == "delivery/received") {
+            luna.tts("배달 물품이 현관에서 사라졌습니다.");
+            luna.toast("배달 물품이 현관에서 사라졌습니다.");
+            console.log("[loop] 배달 물품이 현관에서 사라졌습니다.");
+            let params = `{ \"message\":\" ${jsonMsg.time}에 배달 물품을 수령하셨습니까?",\"buttons\":[{\"label\":\"Yes\",\"onclick\":\"luna://com.delivery.app.service/delVid\"}, {"label":"No"}]}`;
+            luna.alert(params);
+            msg.respond({
+                returnValue: true,
+                time: jsonMsg.time,
+                status: jsonMsg.status,
+            });
+        }
+    });
 
-        //------------------------- heartbeat 구독 -------------------------
-        const sub = service.subscribe(`luna://${pkgInfo.name}/heartbeat`, {
-            subscribe: true,
-        });
-        const max = 10000; //heart beat 횟수 /// heart beat가 꺼지면, 5초 정도 딜레이 생김 --> 따라서 이 녀석도 heart beat를 무한히 돌릴 필요가 있어보임.
-        let count = 0;
-        sub.addListener("response", function (msg) {
-            console.log(JSON.stringify(msg.payload));
-            if (count >= max) {
-                sub.cancel();
-                setTimeout(function () {
-                    console.log(max + " responses received, exiting...");
-                    process.exit(0);
-                }, 1000);
-            }
-        });
+    //------------------------- heartbeat 구독 -------------------------
+    const sub = service.subscribe(`luna://${pkgInfo.name}/heartbeat`, {
+        subscribe: true,
+    });
+    const max = 10000; //heart beat 횟수 /// heart beat가 꺼지면, 5초 정도 딜레이 생김 --> 따라서 이 녀석도 heart beat를 무한히 돌릴 필요가 있어보임.
+    let count = 0;
+    sub.addListener("response", function (msg) {
+        console.log(JSON.stringify(msg.payload));
+        if (++count >= max) {
+            sub.cancel();
+            setTimeout(function () {
+                console.log(max + " responses received, exiting...");
+                process.exit(0);
+            }, 1000);
+        }
+    });
 
-        //------------------------- heartbeat 구독 -------------------------
-    }
+    //------------------------- heartbeat 구독 -------------------------
+
+    serviceCheck(sub, client, serviceCheck);
 });
 
 //----------------------------------------------------------------------heartbeat----------------------------------------------------------------------
@@ -261,3 +302,5 @@ heartbeat.on("cancel", function (message) {
         heartbeatinterval = undefined;
     }
 });
+
+//mosquitto_pub -d -t "delivery/arrived" -m "{\"time\" : \"박진우\", \"status\" : \"arrived\"}"
