@@ -2,7 +2,7 @@ import kind from "@enact/core/kind";
 import Repeater from "@enact/ui/Repeater";
 import Proptypes from "prop-types";
 
-import Log from "../components/Log";
+import Log from "../components/Log1";
 import css from "./Logs.module.less";
 
 const Logs = kind({
@@ -15,7 +15,6 @@ const Logs = kind({
 
     propTypes: {
         children: Proptypes.array,
-        remove: Proptypes.func,
     },
 
     render: ({ children, ...rest }) => (
