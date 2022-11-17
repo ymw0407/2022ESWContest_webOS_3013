@@ -4,6 +4,7 @@ import Scroller from "@enact/ui/Scroller";
 import Logs from "./Logs";
 import LS2Request from "@enact/webos/LS2Request";
 import { useEffect, useState } from "react";
+import css from "./MainPanel.module.less";
 
 const MainPanel = () => {
   const [logs, setLogs] = useState(["날짜 | 차량 번호 | 차량 정보 | 통과 여부"]);
@@ -81,7 +82,7 @@ const MainPanel = () => {
   };
 
   return (
-    <Panel>
+    <Panel className={css.bg}>
       <Header title="log app" />
       <Scroller>
         <Logs>{logs}</Logs>
