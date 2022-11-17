@@ -6,13 +6,17 @@
   <body>
     <%- include('../../partials/nav') %>
 
-    <div class="container mb-3">
+    <div class="container3">
 
       <h2 class="mb-3">General</h2>
 
-      <table class="board-table table table-sm border-bottom">
+      <div>
+        <a class="btn bt btn-info" href="/general/new">글쓰기</a>
+      </div>
 
-        <thead class="thead-light">
+      <table class="board-table table table-light table-sm table-bordered border-bottom">
+
+        <thead class="table-info">
           <tr>
             <th scope="col">Title</th>
             <th scope="col" class="date">Date</th>
@@ -39,10 +43,6 @@
         </tbody>
 
       </table>
-
-      <div>
-        <a class="btn btn-primary" href="/general/new">글쓰기</a>
-      </div>
 
     </div>
   </body>

@@ -5,49 +5,47 @@
   </head>
   <body>
     <%- include('../../partials/nav') %>
-    <div class="container mb-3">
+    <div class="container4">
       <form action="/" method="post">
-        <h5>공지 글쓰기</h5>
-
+        <h5>Notice</h5>
         <div class="form-group">
           <label for="title">Title</label>
-          <input type="text" id="title" name="title" value="" class="form-control" placeholder="Title">
+          <input type="text" id="title" name="title" value="" class="form-control" placeholder="제목">
         </div>
         
         <div class="form-group">
           <label for="body">Content</label>
-          <textarea id="body" name="body" rows="5" class="form-control" placeholder="Content"></textarea>
+          <textarea id="body" name="body" rows="5" class="form-control" placeholder="내용"></textarea>
         </div>
 
         <input type="checkbox" id="react" name="notification" onclick="location.href='javascript:doDisplay()'">
-        <label for="react">알림</label>
+        <label class="nnotice" for="react">가전 제어</label>
 
         <div id="send" class="check" style="display:none;">
-          <label for="appliance">가전 제어</label>
+          <label class="appl" for="appliance">제어 선택</label>
           <select name="appliance">
-            <option value="blind">blind</option>
-            <option value="window">window</option>
-            <option value="light">light</option>
+            <option value="blind">블라인드</option>
+            <option value="window">창문</option>
+            <option value="light">전등</option>
           </select><br>
-          <label for="operation">동작 방식</label>
+          <label class="appl" for="operation">동작 방식</label>
           <select name="operation">
             <option value="on">ON</option>
             <option value="off">OFF</option>
           </select>
-          <span class="inline-block" name="clock">
-            <input id="startTime" name="startTime" width="234" placeholder="startTime" />
-            <input id="endTime" name="endTime" width="234" placeholder="endTime"/>
+          <span name="clock">
+            <input id="startTime" name="startTime" width="234" placeholder="시작 시각" />
           </span>
         </div>
         
         <div class="form-group">
-            <label for="password">Password</label>
-            <input type="password" id="password" name="password" class="form-control" placeholder="Password" required> 
+            <label class="passward" for="password">Password</label>
+            <input type="password" id="password" name="password" class="form-control" placeholder="비밀번호" required> 
         </div>
 
         <div>
-          <a class="btn btn-primary" href="/">Back</a>
-          <button type="submit" class="btn btn-primary">Submit</button>
+          <button type="submit" class="btn btn-info">Submit</button>
+          <a class="btn btn2 btn-secondary" href="/">Back</a>
         </div>
 
       </form>
