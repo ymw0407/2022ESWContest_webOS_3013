@@ -20,7 +20,7 @@ const apps = [
     id: "com.registercar.app",
   },
   {
-    name: "cctv",
+    name: "CCTV",
     desc: "우리 아이 안전한가요...? CCTV 기능",
     id: "com.cctv.app",
   },

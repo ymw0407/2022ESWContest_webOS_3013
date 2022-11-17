@@ -59,7 +59,7 @@ service.register("install", (msg) => {
   const sub = service.subscribe(`luna://${pkgInfo.name}/heartbeat`, {
     subscribe: true,
   });
-  const max = 100; //heart beat 횟수 /// heart beat가 꺼지면, 5초 정도 딜레이 생김 --> 따라서 이 녀석도 heart beat를 무한히 돌릴 필요가 있어보임.
+  const max = 60; //heart beat 횟수 /// heart beat가 꺼지면, 5초 정도 딜레이 생김 --> 따라서 이 녀석도 heart beat를 무한히 돌릴 필요가 있어보임.
   let count = 0;
   sub.addListener("response", function (msg) {
     console.log(JSON.stringify(msg.payload));
@@ -91,7 +91,7 @@ service.register("remove", function (msg) {
   const sub = service.subscribe(`luna://${pkgInfo.name}/heartbeat`, {
     subscribe: true,
   });
-  const max = 100; //heart beat 횟수 /// heart beat가 꺼지면, 5초 정도 딜레이 생김 --> 따라서 이 녀석도 heart beat를 무한히 돌릴 필요가 있어보임.
+  const max = 30; //heart beat 횟수 /// heart beat가 꺼지면, 5초 정도 딜레이 생김 --> 따라서 이 녀석도 heart beat를 무한히 돌릴 필요가 있어보임.
   let count = 0;
   sub.addListener("response", function (msg) {
     console.log(JSON.stringify(msg.payload));
