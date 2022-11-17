@@ -2,12 +2,15 @@ import kind from "@enact/core/kind";
 import ThemeDecorator from "@enact/sandstone/ThemeDecorator";
 import { Panels } from "@enact/sandstone/Panels";
 import Chanageable from "@enact/ui/Changeable";
+import LS2Request from "@enact/webos/LS2Request";
 import PropTypes from "prop-types";
 
 import VideoList from "./VideoList";
 import Video from "./Video";
 
 import css from "./VideoPanel.module.less";
+
+const bridge = new LS2Request();
 
 const Sample = kind({
   name: "App",
@@ -23,6 +26,7 @@ const Sample = kind({
     onNavigate_: PropTypes.func,
     onSelectVid: PropTypes.func,
     onClick: PropTypes.func,
+    closeApp: PropTypes.func,
     backBtn: PropTypes.func,
   },
 
@@ -51,11 +55,42 @@ const Sample = kind({
         index: 0,
       });
     },
+    closeApp: (app_id) => {
+      var lsRequest = {
+        service: "luna://com.delivery.app.service",
+        method: "close",
+        parameters: {
+          app_id: app_id,
+          subscribe: true,
+        },
+        onSuccess: (msg) => {
+          console.log(msg.reply);
+        },
+        onFailure: (msg) => {
+          console.log(msg);
+        },
+      };
+      bridge.send(lsRequest);
+    },
   },
 
-  render: ({ index, video, onNavigate_, onSelectVid, onClick, ...rest }) => (
+  render: ({
+    index,
+    video,
+    onNavigate_,
+    onSelectVid,
+    onClick,
+    closeApp,
+    ...rest
+  }) => (
     <div {...rest}>
-      <Panels index={index} onBack={onNavigate_}>
+      <Panels
+        index={index}
+        onBack={onNavigate_}
+        onClose={() => {
+          closeApp("com.delivery.app");
+        }}
+      >
         <VideoList onSelectVid={onSelectVid} onClick={onClick}></VideoList>
         <Video index={video} backBtn={onNavigate_} />
       </Panels>

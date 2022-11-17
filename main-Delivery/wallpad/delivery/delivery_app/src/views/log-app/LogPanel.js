@@ -75,9 +75,26 @@ const LogPanel = ({ onClick }) => {
         bridge.send(lsRequest);
     };
 
+    function closeApp(app_id) {
+        var lsRequest = {
+          service: "luna://com.delivery.app.service",
+          method: "close",
+          parameters: {
+            app_id: app_id,
+            subscribe: true,
+          },
+          onSuccess: (msg) => {
+            console.log(msg.reply);
+          },
+          onFailure: (msg) => {
+            console.log(msg);
+          },
+        };
+        bridge.send(lsRequest);
+      }
     return (
         <Panel className={css.gnd}>
-            <Header className={css.gnd} title="배달 기록 조회" />
+            <Header className={css.gnd} title="배달 기록 조회" onClose={() => {closeApp("com.delivery.app")}} />
             <Button cssName={css.btn} onClick={onClick}>
                 영상 조회
             </Button>
