@@ -14,7 +14,6 @@ const Btn = ({ app, installedApps }) => {
   }, [installedApps]);
 
   function btnInit() {
-    console.log(app, installedApps);
     if (installedApps.includes(app.id)) {
       setState("remove");
     }

@@ -24,7 +24,7 @@ const Tile = ({ apps, installedApps }) => {
             <div className={css.appName}>{app.name}</div>
           </div>
           <div className={css.desc}>{app.desc}</div>
-          <Btn app={app} installedApps={installedApps} />
+          <Btn className={css.btn} app={app} installedApps={installedApps} />
         </div>
       </div>
     </li>
