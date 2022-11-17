@@ -25,7 +25,7 @@ def run(vid):
     if carInfo:
         if carInfo["category"] == "register":
             startAt = parser.parse(carInfo["startAt"].split("T")[0])
-            if startAt < datetime.now():
+            if startAt <= datetime.now():
                 carNumber.pub("1")
             else:
                 carNumber.pub("0")
@@ -35,9 +35,9 @@ def run(vid):
         carNumber.pub("0")
 
     try:
-        carData.pub("{ \"carNumber\" : \"" + data + "\", \"category\" : \"" + carInfo["category"] + >
+        carData.pub("{ \"carNumber\" : \"" + data + "\", \"category\" : \"" + carInfo["category"] + "\", \"time\" : \"" + str(datetime.now()) + "\"}")
     except TypeError:
-        carData.pub("{ \"carNumber\" : \"" + data + "\", \"category\" : \"unknown\", \"time\" : \"" >
+        carData.pub("{ \"carNumber\" : \"" + data + "\", \"category\" : \"unknown\", \"time\" : \""  + str(datetime.now()) + "\"}")
 
     if os.path.exists("/root/images/"+vid):
         os.remove("/root/images/"+vid)

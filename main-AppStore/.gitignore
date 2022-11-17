@@ -16,3 +16,4 @@ ipk
 npm-debug.log
 
 com.*
+.eslintcache

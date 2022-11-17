@@ -1,9 +1,9 @@
 {
-  "id": "com.registercar.app.service",
-  "description": "HelloWorld Service",
-  "services": [
-    {
-      "name": "com.registercar.app.service"
-    }
-  ]
+    "id": "com.registercar.app.service",
+    "description": "HelloWorld Service",
+    "services": [
+        {
+            "name": "com.registercar.app.service"
+        }
+    ]
 }
