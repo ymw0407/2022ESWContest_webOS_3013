@@ -183,7 +183,7 @@ router.get("/exercise/*", (req, res) => {
 });
 
 const mvFile = (file) => {
-    return new promise((resolve, reject) => {
+    return new Promise((resolve, reject) => {
         file.mv("resource/exercise/input/" + file.name, (err) => {
             if (err) {
                 reject(err);
@@ -194,7 +194,7 @@ const mvFile = (file) => {
 };
 
 const analyzeStart = () => {
-    return new promise((resolve, reject) => {
+    return new Promise((resolve, reject) => {
         process = exec("python3 pushup.py");
 
         process.stdout.on("data", (data) => {
