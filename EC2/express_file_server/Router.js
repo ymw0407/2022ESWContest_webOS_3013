@@ -227,7 +227,7 @@ router.post("/exercise/", async (req, res) => {
     //         return res.sendStatus(500).send(err);
     //     });
 
-    file.mv("resource/exercise/input/" + file.name, (err) => {
+    file.mv("resource/exercise/input/" + vidName, (err) => {
         if (err) {
             console.log("[mvFile] error : " + err);
             return res.sendStatus(500).send(err);
