@@ -182,16 +182,9 @@ router.get("/exercise/*", (req, res) => {
     }
 });
 
-const mvFile = (file) => {
-    return new Promise((resolve, reject) => {
-        file.mv("resource/exercise/input/" + file.name, (err) => {
-            if (err) {
-                reject(err);
-            }
-            resolve("File Uploaded successfully");
-        });
-    });
-};
+// const mvFile = (file) => {
+//     return new Promise((resolve, reject) => {});
+// };
 
 const analyzeStart = () => {
     return new Promise((resolve, reject) => {
@@ -218,14 +211,22 @@ router.post("/exercise/", async (req, res) => {
 
     console.log("[exerise post] :" + file);
 
-    await mvFile(file)
-        .then((result) => {
-            console.log("[mvFile] success : " + result);
-        })
-        .catch((err) => {
+    // await mvFile(file)
+    //     .then((result) => {
+    //         console.log("[mvFile] success : " + result);
+    //     })
+    //     .catch((err) => {
+    //         res.sendStatus(500).send(err);
+    //         console.log("[mvFile] error : " + err);
+    //     });
+
+    file.mv("resource/exercise/input/" + file.name, (err) => {
+        if (err) {
             res.sendStatus(500).send(err);
             console.log("[mvFile] error : " + err);
-        });
+        }
+        console.log("[mvFile] success : File Uploaded successfully" );
+    });
 
     await analyzeStart()
         .then((result) => {
