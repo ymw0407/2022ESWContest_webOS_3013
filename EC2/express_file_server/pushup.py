@@ -24,7 +24,7 @@ mp_drawing = mp.solutions.drawing_utils
 mp_drawing_styles = mp.solutions.drawing_styles
 mp_pose = mp.solutions.pose
 
-cap = cv2.VideoCapture('output.mp4')
+cap = cv2.VideoCapture('resource/exercise/input/input.mp4')
 # Define the codec and create VideoWriter object. The output is stored in 'output.mp4' file.
 # 재생할 파일의 넓이와 높이
 width = 1280
@@ -34,7 +34,7 @@ print("재생할 파일 넓이, 높이 : %d, %d" % (width, height))
 
 rightnow = time.strftime('%Y-%m-%d_%H:%M:%S')
 fourcc = cv2.VideoWriter_fourcc(*'MP4V')
-out = cv2.VideoWriter('output.mp4', fourcc, 30.0, (int(width), int(height)))
+out = cv2.VideoWriter('/resource/exercise/output/output.mp4', fourcc, 30.0, (int(width), int(height)))
 step = -1
 cnt = 0
 temp_cnt = 0
