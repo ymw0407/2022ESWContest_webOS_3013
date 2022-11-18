@@ -7,8 +7,10 @@ var flash = require("connect-flash");
 var session = require("express-session");
 var app = express();
 
+const MongoDB = process.env.MongoDB;
+
 // DB setting
-mongoose.connect("mongodb://3.34.50.139:27017/DB");
+mongoose.connect(MongoDB);
 var db = mongoose.connection;
 db.once("open", function () {
     console.log("DB connected");
