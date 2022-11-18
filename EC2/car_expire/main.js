@@ -1,8 +1,11 @@
 const schedule = require("node-schedule");
-const mongoose = require("mongoose")
+const mongoose = require("mongoose");
+require("dotenv").config();
+
+const MongoDB = process.env.MongoDB;
 
 // DB setting
-mongoose.connect("mongodb://3.34.50.139:27017/DB");
+mongoose.connect(MongoDB);
 var db = mongoose.connection;
 db.once("open", function () {
     console.log("DB connected");
