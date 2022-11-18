@@ -36,7 +36,7 @@ height = 960
 # print("재생할 파일 넓이, 높이 : %d, %d" % (width, height))
 
 fourcc = cv2.VideoWriter_fourcc(*'MP4V')
-out = cv2.VideoWriter('/resource/exercise/output/output.mp4', fourcc, 30.0, (int(width), int(height)))
+out = cv2.VideoWriter('/resource/exercise/progress/progress.mp4', fourcc, 30.0, (int(width), int(height)))
 step = -1
 cnt = 0
 temp_cnt = 0
@@ -186,4 +186,4 @@ client.publish('exercise/result', "{\"count\": %d, \"time\": %d, \"max\": %d, \"
 client.loop_stop()
 # 연결 종료
 client.disconnect()
-os.system("rm -f /resource/exercise/output/output.mp4") # 기존 영상 삭제
+os.system("rm -f /resource/exercise/input/input.mp4") # 기존 영상 삭제
