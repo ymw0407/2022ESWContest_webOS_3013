@@ -4,6 +4,7 @@ import mediapipe as mp
 import numpy as np
 import time
 import base64
+import os
 import paho.mqtt.client as mqtt
 
 
@@ -20,21 +21,22 @@ def angle(a, b, c):
 
     return res
 
+os.system("rm -f /resource/exercise/output/output.mp4") # 기존 영상 삭제
+
 mp_drawing = mp.solutions.drawing_utils
 mp_drawing_styles = mp.solutions.drawing_styles
 mp_pose = mp.solutions.pose
 
-cap = cv2.VideoCapture('output.mp4')
+cap = cv2.VideoCapture('resource/exercise/input/input.mp4')
 # Define the codec and create VideoWriter object. The output is stored in 'output.mp4' file.
 # 재생할 파일의 넓이와 높이
 width = 1280
 height = 960
 
-print("재생할 파일 넓이, 높이 : %d, %d" % (width, height))
+# print("재생할 파일 넓이, 높이 : %d, %d" % (width, height))
 
-rightnow = time.strftime('%Y-%m-%d_%H:%M:%S')
 fourcc = cv2.VideoWriter_fourcc(*'MP4V')
-out = cv2.VideoWriter('output.mp4', fourcc, 30.0, (int(width), int(height)))
+out = cv2.VideoWriter('/resource/exercise/output/output.mp4', fourcc, 30.0, (int(width), int(height)))
 step = -1
 cnt = 0
 temp_cnt = 0
@@ -96,7 +98,7 @@ with mp_pose.Pose(
             if step == -1:
                 height = ((hip[1] - shoulder[1]) * 100 + (ankle[1] - hip[1]) * 100) / 2
                 setup_angle = angle(wrist, shoulder, hip)
-                print("높이 %d 각도: %d" % (height, setup_angle))
+                # print("높이 %d 각도: %d" % (height, setup_angle))
                 cv2.putText(image, "Step0. Ready", (820, 65), cv2.FONT_HERSHEY_PLAIN, 3,
                             (255, 255, 255), 5)
                 if height < 30 and setup_angle > 60:
@@ -104,18 +106,18 @@ with mp_pose.Pose(
                         setup_time = time.time()
                     if (time.time() - setup_time) >= 3:
                         step = 0
-                        # toast("운동을 시작하세요!")
+                        # print("운동을 시작하세요!")
                 else:
                     setup_time = 0
             elif step == 0:
-                print("Step1. 허리펴라")
+                # print("Step1. 허리펴라")
                 step = 1
             elif step == 1:
                 cv2.putText(image, "Step1. straight", (820, 65), cv2.FONT_HERSHEY_PLAIN, 3,
                             (255, 255, 255), 5)
                 if waist_angle >= 150:
-                    print("Step1 OK")
-                    print("Step2. 팔 굽혀라")
+                    # print("Step1 OK")
+                    # print("Step2. 팔 굽혀라")
                     step = 2
             elif step == 2:
                 cv2.putText(image, "Step2. down", (820, 65), cv2.FONT_HERSHEY_PLAIN, 3,
@@ -124,13 +126,13 @@ with mp_pose.Pose(
                     if first == 0:
                         start_time = cap.get(cv2.CAP_PROP_POS_MSEC) / 1000
                         temp_time = start_time
-                        print(start_time)
+                        # print(start_time)
                         first = 1
-                    print("Step2 OK")
-                    print("Step3. 팔 펴라")
+                    # print("Step2 OK")
+                    # print("Step3. 팔 펴라")
                     step = 3
                 elif waist_angle < 150:
-                    print("허리 피라고")
+                    # print("허리 피라고")
                     step = 0
             else:
                 cv2.putText(image, "Step3. up", (820, 65), cv2.FONT_HERSHEY_PLAIN, 3,
@@ -138,10 +140,10 @@ with mp_pose.Pose(
                 if arm_angle >= 160:
                     cnt += 1
                     temp_cnt += 1
-                    print("완료! 횟수: %d" % cnt)
+                    # print("완료! 횟수: %d" % cnt)
                     step = 0
                 elif waist_angle < 150:
-                    print("허리 피라고")
+                    # print("허리 피라고")
                     step = 0
         except:
             pass
@@ -156,19 +158,19 @@ with mp_pose.Pose(
         cv2.rectangle(image, (5, 880), (270, 930), (255, 0, 0), -1)
         cv2.putText(image, "count:%d" % cnt, (25, 920), cv2.FONT_HERSHEY_PLAIN, 3,
                     (255, 255, 255), 5)
-        cv2.imshow('Pushup Counter', image)
+        # cv2.imshow('Pushup Counter', image)
         out.write(image)
-        if cv2.waitKey(5) & 0xFF == 27:
-            break
+        # if cv2.waitKey(5) & 0xFF == 27:
+        #     break
 total_time = int(end_time - start_time)
 graph_x = [i for i in range(5, 5 * (total_time // 5 + (0 if total_time % 5 == 0 else 1)) + 1, 5)]
 if len(graph_x) > len(graph_y):
     graph_y.append(cnt-sum(graph_y))
-print(graph_x)
-print(graph_y)
+# print(graph_x)
+# print(graph_y)
 cap.release()
 out.release()
-cv2.destroyAllWindows()
+# cv2.destroyAllWindows()
 plt.plot(graph_x, graph_y)
 # plt.show()
 plt.savefig("result.png")
@@ -184,3 +186,4 @@ client.publish('exercise/result', "{\"count\": %d, \"time\": %d, \"max\": %d, \"
 client.loop_stop()
 # 연결 종료
 client.disconnect()
+os.system("rm -f /resource/exercise/output/output.mp4") # 기존 영상 삭제
