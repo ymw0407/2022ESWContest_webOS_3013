@@ -218,22 +218,22 @@ router.post("/exercise/", async (req, res) => {
 
     console.log("[exerise post] :" + file);
 
-    await mvFile(file)
-        .then((result) => {
-            console.log("[mvFile] success : " + result);
-        })
-        .catch((err) => {
+    // await mvFile(file)
+    //     .then((result) => {
+    //         console.log("[mvFile] success : " + result);
+    //     })
+    //     .catch((err) => {
+    //         console.log("[mvFile] error : " + err);
+    //         return res.sendStatus(500).send(err);
+    //     });
+
+    file.mv("resource/exercise/input/" + file.name, (err) => {
+        if (err) {
             console.log("[mvFile] error : " + err);
             return res.sendStatus(500).send(err);
-        });
-
-    // file.mv("resource/exercise/input/" + file.name, (err) => {
-    //     if (err) {
-    //         return res.sendStatus(500).send(err);
-    //         console.log("[mvFile] error : " + err);
-    //     }
-    //     console.log("[mvFile] success : File Uploaded successfully" );
-    // });
+        }
+        console.log("[mvFile] success : File Uploaded successfully");
+    });
 
     await analyzeStart()
         .then((result) => {
