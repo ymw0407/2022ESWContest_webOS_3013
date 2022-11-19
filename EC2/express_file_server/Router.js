@@ -182,17 +182,6 @@ router.get("/exercise/output/", (req, res) => {
     }
 });
 
-const mvFile = (file) => {
-    return new Promise((resolve, reject) => {
-        file.mv("resource/exercise/input/" + file.name, (err) => {
-            if (err) {
-                reject(err);
-            }
-            resolve("File Uploaded successfully");
-        });
-    });
-};
-
 const analyzeStart = () => {
     return new Promise((resolve, reject) => {
         process = exec("python3 pushup.py");
@@ -201,9 +190,9 @@ const analyzeStart = () => {
             console.log(data);
         });
 
-        process.stderr.on("data", (err) => {
-            reject(err);
-        });
+        // process.stderr.on("data", (err) => {
+        //     reject(err);
+        // });
 
         process.on("exit", (code) => {
             resolve(code);
@@ -218,48 +207,51 @@ router.post("/exercise/", async (req, res) => {
 
     console.log("[exerise post] :" + file);
 
-    await mvFile(file)
-        .then((result) => {
-            console.log("[mvFile] success : " + result);
-            return res.sendStatus(200).send(result);
-        })
-        .catch((err) => {
+    file.mv("resource/exercise/input/" + vidName, (err) => {
+        if (err) {
             console.log("[mvFile] error : " + err);
-            fs.unlink(vidPath + vidName);
             return res.sendStatus(500).send(err);
-        });
-
-    // file.mv("resource/exercise/input/" + vidName, (err) => {
-    //     if (err) {
-    //         console.log("[mvFile] error : " + err);
-    //         return res.sendStatus(500).send(err);
-    //     }
-    //     console.log("[mvFile] success : File Uploaded successfully");
-    // });
+        }
+        console.log("[mvFile] success : File Uploaded successfully");
+        console.log("[mvFile] file path : " + vidPath + vidName);
+        return res.sendStatus(200).send(err);
+    });
 
     await analyzeStart()
         .then((result) => {
             console.log("[analyzeStart] exit : " + result);
             vidName = "progress.mp4";
             vidPath = "./resource/exercise/progress/";
+            console.log("[analyzeStart] file path : " + vidPath + vidName);
         })
         .catch((err) => {
-            fs.unlink(vidPath + vidName);
+            fs.unlink(vidPath + vidName, (err) => {
+                if (err) throw err;
+                console.log(
+                    "[analyzeStart] " + vidPath + vidName + " file deleted"
+                );
+            });
             console.log("[analyzeStart] err : " + err);
         });
 
-    ffmpeg(vidPath + vidName)
+    ffmpeg("./resource/exercise/progress/progress.mp4")
         .videoCodec("libx264")
         .withOutputFormat("mp4")
         .on("error", (err) => {
             console.log("[ffmpeg] err : " + err.message);
-            fs.unlink(vidPath + vidName);
+            fs.unlink(vidPath + vidName, (err) => {
+                if (err) throw err;
+                console.log("[ffmpeg] " + vidPath + vidName + " file deleted");
+            });
         })
         .on("end", () => {
             console.log("[ffmpeg] upload : complete");
-            fs.unlink(vidPath + vidName);
+            fs.unlink(vidPath + vidName, (err) => {
+                if (err) throw err;
+                console.log("[ffmpeg] " + vidPath + vidName + " file deleted");
+            });
         })
-        .save(vidPath + "output.mp4");
+        .save("./resource/exercise/output/output.mp4");
 });
 
 router.get("/apps/*", (req, res) => {
