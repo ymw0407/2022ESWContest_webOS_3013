@@ -221,6 +221,7 @@ router.post("/exercise/", async (req, res) => {
     await mvFile(file)
         .then((result) => {
             console.log("[mvFile] success : " + result);
+            return res.sendStatus(200).send(result);
         })
         .catch((err) => {
             console.log("[mvFile] error : " + err);
