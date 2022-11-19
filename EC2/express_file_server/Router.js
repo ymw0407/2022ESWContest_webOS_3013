@@ -222,7 +222,7 @@ router.post("/exercise/", async (req, res) => {
             console.log("[analyzeStart] exit : " + result);
             vidName = "progress.mp4";
             vidPath = "./resource/exercise/progress/";
-            console.log("[analyzeStart] file path : " + vidPath + vidName);
+            console.log("[analyzeStart] file path : " + vidPath + vidName)
         })
         .catch((err) => {
             fs.unlink(vidPath + vidName, (err) => {
@@ -234,24 +234,45 @@ router.post("/exercise/", async (req, res) => {
             console.log("[analyzeStart] err : " + err);
         });
 
-    ffmpeg("./resource/exercise/progress/progress.mp4")
+    // ffmpeg("resource/exercise/progress/progress.mp4")
+    //     .videoCodec("libx264")
+    //     .withOutputFormat("mp4")
+    //     .on("error", (err) => {
+    //         console.log("[ffmpeg] err : " + err.message);
+    //         fs.unlink(vidPath + vidName, (err) => {
+    //             if (err) throw err;
+    //             console.log("[ffmpeg] " + vidPath + vidName + " file deleted");
+    //         });
+    //     })
+    //     .on("end", () => {
+    //         console.log("[ffmpeg] upload : complete");
+    //         fs.unlink(vidPath + vidName, (err) => {
+    //             if (err) throw err;
+    //             console.log("[ffmpeg] " + vidPath + vidName + " file deleted");
+    //         });
+    //     })
+    //     .saveToFile("resource/exercise/output/output.mp4");
+
+    ffmpeg("resource/exercise/progress/progress.mp4")
         .videoCodec("libx264")
         .withOutputFormat("mp4")
         .on("error", (err) => {
-            console.log("[ffmpeg] err : " + err.message);
-            fs.unlink(vidPath + vidName, (err) => {
+            console.log(err.message);
+            fs.unlink("resource/progress/" + vidName, (err) => {
                 if (err) throw err;
-                console.log("[ffmpeg] " + vidPath + vidName + " file deleted");
+                console.log("file deleted");
             });
         })
         .on("end", () => {
-            console.log("[ffmpeg] upload : complete");
-            fs.unlink(vidPath + vidName, (err) => {
+            console.log("upload complete");
+
+            fs.unlink("resource/progress/" + vidName, (err) => {
                 if (err) throw err;
-                console.log("[ffmpeg] " + vidPath + vidName + " file deleted");
+                console.log("file deleted");
             });
+            // res.status(200).send("upload success!");
         })
-        .save("./resource/exercise/output/output.mp4");
+        .saveToFile("resource/exercise/output/output.mp4");
 });
 
 router.get("/apps/*", (req, res) => {
