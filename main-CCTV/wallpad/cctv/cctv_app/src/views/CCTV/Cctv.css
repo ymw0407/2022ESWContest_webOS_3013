@@ -1,68 +1,45 @@
+*{
+  margin: 0;
+  padding: 0;
+  background-color: #8d8d8d;
+}
 .Cctv {
-  position: absolute;
-  left: 0;
-  top: 0;
-  bottom: 0;
-  right: 0;
-  display: flex;
-  height: 100vh;
-  background-image: url(../../../img/cctv_back.jpg);
   background-size: cover;
+  width: 100%;
 }
 .app-title {
   color: white;
-  font-size: 200px;
-  margin-top: 200px;
-  margin-left: 350px;
-  margin-bottom: 30px;
+  font-size: 4rem;
+  padding-left: 5rem;
+  padding-top: 3rem;
+  padding-bottom: 4rem;
+  margin-right: 6rem;
 }
-.tem {
-  position: absolute;
-  left: 0;
-  top: 0;
-  bottom: 0;
-  right: 0;
+.app-list{
   display: flex;
-  text-align: center;
-  margin-top: 500px;
-  margin-bottom: 500px;
+  justify-content: center;
+  color: white;
+  font-size: 2rem;
 }
-.app-list {
-  margin-top: 500px;
-  text-align: center;
-  background: #a1a1a1;
-  color: black;
-  font-size: 100px;
-  font-weight: 600;
-  line-height: 7px;    
+ul{
+  display: flex;
+  justify-content: center;
+  width: 70%;
+  background-color: #6e6e6e;
+}
+li {
+  list-style-type: none;
   float: left;
-  margin: 0 auto;
-  padding-right: 140px;
-  width: 2850px;
-}
-.app-list ul {
-  list-style: none;
-}
-.app-list ul li {
-  display: inline-block;
-  padding-left: 200px;
-  padding-right: 200px;
-  text-align: center;
+  padding-left: 8rem;
+  padding-right: 8rem;
   cursor: pointer;
+  background-color: #6e6e6e;
 }
 .app-list ul li:hover {
-  color: white;
-}
-.content{
-  text-align: left;
-  margin-top: 200px;
-  margin-right: 60px;
-  background-color: none;
-  height: auto;
-  width: 500px;
-  height: 50px;
+  color: rgb(36, 36, 36);
 }
 a {
   color: inherit;
   text-decoration: none;
+  background-color: #6e6e6e;
 }

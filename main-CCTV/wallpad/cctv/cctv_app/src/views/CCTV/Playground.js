@@ -7,7 +7,7 @@ const Playground = ({ children }) => {
   return (
     
     <div className="Cctv">
-      <div className="app-title">CCTV</div>
+      <div className="app-title">CCTV<img src={"/cctv.png"} style={{float:'right' ,width:'120px'}}/></div>
       <div className="tem">
         <div className="app-list">
           <ul>
@@ -17,7 +17,7 @@ const Playground = ({ children }) => {
           </ul>
         </div>
         <div className="content">
-          <img src={"http://" + ip + "/"} style={{width:'1000px', marginLeft:'-1367px'}}/>  
+          <img src={"http://" + ip + "/"} style={{margin:'auto', display:'block', backgroundColor:'white', width:'70%'}}/> 
         </div>
       </div>
   </div>
