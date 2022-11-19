@@ -189,4 +189,4 @@ client.publish('exercise/result', "{\"count\": %d, \"time\": %d, \"max\": %d, \"
 client.loop_stop()
 # 연결 종료
 client.disconnect()
-os.system("rm -f resource/exercise/input/input.mp4") # 기존 영상 삭제
+os.system("rm -f resource/exercise/input/input.mp4 result.png") # 기존 영상 삭제
