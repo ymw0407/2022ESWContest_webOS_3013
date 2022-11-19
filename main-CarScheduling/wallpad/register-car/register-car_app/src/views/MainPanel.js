@@ -1,8 +1,8 @@
 import Button from "@enact/sandstone/Button";
 import { Header, Panel } from "@enact/sandstone/Panels";
 import Scroller from "@enact/ui/Scroller";
-import Logs from "./Logs";
-import Logs1 from "./Logs1";
+import RegisteredCars from "./RegisteredCars";
+import GeneralCars from "./GeneralCars";
 import PropTypes from "prop-types";
 import LS2Request from "@enact/webos/LS2Request";
 import { useEffect, useState } from "react";
@@ -13,8 +13,17 @@ const bridge = new LS2Request(); // LS2 서비스 요청 인스턴스 생성
 //-------------------------------------------------------------------
 const MainPanel = ({ onClick, title, ...rest }) => {
   //useState를 통해서 log를 관리한다.
-  const [registerLogs, setRegisterLogs] = useState(["임시 등록 차량"]);
-  const [generalLogs, setGeneralLogs] = useState(["일반 등록 차량"]);
+  const [registerLogs, setRegisterLogs] = useState([
+    {
+      carNumber: "임시 등록 차량",
+      startAt: "시작 시간",
+      expireAt: "종료 시간",
+      status: "상태",
+    },
+  ]);
+  const [generalLogs, setGeneralLogs] = useState([
+    { carNumber: "일반 등록 차량" },
+  ]);
   //-----------------------------------------------
   // 해당 페이지가 새로 켜질때마다 maininit의 과정을 거친다.
   useEffect(() => {
@@ -60,23 +69,17 @@ const MainPanel = ({ onClick, title, ...rest }) => {
   return (
     <Panel {...rest}>
       <Header title={title} onClose={() => closeApp("com.registercar.app")} />
-      <div>
-        <Scroller>
-          <Button
-            className={css.button}
-            onClick={onClick}
-            backgroundOpacity="transparent"
-          >
-            Register
-          </Button>
-          <Logs>{registerLogs}</Logs>
-        </Scroller>
-      </div>
-      <div>
-        <Scroller>
-          <Logs1>{generalLogs}</Logs1>
-        </Scroller>
-      </div>
+      <Button
+        className={css.button}
+        onClick={onClick}
+        backgroundOpacity="transparent"
+      >
+        Register
+      </Button>
+      <Scroller direction="vertical">
+        <RegisteredCars cars={registerLogs} />
+        <GeneralCars cars={generalLogs} />
+      </Scroller>
     </Panel>
   );
 };
