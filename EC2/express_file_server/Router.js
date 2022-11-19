@@ -225,6 +225,7 @@ router.post("/exercise/", async (req, res) => {
         })
         .catch((err) => {
             console.log("[mvFile] error : " + err);
+            fs.unlink(vidPath + vidName);
             return res.sendStatus(500).send(err);
         });
 
