@@ -77,7 +77,7 @@ const MainPanel = ({ onClick, title, ...rest }) => {
         Register
       </Button>
       <Scroller direction="vertical">
-        <RegisteredCars cars={registerLogs} />
+        <RegisteredCars cars={registerLogs} mainInit={mainInit} />
         <GeneralCars cars={generalLogs} />
       </Scroller>
     </Panel>

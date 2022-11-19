@@ -89,7 +89,8 @@ service.register("registerCar", async function (message) {
 });
 
 // connect => schema => delete => show => close
-service.register("deleteCarData", async function (message) {
+service.register("deleteCarData", async function (msg) {
+  console.log(msg);
   // DB 연결
   let connect = await mongo
     .connectDB()
@@ -102,17 +103,18 @@ service.register("deleteCarData", async function (message) {
   // -------------------------------------
   // DB에서 특정 차량 번호를 삭제
   let remove = await mongo
-    .deleteCarData(Car, message.payload.carNumber)
+    .deleteCarData(Car, msg.payload.carNumber)
     .then((result) => {
       console.log(result);
-      console.log(message.payload.carNumber + " : delete success");
+      console.log(msg.payload.carNumber + " : delete success");
     })
     .catch((error) => {
       console.log(error);
     });
-  let show = await mongo.showCarData(Car).then((result) => {
-    carArray = result;
+  let show = await mongo.showRegisterCarData(Car).then((result) => {
+    registerCarArray = result;
   });
+  msg.respond({ returnValue: true, registerCarArray: registerCarArray });
   // -------------------------------------
   // DB 연결 끊기
   let close = mongo

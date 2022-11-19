@@ -57,11 +57,6 @@ function showGeneralCarData(Car) {
           let parsingData = { carNumber: car.carNumber };
           carArray.push(parsingData);
         }
-        // for (car of cars) {
-        //     let parsingData = "";
-        //     parsingData += car.carNumber;
-        //     carArray.push(parsingData);
-        // }
         resolve(carArray);
       });
   });
@@ -112,7 +107,7 @@ function createRegisterCar(Car, carNumber, startAt, endAt) {
 //carNumber를 기준으로 같은 데이터가 있으면 데이터를 지운다. 해당 부분은 살짝 수정이 필요할거 같음!!
 function deleteCarData(Car, carNumber) {
   return new Promise((resolve, reject) => {
-    Car.deleteOne({ carNumber: carNumber }, function (err) {
+    Car.deleteOne({ category: "register", carNumber: carNumber }, function (err) {
       if (err) reject(res.json(err));
       resolve("delete success");
     });
