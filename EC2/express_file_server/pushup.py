@@ -163,7 +163,10 @@ with mp_pose.Pose(
         # if cv2.waitKey(5) & 0xFF == 27:
         #     break
 total_time = int(end_time - start_time)
-graph_x = [i for i in range(5, 5 * (total_time // 5 + (0 if total_time % 5 == 0 else 1)) + 1, 5)]
+while graph_y[-1] == 0:
+    graph_y.pop(-1)
+graph_x = [i for i in range(5, len(graph_y) * 5, 5)]
+graph_x.append(total_time)
 if len(graph_x) > len(graph_y):
     graph_y.append(cnt-sum(graph_y))
 # print(graph_x)
