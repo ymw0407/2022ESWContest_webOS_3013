@@ -44,6 +44,14 @@ temp_time = 0
 graph_y = []
 start_time = 0
 first = 0
+
+# 초기값
+cnt = 0
+total_time = 0
+max_pace = 0
+min_pace = 0
+base64_string = "b'123'"
+
 with mp_pose.Pose(
     min_detection_confidence=0.5,
     min_tracking_confidence=0.5) as pose:
@@ -169,6 +177,8 @@ graph_x = [i for i in range(5, len(graph_y) * 5, 5)]
 graph_x.append(total_time)
 if len(graph_x) > len(graph_y):
     graph_y.append(cnt-sum(graph_y))
+max_pace = max(graph_y)
+min_pace = min(graph_y)
 # print(graph_x)
 # print(graph_y)
 cap.release()
@@ -185,7 +195,7 @@ client = mqtt.Client()
 client.connect(ip, 1883)
 client.loop_start()
 # common topic 으로 메세지 발행
-client.publish('exercise/result', "{\"count\": %d, \"time\": %d, \"max\": %d, \"min\": %d, \"img\": %s}" % (cnt, total_time, max(graph_y), min(graph_y), base64_string), 1)
+client.publish('exercise/result', "{\"count\": %d, \"time\": %d, \"max\": %d, \"min\": %d, \"img\": %s}" % (cnt, total_time, max_pace, min_pace, base64_string), 1)
 client.loop_stop()
 # 연결 종료
 client.disconnect()
