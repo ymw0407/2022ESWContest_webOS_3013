@@ -45,13 +45,6 @@ graph_y = []
 start_time = 0
 first = 0
 
-# 초기값
-cnt = 0
-total_time = 0
-max_pace = 0
-min_pace = 0
-base64_string = "b'123'"
-
 with mp_pose.Pose(
     min_detection_confidence=0.5,
     min_tracking_confidence=0.5) as pose:
@@ -170,25 +163,33 @@ with mp_pose.Pose(
         out.write(image)
         # if cv2.waitKey(5) & 0xFF == 27:
         #     break
-total_time = int(end_time - start_time)
-while graph_y[-1] == 0:
-    graph_y.pop(-1)
-graph_x = [i for i in range(5, len(graph_y) * 5, 5)]
-graph_x.append(total_time)
-if len(graph_x) > len(graph_y):
-    graph_y.append(cnt-sum(graph_y))
-max_pace = max(graph_y)
-min_pace = min(graph_y)
-# print(graph_x)
-# print(graph_y)
-cap.release()
-out.release()
-# cv2.destroyAllWindows()
-plt.plot(graph_x, graph_y)
-# plt.show()
-plt.savefig("result.png")
-with open('./result.png', 'rb') as img:
-    base64_string = base64.b64encode(img.read())
+try:
+    total_time = int(end_time - start_time)
+    while graph_y[-1] == 0:
+        graph_y.pop(-1)
+    graph_x = [i for i in range(5, len(graph_y) * 5, 5)]
+    graph_x.append(total_time)
+    if len(graph_x) > len(graph_y):
+        graph_y.append(cnt-sum(graph_y))
+    max_pace = max(graph_y)
+    min_pace = min(graph_y)
+    # print(graph_x)
+    # print(graph_y)
+    cap.release()
+    out.release()
+    # cv2.destroyAllWindows()
+    plt.plot(graph_x, graph_y)
+    # plt.show()
+    plt.savefig("result.png")
+    with open('./result.png', 'rb') as img:
+        base64_string = base64.b64encode(img.read())
+except:
+    # 초기값
+    cnt = 0
+    total_time = 0
+    max_pace = 0
+    min_pace = 0
+    base64_string = "b'123'"
 
 ip = "3.34.50.139"
 client = mqtt.Client()
