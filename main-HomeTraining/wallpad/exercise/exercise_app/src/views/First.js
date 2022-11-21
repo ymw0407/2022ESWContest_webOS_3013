@@ -6,18 +6,18 @@ import './First.css';
 
 
 const StyledButton = styled.button`  
-  font-size: 40px;
-  font-weight: 700;
-  padding: 20px 40px;
+  font-size: 1.5rem;
+  font-weight: 600;
+  padding: 0.7rem 1.5rem;
+  margin-left: 8rem;
   border: none;
   border-radius: 25px;
   color: white;
-  background-color: rgb(100,131,149,0.5);
+  background-color: #0c7ac3;
   border: white;
   &:hover{
-    color: rgb(157,211,243);
-    background-color: white;
-    box-shadow: 0 0 10px 0 rgb(157,211,243) inset, 0 0 10px 4px rgb(157,211,243);
+    color: #0c7ac3;
+    background-color: rgb(235,235,235);
   }
 }
 `;
@@ -26,42 +26,14 @@ const First = () => {
 
   const [ch, setch] = useState(false);
   const history = useHistory();
-  const bridge = new LS2Request();
-
-  useEffect(() => {
-    console.log("cam on");
-    let params = {};
-    let lsRequest = {
-      service: "luna://com.exercise.app.service",
-      method: "serviceStart",
-      parameters: params,
-      onSuccess: (msg) => {
-        console.log(msg);
-      },
-      onFailure: (err) => {
-        console.log(err)
-      }
-    };
-    bridge.send(lsRequest);
-  }, []);
+  
   const changeBut = () => {
     const butText = document.getElementById('but');
     butText.innerText = "녹화 종료";
     console.log("녹화 종료");
     setch(prevch => !prevch);
-    let params = {};
-    let lsRequest = {
-      service: "luna://com.exercise.app.service",
-      method: "record",
-      parameters: params,
-      onSuccess: (msg) => {
-        console.log(msg);
-      },
-      onFailure: (err) => {
-        console.log(err);
-      }
-    };
-    bridge.send(lsRequest);
+    
+    
   };
   const ifbut = () => {
     console.log("페이지 이동");
@@ -69,17 +41,17 @@ const First = () => {
   };
   
   return (
-    <div className="first">
+    <div className="First">
       <div className="app-title">운동 보조</div>
       <div className="tem">
         <div className="but">
           <StyledButton id="but" onClick={ ch ? ifbut : changeBut} >녹화 시작</StyledButton>
         </div>
-        <div className="content">
-          <p>step1 : 허리 펴기</p>
-          <p>step2 : 팔 굽히기</p>
-          <p>step3 : 팔 펴기</p>
-        </div>
+      </div>
+      <div className="content">
+        <p>step1 : 허리 펴기</p>
+        <p>step2 : 팔 굽히기</p>
+        <p>step3 : 팔 펴기</p>
       </div>
     </div>
   )

@@ -11,12 +11,11 @@ const StyledButton = styled.button`
   border: none;
   border-radius: 25px;
   color: white;
-  background-color: rgb(100,131,149,0.5);
+  background-color: #0c7ac3;
   border: white;
   &:hover{
-    color: rgb(157,211,243);
-    background-color: white;
-    box-shadow: 0 0 10px 0 rgb(157,211,243) inset, 0 0 10px 4px rgb(157,211,243);
+    color: #0c7ac3;
+    background-color: rgb(235,235,235);
   }
 `;
 
