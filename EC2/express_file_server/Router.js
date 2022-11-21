@@ -1,5 +1,7 @@
 const router = require("express").Router();
 const ffmpeg = require("fluent-ffmpeg");
+const ffmpegInstaller = require("@ffmpeg-installer/ffmpeg");
+ffmpeg.setFfmpegPath(ffmpegInstaller.path);
 const url = require("url");
 const fs = require("fs");
 const { get } = require("http");
@@ -238,20 +240,20 @@ router.post("/exercise/", async (req, res) => {
         .videoCodec("libx264")
         .withOutputFormat("mp4")
         .on("error", (err) => {
-            console.log("[ffmpeg] err : " + err.message);
-            fs.unlink(vidPath + vidName, (err) => {
+            console.log(err.message);
+            fs.unlink("./resource/exercise/progress/" + vidName, (err) => {
                 if (err) throw err;
                 console.log("[ffmpeg] " + vidPath + vidName + " file deleted");
             });
         })
         .on("end", () => {
-            console.log("[ffmpeg] upload : complete");
-            fs.unlink(vidPath + vidName, (err) => {
+            console.log("upload complete");
+            fs.unlink("./resource/exercise/progress/" + vidName, (err) => {
                 if (err) throw err;
                 console.log("[ffmpeg] " + vidPath + vidName + " file deleted");
             });
         })
-        .save("./resource/exercise/output/output.mp4");
+        .saveToFile("./resource/exercise/output/output.mp4");
 });
 
 router.get("/apps/*", (req, res) => {
