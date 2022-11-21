@@ -1,34 +1,32 @@
+* {
+  margin: 0;
+  padding: 0;
+  background-color: rgb(42, 182, 163);
+}
 .first {
-  position: absolute;
-  left: 0;
-  top: 0;
-  bottom: 0;
-  right: 0;
-  display: flex;
-  /*flex-direction: column;*/
-  height: 100vh;
-  background-image: url(../img/control_back.jpg);
+  width: 100%;
   background-size: cover;
 } 
 .app-title {
   color: white;
   font-size: 200px;
-  margin-top: 200px;
-  margin-left: 350px;
-  margin-bottom: 30px;
+  padding-left: 8rem;
+  padding-top: 10rem;
+  padding-bottom: 3rem;
+  margin-right: 6rem;
 }
 .tem {
-  margin-top: 100px;
+  margin-top: 1rem;
 }
 .lbox1 {
-  padding-right: 200px;
+  padding-right: 4rem;
+  margin-left: 10rem;
 }
 .lbox1 p {
   font-size: 130px;
   font-weight: 600;
   padding-top: 50px;
   padding-bottom: 250px;
-  margin-left: 30px;
   color: white;
 }
 .light {
@@ -36,7 +34,6 @@
   float: left;
   text-align: center;
   margin-top: 500px;
-  margin-left: -740px;
 }
 .window {
   display: flex;
