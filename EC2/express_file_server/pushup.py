@@ -195,7 +195,7 @@ client = mqtt.Client()
 client.connect(ip, 1883)
 client.loop_start()
 # common topic 으로 메세지 발행
-client.publish('exercise/result', "{\"count\": %d, \"time\": %d, \"max\": %d, \"min\": %d, \"img\": %s}" % (cnt, total_time, max_pace, min_pace, base64_string), 1)
+client.publish('exercise/result', "{\"count\": %d, \"time\": %d, \"max\": %d, \"min\": %d, \"img\": \"%s\"}" % (cnt, total_time, max_pace, min_pace, base64_string), 1)
 client.loop_stop()
 # 연결 종료
 client.disconnect()
