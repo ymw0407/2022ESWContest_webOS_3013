@@ -6,7 +6,12 @@ const GeneralCars = ({ cars }) => {
       <div>{car.carNumber}</div>
     </li>
   ));
-  return <div>{Logs}</div>;
+  return (
+    <div>
+      <div>일반 등록 차량</div>
+      <div>{Logs}</div>
+    </div>
+  );
 };
 
 export default GeneralCars;

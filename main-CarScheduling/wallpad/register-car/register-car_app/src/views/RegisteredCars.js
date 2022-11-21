@@ -29,6 +29,7 @@ const RegisteredCars = ({ cars, mainInit }) => {
       <div className={css.log}>
         <div>{car.carNumber}</div>
         <div>{car.startAt}</div>
+        <div>~</div>
         <div>{car.expireAt}</div>
         <div>{car.status}</div>
         <Button
@@ -41,7 +42,14 @@ const RegisteredCars = ({ cars, mainInit }) => {
       </div>
     </li>
   ));
-  return <div>{Logs}</div>;
+  return (
+    <div>
+      <div>
+        <div>임시 등록 차량</div>
+      </div>
+      <div>{Logs}</div>
+    </div>
+  );
 };
 
 export default RegisteredCars;
