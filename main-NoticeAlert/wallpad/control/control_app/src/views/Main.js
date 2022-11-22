@@ -10,7 +10,7 @@ const Main = () => {
  
   return (
     <div className="first">
-      <div className="app-title">가전 제어</div>
+      <div className="app-title">가전 제어<img src={"/control.png"} style={{float:'right' ,width:'230px'}}/></div>
       <div className="tem">
         <div className="light">
           <div className="lbox1">
