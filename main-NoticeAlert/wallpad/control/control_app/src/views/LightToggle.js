@@ -12,7 +12,7 @@ const ToggleBtn = styled.button`
   border-radius: 30px;
   border: none;
   cursor: pointer;
-  background-color: ${(props) => (!props.toggle ? "gray" : "rgb(226, 93, 69)")};
+  background-color: ${(props) => (!props.toggle ? "rgb(172,182,182)" : "rgb(226, 93, 69)")};
   position: relative;
   display: flex;
   justify-content: center;
@@ -77,10 +77,10 @@ const LightToggle = () => {
 
   const Light1 = () => {
     return (
-      <div>
+      <div style={{backgroundColor: 'rgb(37, 100, 101)'}}>
 		    {  ledState.ledState1 === 1
-			    ? <img src={img_ln} style={{ width: '130px', height: '130px'}}/>
-          : <img src={img_lf} style={{ width: '130px', height: '130px' }}/>
+			    ? <img src={img_ln} style={{ width: '130px', height: '130px', backgroundColor: 'rgb(37, 100, 101)'}}/>
+          : <img src={img_lf} style={{ width: '130px', height: '130px', backgroundColor: 'rgb(37, 100, 101)' }}/>
 		    }
         <div style={{marginBottom:'80px'}} />
 	    </div>
@@ -89,13 +89,11 @@ const LightToggle = () => {
 
   const Light2 = () => {
     return (
-      <div>
-		    <span>
+      <div style={{backgroundColor: 'rgb(37, 100, 101)'}}>
 		    {  ledState.ledState2 === 1
-			    ? <img src={img_ln} style={{ width: '130px', height: '130px'}}/>
-          : <img src={img_lf} style={{ width: '130px', height: '130px' }}/>
+			    ? <img src={img_ln} style={{ width: '130px', height: '130px', backgroundColor: 'rgb(37, 100, 101)'}}/>
+          : <img src={img_lf} style={{ width: '130px', height: '130px', backgroundColor: 'rgb(37, 100, 101)' }}/>
 		    }
-		    </span>
         <div style={{marginBottom:'80px'}} />
 	    </div>
     )
@@ -103,13 +101,11 @@ const LightToggle = () => {
 
   const Light3 = () => {
     return (
-      <div>
-		    <span>
+      <div style={{backgroundColor: 'rgb(37, 100, 101)'}}>
 		    {  ledState.ledState3 === 1
-			    ? <img src={img_ln} style={{ width: '130px', height: '130px'}}/>
-          : <img src={img_lf} style={{ width: '130px', height: '130px' }}/>
+			    ? <img src={img_ln} style={{ width: '130px', height: '130px', backgroundColor: 'rgb(37, 100, 101)'}}/>
+          : <img src={img_lf} style={{ width: '130px', height: '130px', backgroundColor: 'rgb(37, 100, 101)' }}/>
 		    }
-		    </span>
         <div style={{marginBottom:'80px'}} />
 	    </div>
     )

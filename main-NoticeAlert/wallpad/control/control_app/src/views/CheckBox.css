@@ -1,3 +1,4 @@
+
 tbody {
   border : 15px solid white;
 }
@@ -8,6 +9,7 @@ input[type="checkbox"] {
   height: 1.8rem;
   border-radius: 50%;
   border: 10px solid white;
+  background-color: rgb(37, 100, 101);
   appearance: none;
   cursor: pointer;
   transition: background 0.2s;
@@ -18,3 +20,4 @@ input[type="checkbox"]:checked {
   background: rgb(226, 93, 69);
   border: none;
 }
+

@@ -1,13 +1,13 @@
 .list {
-  padding-left: -100px;
   display: flex;
   float: left;
   text-align: center;
   margin-top: 5px;
-  margin-left: -100px;
+  background-color: rgb(37, 100, 101);
 }
 .tem1 {
   padding-right: 250px;
+  background-color: rgb(37, 100, 101);
 }
 .tem1 p {
   font-size: 130px;
@@ -16,9 +16,11 @@
   padding-bottom: 250px;
   margin-left: 30px;
   color: white;
+  background-color: rgb(37, 100, 101);
 }
 .tem2 {
   padding-right: 250px;
+  background-color: rgb(37, 100, 101);
 }
 .tem2 p {
   font-size: 130px;
@@ -27,9 +29,10 @@
   padding-bottom: 250px;
   margin-left: 30px;
   color: white;
+  background-color: rgb(37, 100, 101);
 }
 .tem3 {
-  padding-right: 150px;
+  background-color: rgb(37, 100, 101);
 }
 .tem3 p {
   font-size: 130px;
@@ -38,4 +41,5 @@
   padding-bottom: 250px;
   margin-left: 30px;
   color: white;
+  background-color: rgb(37, 100, 101);
 }
