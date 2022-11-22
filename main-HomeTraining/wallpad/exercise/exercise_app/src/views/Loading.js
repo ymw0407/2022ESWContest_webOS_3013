@@ -21,8 +21,8 @@ const Loading = (props) => {
         console.log(res);
         console.log(typeof res);
         obj = JSON.parse(res);
-        console.log(typeof obj);
-        console.log(obj.img);
+        //console.log(typeof obj);
+        //console.log(obj.img);
         //console.log(res.count)
         nextPage();
         //setTimeout(() => nextPage(), 5000);

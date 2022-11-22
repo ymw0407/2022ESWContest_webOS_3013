@@ -14,7 +14,7 @@ const Video = () => {
     <div>
       <VideoPlayerBase onBack={backBtn}>
         <source
-          src={"http://3.34.50.139:8000/exercise/output.mp4"}
+          src={"http://3.34.50.139:8000/exercise/output/output.mp4"}
           type="video/mp4"
         />
       </VideoPlayerBase>
