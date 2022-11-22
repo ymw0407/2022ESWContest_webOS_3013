@@ -46,6 +46,17 @@ function launchApp(app_id){
     ls2.call(launchApp_url, launchApp_params, callback);
 }
 
+function closeApp(app_id) {
+    let closeApp_url = "luna://com.webos.service.applicationmanager/close";
+    let closeApp_params = {
+      id: app_id,
+    };
+    let callback = (m) => {
+      console.log("[close app] called : " + app_id);
+    };
+    ls2.call(closeApp_url, closeApp_params, callback);
+  }
+
 function cameraOpen(device){
     return new Promise((resolve, reject) => {
         let cameraOpen_url = "luna://com.webos.service.camera2/open";
@@ -306,6 +317,7 @@ exports.init = init;
 exports.toast = toast;
 exports.tts = tts;
 exports.launchApp = launchApp;
+exports.closeApp = closeApp;
 exports.cameraReady = cameraReady;
 exports.startRecord = startRecord;
 exports.cameraEnd = cameraEnd;
