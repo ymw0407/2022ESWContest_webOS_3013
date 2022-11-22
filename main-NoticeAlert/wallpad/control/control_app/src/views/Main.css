@@ -1,23 +1,99 @@
+@import url('https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=Do+Hyeon&family=Nanum+Gothic:wght@700&family=Sunflower:wght@300;500&display=swap');
 
-tbody {
-  border : 15px solid white;
+* {
+  margin: 0;
+  padding: 0;
+  background-color: rgb(42, 182, 163);
+  font-family: 'Nanum Gothic', sans-serif;
 }
+.first {
+  width: 100%;
+  background-size: cover;
+} 
+.app-title {
+  color: white;
+  font-size: 5rem;
+  padding-left: 10rem;
+  padding-top: 10rem;
+  padding-bottom: 3rem;
+  margin-right: 6rem;
 
-input[type="checkbox"] {
-  margin-left: 70px;
-  width: 1.8rem;
-  height: 1.8rem;
-  border-radius: 50%;
-  border: 10px solid white;
+}
+.tem {
+  margin-top: 1rem;
+  background-color: rgb(42, 182, 163);
+}
+.lbox1 {
+  margin-right: 5rem;
+  margin-left: 10rem;
+  border: 2px rgb(37, 100, 101) solid;
+  border-radius: 50px;
   background-color: rgb(37, 100, 101);
-  appearance: none;
-  cursor: pointer;
-  transition: background 0.2s;
+  padding: 1rem 3rem;
+  box-shadow: 0 0 1.5rem 0 rgb(87, 90, 90);
+}
+.lbox1 p {
+  font-size: 130px;
+  font-weight: 600;
+  padding-top: 50px;
+  padding-bottom: 250px;
+  color: rgb(51, 51, 51);
+}
+.light {
+  display: flex;
+  float: left;
+  text-align: center;
+  margin-top: 500px;
+}
+.window {
+  display: flex;
+  float: left;
+  margin-top: 490px;
+  margin-left: 100px;
+}
+.window1 {
+  margin-left: 200px;
+  margin-top: 2px;
+  border: 2px rgb(37, 100, 101) solid;
+  border-radius: 50px;
+  background-color: rgb(37, 100, 101);
+  padding: 1rem 3rem;
+  padding-bottom: 3rem;
+  box-shadow: 0 0 1.5rem 0 rgb(87, 90, 90);
+}
+.window1 p {
+  font-size: 130px;
+  font-weight: 600;
+  padding-top: 50px;
+  padding-bottom: 50px;
+  margin-left: 160px;
+  color: white;
+  background-color: rgb(37, 100, 101);
 }
 
-input[type="checkbox"]:checked {
-  margin-left: 70px;
-  background: rgb(226, 93, 69);
-  border: none;
+.blind {
+  display: flex;
+  float: left;
+  margin-top: 490px;
+  margin-left: 100px;
+}
+.blind1 {
+  margin-left: 300px;
+  border: 2px rgb(37, 100, 101) solid;
+  border-radius: 50px;
+  background-color: rgb(37, 100, 101);
+  padding: 1rem 3rem;
+  padding-bottom: 3rem;
+  box-shadow: 0 0 1.5rem 0 rgb(87, 90, 90);
+}
+.blind1 p {
+  font-size: 130px;
+  font-weight: 600;
+  padding-top: 50px;
+  padding-bottom: 50px;
+  text-align: center;
+  margin-left: 40px;
+  color: white;
+  background-color: rgb(37, 100, 101);
 }
 

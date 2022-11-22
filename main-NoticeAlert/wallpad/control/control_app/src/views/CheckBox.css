@@ -1,11 +1,6 @@
-.tem{
-  background-color: rgb(170, 204, 211);
-  padding-bottom: 80px;
-}
 
 tbody {
-  border : 15px solid rgb(51, 51, 51);
-  
+  border : 15px solid white;
 }
 
 input[type="checkbox"] {
@@ -13,8 +8,8 @@ input[type="checkbox"] {
   width: 1.8rem;
   height: 1.8rem;
   border-radius: 50%;
-  border: 10px solid rgb(51, 51, 51);
-  background-color: rgb(170, 204, 211);
+  border: 10px solid white;
+  background-color: rgb(37, 100, 101);
   appearance: none;
   cursor: pointer;
   transition: background 0.2s;
