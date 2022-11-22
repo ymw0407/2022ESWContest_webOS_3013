@@ -19,15 +19,20 @@
   margin-top: 1rem;
 }
 .lbox1 {
-  padding-right: 4rem;
+  margin-right: 5rem;
   margin-left: 10rem;
+  border: 2px rgb(170, 204, 211) solid;
+  border-radius: 50px;
+  background-color: rgb(170, 204, 211);
+  padding: 1rem 3rem;
+  box-shadow: 0 0 1.5rem 0 rgb(89, 136, 131);
 }
 .lbox1 p {
   font-size: 130px;
   font-weight: 600;
   padding-top: 50px;
   padding-bottom: 250px;
-  color: white;
+  color: rgb(51, 51, 51);
 }
 .light {
   display: flex;
@@ -44,13 +49,19 @@
 .window1 {
   margin-left: 200px;
   margin-top: 2px;
+  border: 2px rgb(170, 204, 211) solid;
+  border-radius: 50px;
+  background-color: rgb(170, 204, 211);
+  padding: 1rem 3rem;
+  box-shadow: 0 0 1.5rem 0 rgb(89, 136, 131);
 }
 .window1 p {
   font-size: 130px;
   font-weight: 600;
   padding-top: 50px;
   margin-left: 160px;
-  color: white;
+  color: rgb(51, 51, 51);
+  background-color: rgb(170, 204, 211);
 }
 
 .blind {
@@ -61,12 +72,19 @@
 }
 .blind1 {
   margin-left: 300px;
+  border: 2px rgb(170, 204, 211) solid;
+  border-radius: 50px;
+  background-color: rgb(170, 204, 211);
+  padding: 1rem 3rem;
+  box-shadow: 0 0 1.5rem 0 rgb(89, 136, 131);
 }
 .blind1 p {
   font-size: 130px;
   font-weight: 600;
   padding-top: 50px;
+  text-align: center;
   margin-left: 40px;
-  color: white;
+  color: rgb(51, 51, 51);
+  background-color: rgb(170, 204, 211);
 }
 
