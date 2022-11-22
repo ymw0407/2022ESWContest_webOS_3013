@@ -1,90 +1,23 @@
-* {
-  margin: 0;
-  padding: 0;
-  background-color: rgb(42, 182, 163);
-}
-.first {
-  width: 100%;
-  background-size: cover;
-} 
-.app-title {
-  color: white;
-  font-size: 200px;
-  padding-left: 8rem;
-  padding-top: 10rem;
-  padding-bottom: 3rem;
-  margin-right: 6rem;
-}
-.tem {
-  margin-top: 1rem;
-}
-.lbox1 {
-  margin-right: 5rem;
-  margin-left: 10rem;
-  border: 2px rgb(170, 204, 211) solid;
-  border-radius: 50px;
-  background-color: rgb(170, 204, 211);
-  padding: 1rem 3rem;
-  box-shadow: 0 0 1.5rem 0 rgb(89, 136, 131);
-}
-.lbox1 p {
-  font-size: 130px;
-  font-weight: 600;
-  padding-top: 50px;
-  padding-bottom: 250px;
-  color: rgb(51, 51, 51);
-}
-.light {
-  display: flex;
-  float: left;
-  text-align: center;
-  margin-top: 500px;
-}
-.window {
-  display: flex;
-  float: left;
-  margin-top: 490px;
-  margin-left: 100px;
-}
-.window1 {
-  margin-left: 200px;
-  margin-top: 2px;
-  border: 2px rgb(170, 204, 211) solid;
-  border-radius: 50px;
-  background-color: rgb(170, 204, 211);
-  padding: 1rem 3rem;
-  box-shadow: 0 0 1.5rem 0 rgb(89, 136, 131);
-}
-.window1 p {
-  font-size: 130px;
-  font-weight: 600;
-  padding-top: 50px;
-  margin-left: 160px;
-  color: rgb(51, 51, 51);
-  background-color: rgb(170, 204, 211);
+
+tbody {
+  border : 15px solid white;
 }
 
-.blind {
-  display: flex;
-  float: left;
-  margin-top: 490px;
-  margin-left: 100px;
+input[type="checkbox"] {
+  margin-left: 70px;
+  width: 1.8rem;
+  height: 1.8rem;
+  border-radius: 50%;
+  border: 10px solid white;
+  background-color: rgb(37, 100, 101);
+  appearance: none;
+  cursor: pointer;
+  transition: background 0.2s;
 }
-.blind1 {
-  margin-left: 300px;
-  border: 2px rgb(170, 204, 211) solid;
-  border-radius: 50px;
-  background-color: rgb(170, 204, 211);
-  padding: 1rem 3rem;
-  box-shadow: 0 0 1.5rem 0 rgb(89, 136, 131);
-}
-.blind1 p {
-  font-size: 130px;
-  font-weight: 600;
-  padding-top: 50px;
-  text-align: center;
-  margin-left: 40px;
-  color: rgb(51, 51, 51);
-  background-color: rgb(170, 204, 211);
+
+input[type="checkbox"]:checked {
+  margin-left: 70px;
+  background: rgb(226, 93, 69);
+  border: none;
 }
 

@@ -8,16 +8,16 @@ const bridge = new LS2Request();
 const StyledTable = styled.table`
   text-align: center;
   border-collapse: collapse;
-  background-color: rgb(170, 204, 211);
+  background-color: rgb(37, 100, 101);
   tbody{
     tr{
       td{
         padding: 10px 10px;
-        border-bottom: 5px solid rgb(51, 51, 51);
-        color: rgb(89,89,89);
+        border-bottom: 5px solid white;
+        color: white;
         font-size: 25px;
         font-weight: 700;
-        background-color: rgb(170, 204, 211);
+        background-color: rgb(37, 100, 101);
       }
 
     }
