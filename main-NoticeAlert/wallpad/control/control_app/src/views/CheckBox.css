@@ -1,23 +1,48 @@
 
 tbody {
-  border : 15px solid white;
+  display: flex;
+  text-align: center;
+  align-items: center;
+  justify-content: center;
 }
 
 input[type="checkbox"] {
-  margin-left: 70px;
-  width: 1.8rem;
-  height: 1.8rem;
-  border-radius: 50%;
-  border: 10px solid white;
-  background-color: rgb(37, 100, 101);
-  appearance: none;
-  cursor: pointer;
-  transition: background 0.2s;
+  position: absolute;
+  padding: 0;
+  overflow: hidden;
+  clip:rect(0,0,0,0);
+  border: 0;
+  padding-right: 10px;
 }
 
-input[type="checkbox"]:checked {
-  margin-left: 70px;
-  background: rgb(226, 93, 69);
-  border: none;
+.button {
+  display: block;
+  position: relative;
+  float: left;
+  width: 330px;
+  height: 180px;
+  padding: 0;
+  margin: 10px 20px 10px 0;
+  font-size: 2rem;
+  font-weight: 600;
+  text-align: center;
+  line-height: 50px;
+  color: #FFF;
+  border-radius: 30px;
+  transition: all 0.2s ;
 }
 
+.btnLightBlue {
+  background: rgb(238, 119, 101);
+  border: #c16a2c;
+}
+.btnLightBlue.btnPush {
+  box-shadow: 0px 30px 0px 0px rgb(171, 84, 71);
+}
+.btnPush:hover {
+  margin-top: 17px;
+  margin-bottom: 3px;
+}
+.btnLightBlue.btnPush:active {
+  box-shadow: 0px 0px 0px 0px #c16a2c;
+}

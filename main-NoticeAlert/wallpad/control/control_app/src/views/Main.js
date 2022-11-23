@@ -10,26 +10,29 @@ const Main = () => {
  
   return (
     <div className="first">
-      <div className="app-title">가전 제어<img src={"/control.png"} style={{float:'right' ,width:'230px'}}/></div>
+      <div className="app-title">가전 제어<img src={"/blind.png"} style={{float:'right', width:'150px'}} /></div>
       <div className="tem">
         <div className="light">
           <div className="lbox1">
             <LightToggle />
           </div>
         </div>
-        <div className="window">
-          <div className="window1">
-            <p>창문</p>
-            <CheckBox2 />
+        <div className="tem2">
+          <div className="window">
+            <div className="window1">
+              <p>창문</p>
+              <CheckBox2 />
+            </div>
           </div>
-        </div>
-        <div className="blind">
-          <div className="blind1">
-            <p>블라인드</p>
-            <CheckBox />
+          <div className="blind">
+            <div className="blind1">
+              <p>블라인드</p>
+              <CheckBox />
+            </div>
           </div>
         </div>
       </div>
+      <div className="footer"><img src={"/control.png"} style={{float:'right' ,width:'400px'}}/></div>
     </div>
   )
 }

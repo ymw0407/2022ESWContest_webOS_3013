@@ -13,7 +13,6 @@ const StyledTable = styled.table`
     tr{
       td{
         padding: 10px 10px;
-        border-bottom: 5px solid white;
         color: white;
         font-size: 25px;
         font-weight: 700;
@@ -87,8 +86,8 @@ export default function CheckBox2() {
                   onChange={(e) => handleSingleCheck(e.target.checked2, data.id)}
                   // 체크된 아이템 배열에 해당 아이템이 있을 경우 선택 활성화, 아닐 시 해제
                   checked2={checkItems2.includes(data.id) ? true : false} />
+                  <button className='button btnPush btnLightBlue'>{data.title}</button>
               </td>
-              <td className='second-row'>{data.title}</td>
             </tr>
           ))}
         </tbody>
