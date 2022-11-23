@@ -9,7 +9,7 @@ const mqtt = require("./mqtt_lib");
 
 const ip = "3.34.50.139";
 
-service.register("init", function(msg) {
+service.register("init", function(msg_state) {
     
     luna.init(service);
 
@@ -27,91 +27,45 @@ service.register("init", function(msg) {
         console.log("[topic] : " + topic);
         stringMsg = String(message);
         jsonMsg = JSON.parse(stringMsg);
-        msg.respond({reply: jsonMsg})
-        if (topic=="status/led"){
-            sub.cancel();
-            client.end();
-        }
+        msg_state.respond({reply: jsonMsg});
     });
 
     //------------------------- heartbeat 구독 -------------------------
     const sub = service.subscribe(`luna://${pkgInfo.name}/heartbeat`, {subscribe: true});
-    const max = 1; //heart beat 횟수 /// heart beat가 꺼지면, 5초 정도 딜레이 생김 --> 따라서 이 녀석도 heart beat를 무한히 돌릴 필요가 있어보임.
-    let count = 0;
     sub.addListener("response", function(msg) {
         console.log(JSON.stringify(msg.payload));
-        if (count >= max) {
-            sub.cancel();
-        }
     });
-    //------------------------- heartbeat 구독 -------------------------
-
-});
-
-service.register("subscribe", function(msg) {
-
-    mqtt.init(mosquitto);
-    client = mqtt.connect(ip);
-    mqtt.subscribe(["status/led", "control/window", "control/blind", "control/led"]);
-
-    client.on("message", (topic, message, packet) =>{
-        console.log("[message] : " + message);
-        console.log("[topic] : " + topic);
-        stringMsg = String(message);
-        jsonMsg = JSON.parse(stringMsg);
-        msg.respond({reply: jsonMsg})
-        if (topic == "control/window"|| topic == "control/blind" || topic == "control/led"){
-            sub.cancel();
-            client.end();
-        }
-    });
-
-    //------------------------- heartbeat 구독 -------------------------
-    const sub = service.subscribe(`luna://${pkgInfo.name}/heartbeat`, {subscribe: true});
-    const max = 1; //heart beat 횟수 /// heart beat가 꺼지면, 5초 정도 딜레이 생김 --> 따라서 이 녀석도 heart beat를 무한히 돌릴 필요가 있어보임.
-    let count = 0;
-    sub.addListener("response", function(msg) {
-        console.log(JSON.stringify(msg.payload));
-        if (count >= max) {
-            sub.cancel();
-        }
-    });
-    //------------------------- heartbeat 구독 -------------------------
 
 });
 
 service.register("led", function(msg) {
     mqtt.init(mosquitto);
     client = mqtt.connect(ip);
-    console.log(msg.payload.led)
+    console.log(msg.payload.led);
     message = Buffer.from(JSON.stringify(msg.payload.led), 'utf-8')
     mqtt.publish("control/led", message);
-    msg.respond({message: "led success"});
 })
 
 service.register("blind", function(msg) {
     mqtt.init(mosquitto);
     client = mqtt.connect(ip);
-    console.log(msg.payload.blind)
-    message = Buffer.from(String(msg.payload.blind.state), 'utf-8')
+    console.log(msg.payload.blind);
+    message = Buffer.from(String(msg.payload.blind.state), 'utf-8');
     mqtt.publish("control/blind", message);
-    msg.respond({message: "blind success"});
 })
 
 service.register("window", function(msg) {
     mqtt.init(mosquitto);
     client = mqtt.connect(ip);
-    console.log(msg.payload.window)
+    console.log(msg.payload.window);
     message = Buffer.from(String(msg.payload.window.state), 'utf-8')
     mqtt.publish("control/window", message);
-    msg.respond({message: "window success"});
 })
 
 //----------------------------------------------------------------------heartbeat----------------------------------------------------------------------
 // handle subscription requests
 const subscriptions = {};
 let heartbeatinterval;
-let x = 1;
 function createHeartBeatInterval() {
     if (heartbeatinterval) {
         return;
@@ -131,11 +85,10 @@ function sendResponses() {
             const s = subscriptions[i];
             s.respond({
                 returnValue: true,
-                event: "beat " + x
+                event: "watching led"
             });
         }
     }
-    x++;
 }
 
 var heartbeat = service.register("heartbeat");

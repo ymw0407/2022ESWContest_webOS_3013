@@ -47,25 +47,6 @@ const LightToggle = () => {
 		var lsRequest = {
 			service:"luna://com.control.app.service",
 			method:"init",
-			parameters: {},
-			onSuccess: (msg) => {
-				console.log(msg);
-				let parsedMsg = msg.reply
-				if (parsedMsg.control == "led") {
-					setLedState(parsedMsg.led);
-				}
-				console.log("end");
-			},
-			onFailure: (msg) => {console.log(msg);},
-		}
-		bridge.send(lsRequest);
-	}
-
-  function ledSubscribeService(){
-		console.log("subscribe");
-		var lsRequest = {
-			service:"luna://com.control.app.service",
-			method:"subscribe",
 			parameters: {subscribe:true},
 			onSuccess: (msg) => {
 				console.log(msg);
@@ -88,7 +69,6 @@ const LightToggle = () => {
 			parameters: {"led" : led},
 			onSuccess: (msg) => {
 				console.log(msg.message);
-				ledSubscribeService();
 			},
 			onFailure: (msg) => {console.log(msg);console.log("error");},
 		}
