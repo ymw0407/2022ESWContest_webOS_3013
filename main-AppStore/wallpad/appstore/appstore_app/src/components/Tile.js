@@ -1,6 +1,7 @@
 import Proptypes from "prop-types";
 import css from "./Tile.module.less";
 import Btn from "./Btn";
+import {useState} from "react";
 
 import thumbnail1 from "../../resources/1.png";
 import thumbnail2 from "../../resources/2.png";
@@ -10,6 +11,7 @@ import thumbnail5 from "../../resources/5.png";
 const icons = [thumbnail1, thumbnail2, thumbnail3, thumbnail4, thumbnail5];
 
 const Tile = ({ apps, installedApps }) => {
+  const [installState, setInstallState] = useState("idle");
   const appList = apps.map((app) => (
     <li key={apps.indexOf(app)}>
       <div className={css.tileBox}>
@@ -24,7 +26,7 @@ const Tile = ({ apps, installedApps }) => {
             <div className={css.appName}>{app.name}</div>
           </div>
           <div className={css.desc}>{app.desc}</div>
-          <Btn className={css.btn} app={app} installedApps={installedApps} />
+          <Btn className={css.btn} app={app} installedApps={installedApps} installState={installState} setInstallState={setInstallState} />
         </div>
       </div>
     </li>

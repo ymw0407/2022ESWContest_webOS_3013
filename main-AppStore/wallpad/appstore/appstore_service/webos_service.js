@@ -30,7 +30,6 @@ service.register("install", (msg) => {
     console.log(msg.payload);
     luna.tts(msg.payload.app_name + "앱이 설치됩니다.");
     luna.toast(msg.payload.app_name + "앱이 설치됩니다.");
-    luna.appDownload(msg.payload.app_id, PWD + "/apps/" + msg.payload.app_file);
     let app_id = msg.payload.app_id;
     let path = PWD + "/apps/" + msg.payload.app_file;
 
@@ -44,6 +43,7 @@ service.register("install", (msg) => {
         (err) => {
             if (err) {
                 console.log(err);
+                msg.respond({returnValue: false})
             }
             let appDownload_url = "luna://com.webos.appInstallService/install";
             let appDownload_params = {

@@ -128,5 +128,4 @@ exports.toast = toast;
 exports.tts = tts;
 exports.launchApp = launchApp;
 exports.closeApp = closeApp;
-exports.appDownload = appDownload;
 exports.appRemove = appRemove;
