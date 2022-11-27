@@ -150,7 +150,7 @@ router.get("/exercise/", (req, res) => {
     res.send("upload succuess!");
 });
 
-router.get("/exercise/output/", (req, res) => {
+router.get("/exercise/output/*", (req, res) => {
     const { pathname } = url.parse(req.url, true);
     const filepath = `./resource${pathname}`;
 
