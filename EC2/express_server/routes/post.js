@@ -99,6 +99,11 @@ router.put('/posts/:id', function(req, res){
     }
 });
 
+//update에서 back 눌렀을 경우
+router.get('/posts/:id', function(req, res){
+  res.redirect("/notice/"+req.params.id);
+});
+
 // destroy
 // 비번 하고 삭제되어야 하는데 걍 됨
 router.delete('/:id', function(req, res){
@@ -163,6 +168,11 @@ router.put('/general/posts/:id', function(req, res){
         //비번 틀렸다는 알림 띄우기
         res.redirect("/general/"+req.params.id);
     }
+});
+
+//update에서 back 눌렀을 경우
+router.get('/posts/:id', function(req, res){
+  res.redirect("/general/"+req.params.id);
 });
 
 // destroy
