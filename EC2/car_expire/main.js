@@ -2,10 +2,10 @@ const schedule = require("node-schedule");
 const mongoose = require("mongoose");
 require("dotenv").config();
 
-const MongoDB = process.env.MongoURI;
+const MongoURI = process.env.MongoURI;
 
 // DB setting
-mongoose.connect(MongoDB);
+mongoose.connect(MongoURI);
 var db = mongoose.connection;
 db.once("open", function () {
     console.log("DB connected");

@@ -5,7 +5,7 @@ var util = require('../util');
 const mosquitto = require("mqtt");
 const mqtt = require("./mqtt_lib");
 
-const ip = "3.34.50.139";
+const MQTT = process.env.MQTT;
 mqtt.init(mosquitto);
 /*---------------------------notice------------------------- */
 // Index 
@@ -64,7 +64,7 @@ router.post('/', function(req, res){
   }
   console.log(noticeSend)
   var jsonString = JSON.stringify(noticeSend);      //jsonString:  [{"title":"r","content":"ew"},{"start":"2022-09-13 03:35:00","end":"2022-09-29 15:23:00"},{"appliance":"blind","operation":"on"}]
-  mqtt.connect(ip);
+  mqtt.connect(MQTT);
   mqtt.publish("post/notice", jsonString);
 });
 

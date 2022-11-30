@@ -191,9 +191,9 @@ except:
     min_pace = 0
     base64_string = "b'123'"
 
-ip = "3.34.50.139"
+MQTT = os.environ['MQTT']
 client = mqtt.Client()
-client.connect(ip, 1883)
+client.connect(MQTT, 1883)
 client.loop_start()
 # common topic 으로 메세지 발행
 client.publish('exercise/result', "{\"count\": %d, \"time\": %d, \"max\": %d, \"min\": %d, \"img\": \"%s\"}" % (cnt, total_time, max_pace, min_pace, base64_string), 1)
