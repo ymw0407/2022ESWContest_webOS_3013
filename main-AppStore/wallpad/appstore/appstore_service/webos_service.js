@@ -7,8 +7,9 @@ const logHeader = "[" + pkgInfo.name + "]";
 const fs = require("fs");
 const PWD = __dirname;
 const exec = require("child_process").exec;
+require("dotenv").config();
 
-const EC2_IP = "3.34.50.139:8000";
+const fileServer = process.env.fileServer
 
 service.register("getInstalledApps", (msg) => {
     const installPath = "/media/developer/apps/usr/palm/applications/";
@@ -35,7 +36,7 @@ service.register("install", (msg) => {
 
     exec(
         'wget -P ./apps/ "http://' +
-            EC2_IP +
+            fileServer +
             "/apps/" +
             app_id +
             "_1.0.0_all.ipk" +
