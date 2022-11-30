@@ -10,7 +10,6 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "dotenv": "^16.0.3",
     "mongoose": "^6.7.2",
     "node-schedule": "^2.1.0"
   }
