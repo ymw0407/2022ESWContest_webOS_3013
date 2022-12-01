@@ -34,7 +34,28 @@ const apps = [
 
 const Tiles = ({ ...rest }) => {
   const [List, setList] = useState([]);
+
+  useEffect(() => {
+    checkAppsdir();
+  }, []);
+
   const bridge = new LS2Request();
+
+  const checkAppsdir = () => {
+    let params = {};
+    let lsRequest = {
+      service: "luna://com.appstore.app.service",
+      method: "checkAppsdir",
+      parameter: params,
+      onSuccess: (msg) => {
+        console.log("checked");
+      },
+      onFailure: (err) => {
+        console.log(err);
+      },
+    };
+    bridge.send(lsRequest)
+  };
 
   const getInstalledApps = () => {
     let params = { subscribe: true };
