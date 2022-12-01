@@ -2,14 +2,18 @@
 
 from paho.mqtt import client as mqtt_client
 from multiprocessing import Process
+from dotenv import load_dotenv
+import os
 
-broker = '3.34.50.139'
+load_dotenv()
+
+MQTT = os.environ(['MQTT'])
 port = 1883
 
 class Mqtt():
 
     def __init__(self, id, topic) -> None:
-        self.broker = broker
+        self.broker = MQTT
         self.port = port
         self.topic = topic
         self.client_id = id

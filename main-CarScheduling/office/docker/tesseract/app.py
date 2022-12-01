@@ -2,13 +2,16 @@ from pymongo import MongoClient
 from communicate import Mqtt
 from dateutil import parser
 from datetime import date, datetime
+from dotenv import load_dotenv
 import ocr
 import argparse
 import os
 
-MONGODB_URI = "mongodb://3.34.50.139:27017/DB"
-conn = MongoClient(MONGODB_URI)
-db = conn.DB
+load_dotenv()
+
+Mongo_URI = os.environ.get("Mongo_URI")
+conn = MongoClient(Mongo_URI)
+db = conn.esw
 cars = db.cars
 
 def run(vid):

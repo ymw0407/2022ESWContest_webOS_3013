@@ -1,15 +1,15 @@
 var mongoose = require("mongoose");
 require("dotenv").config();
 
-const mongoIP = process.env.MONGODB_SERVER;
+const MongoURI = process.env.MongoURI;
 const APT_NUMBER = process.env.APT_NUMBER;
 
-console.log("[mongoIP] " + mongoIP);
+console.log("[MongoURI] " + MongoURI);
 // mongoDB와 연결
 function connectDB() {
   return new Promise((resolve, reject) => {
     mongoose
-      .connect(mongoIP)
+      .connect(MongoURI)
       .then(() => resolve("MongoDB connected"))
       .catch((err) => {
         reject(err);

@@ -10,7 +10,7 @@ const logHeader = "[" + pkgInfo.name + "]";
 
 const kindID = "com.log.db:1";
 
-const ip = "3.34.50.139";
+const MQTT = process.env.MQTT
 // mosquitto_pub -h 3.34.50.139 -t "car" -m "{\"time\":\"123\", \"carNumber\":\"123\", \"status\":\"registered\"}"
 
 const putKind = (msg) => {
@@ -116,7 +116,7 @@ service.register("loop", (msg) => {
   luna.init(service);
 
   mqtt.init(mosquitto);
-  client = mqtt.connect(ip);
+  client = mqtt.connect(MQTT);
   mqtt.subscribe(["car/detect", "car/data"]);
 
   let log = exec("systemctl restart docker");
