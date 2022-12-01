@@ -26,7 +26,6 @@ router.get('/notice/new', function(req, res){
 
 // create
 router.post('/', function(req, res){
-  console.log(req.body);
   //post 받으면 정리 이 데이터만 데베에 저장
   var noticeRequest = new Object();
   noticeRequest.selectbox = 'notice';
@@ -46,23 +45,18 @@ router.post('/', function(req, res){
   //알림 체크한 경우
   if (req.body.notification == 'on'){ 
     noticeRequest.startTime = util.time(req.body.startTime);
-    noticeRequest.endTime = util.time(req.body.endTime);
     var noticeSend = {
       content: {title:noticeRequest.title, body:noticeRequest.body}, 
       recommend: true,
       control: {device:req.body.appliance, func: req.body.operation},
-      time: {start:noticeRequest.startTime, end:noticeRequest.endTime},
-      
+      time: {start:noticeRequest.startTime, end:noticeRequest.endTime}, 
     };
   } else {
-    noticeRequest.startTime = util.time(req.body.startTime);
-    noticeRequest.endTime = util.time(req.body.endTime);
     var noticeSend = {
       content: {title:noticeRequest.title, body:noticeRequest.body}, 
       recommend: false,
     };
   }
-  console.log(noticeSend)
   var jsonString = JSON.stringify(noticeSend);      //jsonString:  [{"title":"r","content":"ew"},{"start":"2022-09-13 03:35:00","end":"2022-09-29 15:23:00"},{"appliance":"blind","operation":"on"}]
   mqtt.connect(MQTT);
   mqtt.publish("post/notice", jsonString);
@@ -86,7 +80,8 @@ router.get('/:id/edit', function(req, res){
 
 // update
 router.put('/posts/:id', function(req, res){
-    if(pass == req.body.password){
+  console.log("notice put")
+    if(req.body.password == "notice"){
         req.body.updatedAt = Date.now(); 
         Post.findOneAndUpdate({_id:req.params.id}, req.body)
             .exec(function(err, post){
@@ -155,8 +150,17 @@ router.get('/general/:id', function(req, res){
     });
   });
 
+// edit
+router.get('/:id/edit', function(req, res){
+  Post.findOne({_id:req.params.id}, function(err, post){
+    if(err) return res.json(err);
+    res.render('posts/edit', {post:post});
+  });
+});
+
 // update
 router.put('/general/posts/:id', function(req, res){
+  console.log("general put")
     if(req.body.password == "general"){
         req.body.updatedAt = Date.now(); 
         Post.findOneAndUpdate({_id:req.params.id}, req.body)
