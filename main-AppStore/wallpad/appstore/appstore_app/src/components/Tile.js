@@ -1,7 +1,7 @@
 import Proptypes from "prop-types";
 import css from "./Tile.module.less";
 import Btn from "./Btn";
-import {useState} from "react";
+import { useState } from "react";
 
 import thumbnail1 from "../../resources/1.png";
 import thumbnail2 from "../../resources/2.png";
@@ -26,12 +26,23 @@ const Tile = ({ apps, installedApps }) => {
             <div className={css.appName}>{app.name}</div>
           </div>
           <div className={css.desc}>{app.desc}</div>
-          <Btn className={css.btn} app={app} installedApps={installedApps} installState={installState} setInstallState={setInstallState} />
+          <Btn
+            className={css.btn}
+            app={app}
+            installedApps={installedApps}
+            installState={installState}
+            setInstallState={setInstallState}
+          />
         </div>
       </div>
     </li>
   ));
-  return <div>{appList}</div>;
+  return (
+    <div>
+      <p>{installState}</p>
+      <div>{appList}</div>;
+    </div>
+  );
 };
 
 Tile.propTypes = {
