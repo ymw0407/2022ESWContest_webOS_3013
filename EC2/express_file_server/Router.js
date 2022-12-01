@@ -2,7 +2,7 @@ const router = require("express").Router();
 const ffmpeg = require("fluent-ffmpeg");
 const url = require("url");
 const fs = require("fs");
-const { get } = require("http");
+const WebOSApp = require("./WebOSApp");
 
 router.get("/vidlist", (req, res) => {
   const DATA = "resource/" + req.headers.app;
@@ -224,6 +224,8 @@ router.post("/exercise/", (req, res) => {
     })
     .saveToFile(`${vidPath}/${vidName}`);
 });
+
+router.get("/appList", (req, res) => {});
 
 router.get("/apps/*", (req, res) => {
   const { pathname } = url.parse(req.url, true);

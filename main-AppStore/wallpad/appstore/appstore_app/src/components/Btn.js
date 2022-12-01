@@ -1,7 +1,7 @@
 import Button from "@enact/sandstone/Button";
 import { useState, useEffect } from "react";
 import LS2Request from "@enact/webos/LS2Request";
-import css from "../components/Tile.module.less";
+import css from "../components/Tiles.module.less";
 import Proptypes from "prop-types";
 
 const bridge = new LS2Request();
@@ -152,7 +152,7 @@ const Btn = ({ app, installedApps, installState, setInstallState }) => {
       }
       // 다른 앱 설치나 삭제 중일 때
     } else {
-      console.log(installState);
+      console.log(installState + "other app");
     }
   }
 
