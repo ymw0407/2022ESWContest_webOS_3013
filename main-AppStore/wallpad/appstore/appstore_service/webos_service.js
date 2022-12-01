@@ -5,13 +5,20 @@ const luna = require("./luna_service");
 const service = new Service(pkgInfo.name); // Create service by service name on package.json
 const logHeader = "[" + pkgInfo.name + "]";
 const fs = require("fs");
+const request = require("request");
 const PWD = __dirname;
 const exec = require("child_process").exec;
 require("dotenv").config();
 
 const fileServer = process.env.fileServer;
 
-service.register("checkAppsdir", (msg) => {
+service.register("appSetUp", (msg) => {
+  let appList = [];
+  request.get("http://192.168.1.9:8000/apps/list", (err, res, body) => {
+    appList = JSON.parse(body);
+    console.log(appList);
+    msg.respond({ appList: appList, returnValue: true });
+  });
   const IpkinstallPath =
     "/media/developer/apps/usr/palm/sevices/com.appstore.app.service/";
   fs.mkdir(IpkinstallPath, (err) => {
@@ -19,7 +26,7 @@ service.register("checkAppsdir", (msg) => {
       console.log("already exists");
     }
   });
-  msg.respond({ returnValue: true });
+  // console.log(appList);
 });
 
 service.register("getInstalledApps", (msg) => {

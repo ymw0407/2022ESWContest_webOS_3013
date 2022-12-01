@@ -12,7 +12,7 @@ const Tiles = ({ apps, installedApps }) => {
           <div className={css.icon}>
             <img
               className={css.img}
-              src={app.icon}
+              src={"data:image/png;base64," + app.icon}
               width={200}
               height={200}
             />
@@ -32,7 +32,7 @@ const Tiles = ({ apps, installedApps }) => {
   ));
   return (
     <div>
-      <div>{appList}</div>;
+      <div>{appList}</div>
     </div>
   );
 };

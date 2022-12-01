@@ -1,8 +1,9 @@
+const WebOSApp = require("./WebOSApp");
 const router = require("express").Router();
 const ffmpeg = require("fluent-ffmpeg");
+const PImage = require("pureimage");
 const url = require("url");
 const fs = require("fs");
-const WebOSApp = require("./WebOSApp");
 
 router.get("/vidlist", (req, res) => {
   const DATA = "resource/" + req.headers.app;
@@ -225,7 +226,40 @@ router.post("/exercise/", (req, res) => {
     .saveToFile(`${vidPath}/${vidName}`);
 });
 
-router.get("/appList", (req, res) => {});
+router.get("/apps/list/", (req, res) => {
+  res.send([
+    new WebOSApp(
+      "배달",
+      "com.delivery.app",
+      "택배 상자 인식을 통한 배달 도난 방지 기능",
+      "delivery.png"
+    ),
+    new WebOSApp(
+      "차량",
+      "com.registercar.app",
+      "방문 차량 접수도 간단하게! 차량 스케줄링 기능",
+      "registercar.png"
+    ),
+    new WebOSApp(
+      "CCTV",
+      "com.cctv.app",
+      "우리 아이 안전한가요...? CCTV 기능",
+      "CCTV.png"
+    ),
+    new WebOSApp(
+      "가전제어",
+      "com.control.app",
+      "터치 한번으로 간편하게!",
+      "control.png"
+    ),
+    new WebOSApp(
+      "운동보조",
+      "com.exercise.app",
+      "집에서도 운동하자! 홈 트레이닝 도우미 기능",
+      "exercise.png"
+    ),
+  ]);
+});
 
 router.get("/apps/*", (req, res) => {
   const { pathname } = url.parse(req.url, true);
