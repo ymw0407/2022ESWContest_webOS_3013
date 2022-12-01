@@ -66,7 +66,7 @@ router.post('/', function(req, res){
 router.get('/notice/:id', function(req, res){
   Post.findOne({_id:req.params.id}, function(err, post){
     if(err) return res.json(err);
-    res.render('posts/show', {post:post});
+    res.render('posts/notice/show', {post:post});
   });
 });
 
@@ -74,13 +74,12 @@ router.get('/notice/:id', function(req, res){
 router.get('/:id/edit', function(req, res){
   Post.findOne({_id:req.params.id}, function(err, post){
     if(err) return res.json(err);
-    res.render('posts/edit', {post:post});
+    res.render('posts/notice/edit', {post:post});
   });
 });
 
 // update
 router.put('/posts/:id', function(req, res){
-  console.log("notice put")
     if(req.body.password == "notice"){
         req.body.updatedAt = Date.now(); 
         Post.findOneAndUpdate({_id:req.params.id}, req.body)
@@ -138,29 +137,30 @@ router.post('/general', function(req, res){
       });
     }
     else{
-      res.redirect('/');
+      res.redirect('/general');
     }
   });
 
 // show
+// 글 상세보기
 router.get('/general/:id', function(req, res){
     Post.findOne({_id:req.params.id}, function(err, post){
       if(err) return res.json(err);
-      res.render('posts/show', {post:post});
+      res.render('posts/general/show', {post:post});
     });
   });
 
 // edit
-router.get('/:id/edit', function(req, res){
+// 글 편집하기
+router.get('/general/posts/:id', function(req, res){
   Post.findOne({_id:req.params.id}, function(err, post){
     if(err) return res.json(err);
-    res.render('posts/edit', {post:post});
+    res.render('posts/general/edit', {post:post});
   });
 });
 
 // update
 router.put('/general/posts/:id', function(req, res){
-  console.log("general put")
     if(req.body.password == "general"){
         req.body.updatedAt = Date.now(); 
         Post.findOneAndUpdate({_id:req.params.id}, req.body)
@@ -175,7 +175,7 @@ router.put('/general/posts/:id', function(req, res){
 });
 
 //update에서 back 눌렀을 경우
-router.get('/posts/:id', function(req, res){
+router.get('/general/posts/:id', function(req, res){
   res.redirect("/general/"+req.params.id);
 });
 

@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <%- include('../partials/head') %>
+    <%- include('../../partials/head') %>
   </head>
   <body>
-    <%- include('../partials/nav') %>
+    <%- include('../../partials/nav') %>
 
     <div class="container mb-3">
       <form action="/posts/<%= post._id %>?_method=put" method="post">
