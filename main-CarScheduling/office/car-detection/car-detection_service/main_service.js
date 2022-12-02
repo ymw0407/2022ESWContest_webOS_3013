@@ -7,6 +7,7 @@ const { exec } = require("child_process");
 const execSync = require("child_process").execSync;
 const service = new Service(pkgInfo.name); // Create service by service name on package.json
 const logHeader = "[" + pkgInfo.name + "]";
+require("dotenv").config();
 
 const kindID = "com.log.db:1";
 
@@ -104,7 +105,7 @@ async function tesseract(){
   let latest_file_name = parsed_file_name[parsed_file_name.length - 2]
   console.log(file_name + "")
   console.log(latest_file_name + "")
-  console.log("docker exec tesseract python3.9 /root/tesseract-ocr/app.py --vid " + String(latest_file_name))
+   console.log("docker exec tesseract python3.9 /root/tesseract-ocr/app.py --vid " + String(latest_file_name))
   execSync("docker exec tesseract python3.9 /root/tesseract-ocr/app.py --vid " + String(latest_file_name))
 }
 

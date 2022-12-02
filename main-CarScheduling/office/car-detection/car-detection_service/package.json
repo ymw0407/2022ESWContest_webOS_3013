@@ -9,6 +9,7 @@
   "author": "",
   "license": "BSD",
   "dependencies": {
+    "dotenv": "^16.0.3",
     "mongoose": "^6.6.5",
     "mqtt": "^4.3.7"
   },
