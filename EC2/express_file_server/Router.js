@@ -1,7 +1,6 @@
 const WebOSApp = require("./WebOSApp");
 const router = require("express").Router();
 const ffmpeg = require("fluent-ffmpeg");
-const PImage = require("pureimage");
 const url = require("url");
 const fs = require("fs");
 

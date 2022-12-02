@@ -14,7 +14,7 @@ const fileServer = process.env.fileServer;
 
 service.register("appSetUp", (msg) => {
   let appList = [];
-  request.get("http://192.168.1.9:8000/apps/list", (err, res, body) => {
+  request.get(fileServer + "/apps/list", (err, res, body) => {
     appList = JSON.parse(body);
     console.log(appList);
     msg.respond({ appList: appList, returnValue: true });

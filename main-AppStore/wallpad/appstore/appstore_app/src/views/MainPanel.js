@@ -1,7 +1,6 @@
 import { Panel, Header } from "@enact/sandstone/Panels";
 import Scroller from "@enact/sandstone/Scroller";
 import LS2Request from "@enact/webos/LS2Request";
-import WebOSApp from "../WebOSApp";
 import Tiles from "../components/Tiles";
 import { useState, useEffect } from "react";
 import css from "./MainPanel.module.less";
