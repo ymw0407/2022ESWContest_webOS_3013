@@ -52,7 +52,7 @@ const MainPanel = ({ ...rest }) => {
         onSuccess: (msg) => {
           setInstalledAppList(msg.installedApps);
           resolve();
-          console.log("getInstalledApps", InstalledAppList);
+          console.log("getInstalledApps", msg.installedApps);
         },
         onFailure: (err) => {
           console.log(err);

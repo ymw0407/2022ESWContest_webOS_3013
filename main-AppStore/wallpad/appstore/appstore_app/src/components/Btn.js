@@ -60,10 +60,9 @@ const Btn = ({ app, installedApps, installState, setInstallState }) => {
   function appInstall(app_name, app_id, app_file) {
     setInstallState("installing");
     console.log("[install] " + app_name);
-    console.log("Installing...");
-    toast("앱을 설치합니다.");
-    tts("앱을 설치합니다.");
-    var lsRequest = {
+    toast(app_name + "앱을 설치합니다.");
+    tts(app_name + "앱을 설치합니다.");
+    let lsRequest = {
       service: "luna://com.appstore.app.service",
       method: "install",
       parameters: {
@@ -73,8 +72,11 @@ const Btn = ({ app, installedApps, installState, setInstallState }) => {
         subscribe: true,
       },
       onSuccess: (msg) => {
+        toast(app_name + "앱 설치가 완료되었습니다.");
+        tts(app_name + "앱이 설치되었습니다.");
         console.log(msg.reply);
         setBtnState("remove");
+        setInstallState("idle");
       },
       onFailure: (err) => {
         console.log(err);
@@ -82,19 +84,18 @@ const Btn = ({ app, installedApps, installState, setInstallState }) => {
         setTimeout(() => {
           setBtnState("install");
         }, 500);
+        setInstallState("idle");
       },
     };
-    setInstallState("idle");
     bridge.send(lsRequest);
   }
 
   function appRemove(app_name, app_id, app_file) {
     setInstallState("removing");
     console.log("[remove] " + app_name);
-    console.log("Removing...");
-    toast("Removing...");
-    tts("Removing...");
-    var lsRequest = {
+    toast(app_name + "앱을 삭제합니다.");
+    tts(app_name + "앱을 삭제합니다.");
+    let lsRequest = {
       service: "luna://com.appstore.app.service",
       method: "remove",
       parameters: {
@@ -104,8 +105,11 @@ const Btn = ({ app, installedApps, installState, setInstallState }) => {
         subscribe: true,
       },
       onSuccess: (msg) => {
+        toast(app_name + "앱 삭제가 완료되었습니다.");
+        tts(app_name + "앱이 삭제되었습니다.");
         console.log(msg.reply);
         setBtnState("install");
+        setInstallState("idle");
       },
       onFailure: (err) => {
         console.log(err);
@@ -113,9 +117,9 @@ const Btn = ({ app, installedApps, installState, setInstallState }) => {
         setTimeout(() => {
           setBtnState("remove");
         }, 500);
+        setInstallState("idle");
       },
     };
-    setInstallState("idle");
     bridge.send(lsRequest);
   }
 
@@ -152,7 +156,16 @@ const Btn = ({ app, installedApps, installState, setInstallState }) => {
       }
       // 다른 앱 설치나 삭제 중일 때
     } else {
-      console.log(installState + "other app");
+      let opStatus = "";
+      if (installState == "installing"){
+        opStatus = "설치 중"
+      }
+      if (installState == "removing"){
+        opStatus = "삭제 중"
+      }
+      console.log("다른 앱 " + opStatus + " 입니다.")
+      toast("다른 앱 " + opStatus + " 입니다.")
+      tts("다른 앱 " + opStatus + " 입니다.")
     }
   }
 

@@ -12,10 +12,14 @@ require("dotenv").config();
 
 const fileServer = "http://" + process.env.fileServer;
 
+/**
+ * 앱 서버에서 앱 정보를 담을 객체 배열을 가져옴
+ * 앱스토어에서 앱 설치 시 ipk 파일이 저장될 apps 디렉토리가 있는지 확인하고 없으면 생성
+ */
 service.register("appSetUp", (msg) => {
   let appList = [];
   request.get(fileServer + "/apps/list", (err, res, body) => {
-  // request.get("http://192.168.1.9:8000" + "/apps/list", (err, res, body) => {
+    // request.get("http://<your ip>:8000" + "/apps/list", (err, res, body) => {
     appList = JSON.parse(body);
     console.log(appList);
     msg.respond({ appList: appList, returnValue: true });
@@ -27,7 +31,6 @@ service.register("appSetUp", (msg) => {
       console.log("already exists");
     }
   });
-  // console.log(appList);
 });
 
 service.register("getInstalledApps", (msg) => {
@@ -48,13 +51,12 @@ service.register("getInstalledApps", (msg) => {
 service.register("install", (msg) => {
   luna.init(service);
   console.log(msg.payload);
-  luna.tts(msg.payload.app_name + "앱이 설치됩니다.");
-  luna.toast(msg.payload.app_name + "앱이 설치됩니다.");
   let app_id = msg.payload.app_id;
   let path = PWD + "/apps/" + msg.payload.app_file;
-
+  // ipk 파일 다운로드
   exec(
-    'wget -P ./apps/ "http://' +
+    "wget -P ./apps/ " +
+      '"' +
       fileServer +
       "/apps/" +
       app_id +
@@ -65,7 +67,7 @@ service.register("install", (msg) => {
         console.log(err);
         msg.respond({ returnValue: false });
       }
-      let appDownload_url = "luna://com.webos.appInstallService/install";
+      let appDownload_url = "luna://com.webos.appInstallService/dev/install";
       let appDownload_params = {
         id: app_id,
         ipkUrl: path,
@@ -100,7 +102,6 @@ service.register("install", (msg) => {
 
   if (msg.payload.app_name == "가전제어") {
     // console.log("가전제어 앱은 bareapp을 수정하여 사용합니다!")
-    // execSync("wget http://3.34.50.139:8000/apps/bareapp -O ")
   }
 
   if (msg.payload.app_name == "운동보조") {
@@ -127,18 +128,29 @@ service.register("install", (msg) => {
 service.register("remove", function (msg) {
   luna.init(service);
   console.log(msg.payload);
-  luna.tts(msg.payload.app_name + "앱이 삭제됩니다");
-  luna.toast(msg.payload.app_name + "앱이 삭제됩니다.");
-  luna.appRemove(msg.payload.app_id);
+  let app_id = msg.payload.app_id;
   // ipk 파일 삭제
   exec("rm -f " + PWD + "/apps/" + msg.payload.app_file, (err) => {
     if (err) {
       console.log(err);
       msg.respond({ returnValue: false });
-    } else {
-      console.log(msg);
-      msg.respond({ returnValue: true });
     }
+    let appRemove_url = "luna://com.webos.appInstallService/dev/remove";
+    let appRemove_params = {
+      id: app_id,
+      subscribe: true,
+    };
+
+    const removing = service.subscribe(appRemove_url, appRemove_params);
+    removing.addListener("response", (m) => {
+      console.log("[remove]" + m.payload.statusValue);
+      if (m.payload.statusValue == 31) {
+        msg.respond({
+          reply: "remove success",
+          returnValue: true,
+        });
+      }
+    });
   });
 
   //------------------------- heartbeat 구독 -------------------------

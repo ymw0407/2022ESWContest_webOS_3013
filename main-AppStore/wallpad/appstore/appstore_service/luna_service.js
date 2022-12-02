@@ -72,25 +72,8 @@ function closeApp(app_id) {
   ls2.call(closeApp_url, closeApp_params, callback);
 }
 
-/**
- * 해당 앱을 삭제
- * @param {string} app_id 삭제할 앱 아이디
- */
-function appRemove(app_id) {
-  let appRemove_url = "luna://com.webos.appInstallService/dev/remove";
-  let appRemove_params = {
-    id: app_id,
-    subscribe: true,
-  };
-  var callback = (m) => {
-    console.log("[app remove] called : " + app_id);
-  };
-  ls2.call(appRemove_url, appRemove_params, callback);
-}
-
 exports.init = init;
 exports.toast = toast;
 exports.tts = tts;
 exports.launchApp = launchApp;
 exports.closeApp = closeApp;
-exports.appRemove = appRemove;
