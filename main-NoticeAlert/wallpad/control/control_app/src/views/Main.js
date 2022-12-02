@@ -10,26 +10,30 @@ const Main = () => {
  
   return (
     <div className="first">
-      <div className="app-title">가전 제어<img src={"/control.png"} style={{float:'right' ,width:'230px'}}/></div>
+      <button className="button btnPush xbutton" style={{width: '90px', height:'90px', marginTop: '100px', marginRight: '100px', float:'right'}}><img src={require("./x.png")} style={{width:'50px', height:'50px'}} /></button>
+      <div className="app-title">가전 제어<img src={require("./blind.png")} style={{float:'right', width:'300px', marginRight: '200px', marginTop:'-30px'}} /></div>
       <div className="tem">
         <div className="light">
           <div className="lbox1">
             <LightToggle />
           </div>
         </div>
-        <div className="window">
-          <div className="window1">
-            <p>창문</p>
-            <CheckBox2 />
+        <div className="tem2">
+          <div className="window">
+            <div className="window1">
+              <p>창문</p>
+              <CheckBox2 />
+            </div>
           </div>
-        </div>
-        <div className="blind">
-          <div className="blind1">
-            <p>블라인드</p>
-            <CheckBox />
+          <div className="blind">
+            <div className="blind1">
+              <p>블라인드</p>
+              <CheckBox />
+            </div>
           </div>
         </div>
       </div>
+      <div className="footer"><img src={"/control.png"} style={{float:'right' ,width:'400px'}}/></div>
     </div>
   )
 }

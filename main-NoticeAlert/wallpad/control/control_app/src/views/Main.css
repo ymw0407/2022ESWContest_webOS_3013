@@ -14,13 +14,35 @@
   color: white;
   font-size: 5rem;
   padding-left: 10rem;
-  padding-top: 10rem;
-  padding-bottom: 3rem;
+  padding-top: 15rem;
+  padding-bottom: 5rem;
   margin-right: 6rem;
-
 }
+
+.xbutton{
+  width: 200px;
+  height: 200px;
+  border-color: black;
+  border-radius: 15px;
+}
+.xbutton :hover{
+  background: rgb(255, 255, 255);
+}
+
+.button {
+  background: rgb(42, 182, 163);
+  border: rgb(42, 182, 163);
+}
+
+.btnPush:hover {
+  background: rgb(255, 255, 255);
+  box-shadow: 0px 70px 70px 15px rgb(115, 114, 114);
+}
+
+
+
 .tem {
-  margin-top: 1rem;
+  margin-top: 2rem;
   background-color: rgb(42, 182, 163);
 }
 .lbox1 {
@@ -29,7 +51,7 @@
   border: 2px rgb(37, 100, 101) solid;
   border-radius: 50px;
   background-color: rgb(37, 100, 101);
-  padding: 1rem 3rem;
+  padding: 2rem 3rem;
   box-shadow: 0 0 1.5rem 0 rgb(87, 90, 90);
 }
 .lbox1 p {
@@ -45,6 +67,10 @@
   text-align: center;
   margin-top: 500px;
 }
+
+.tem2{
+  vertical-align: baseline;
+}
 .window {
   display: flex;
   float: left;
@@ -57,7 +83,7 @@
   border: 2px rgb(37, 100, 101) solid;
   border-radius: 50px;
   background-color: rgb(37, 100, 101);
-  padding: 1rem 3rem;
+  padding: 2rem 3rem;
   padding-bottom: 3rem;
   box-shadow: 0 0 1.5rem 0 rgb(87, 90, 90);
 }
@@ -65,8 +91,9 @@
   font-size: 130px;
   font-weight: 600;
   padding-top: 50px;
-  padding-bottom: 50px;
-  margin-left: 160px;
+  padding-bottom: 4rem;
+  text-align: center;
+  margin-left: 40px;
   color: white;
   background-color: rgb(37, 100, 101);
 }
@@ -74,7 +101,7 @@
 .blind {
   display: flex;
   float: left;
-  margin-top: 490px;
+  margin-top: 300px;
   margin-left: 100px;
 }
 .blind1 {
@@ -82,18 +109,22 @@
   border: 2px rgb(37, 100, 101) solid;
   border-radius: 50px;
   background-color: rgb(37, 100, 101);
-  padding: 1rem 3rem;
-  padding-bottom: 3rem;
+  padding: 2rem 3rem;
+  padding-bottom: 4rem;
   box-shadow: 0 0 1.5rem 0 rgb(87, 90, 90);
 }
 .blind1 p {
   font-size: 130px;
   font-weight: 600;
   padding-top: 50px;
-  padding-bottom: 50px;
+  padding-bottom: 4rem;
   text-align: center;
   margin-left: 40px;
   color: white;
   background-color: rgb(37, 100, 101);
 }
 
+.footer {
+  margin-top: 50rem;
+  margin-right: 20rem;
+}
