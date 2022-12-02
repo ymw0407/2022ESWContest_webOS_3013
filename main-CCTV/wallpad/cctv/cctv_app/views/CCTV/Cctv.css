@@ -2,26 +2,49 @@
   margin: 0;
   padding: 0;
   background-color: #8d8d8d;
+  font-family: 'Nanum Gothic', sans-serif;
 }
 .Cctv {
   /*background-image: url(../../../img/cctv_back.jpg);*/
   background-size: cover;
   width: 100%;
 }
+
+.xbutton{
+  width: 100px;
+  height: 100px;
+  border-color: black;
+  border-radius: 20px;
+}
+.xbutton :hover{
+  background: rgb(255, 255, 255);
+}
+
+.button {
+  background: #8d8d8d;
+  border: #8d8d8d;
+}
+
+.btnPush:hover {
+  background: rgb(255, 255, 255);
+  box-shadow: 0px 70px 70px 15px rgb(92, 92, 92);
+}
+
+
 .app-title {
   color: white;
-  background-color: rgb(36, 36, 36);
   width: 100%;
   font-size: 4rem;
+  font-weight: 700;
   padding-left: 5rem;
-  padding-top: 0.5rem;
+  padding-top: 3rem;
   padding-bottom: 1rem;
 }
 .app-list{
   display: flex;
   justify-content: center;
   width: 100%;
-  padding: 20px 50px;
+  padding: 20px 70px;
   color: white;
   background-color: #a5a5a5;
   font-size: 2rem;
