@@ -4,6 +4,7 @@ import img_lf from '../img/light_off.png';
 import img_ln from '../img/light_on.png';
 import './Light.css';
 import LS2Request from '@enact/webos/LS2Request';
+import { init } from "../../../control_service/luna_service";
 
 const bridge = new LS2Request();
 const ToggleBtn = styled.button`
@@ -41,6 +42,7 @@ const LightToggle = () => {
   useEffect(() => {
 		console.log("first rendering");
 		initServiceStart();
+    initReservationStart();
 	},[]);
 
   function initServiceStart(){
@@ -59,6 +61,32 @@ const LightToggle = () => {
 		}
 		bridge.send(lsRequest);
 	}
+
+  function initReservationStart(){
+		var lsRequest = {
+			service:"luna://com.control.app.service",
+			method:"resvstart",
+			parameters: {subscribe:true},
+			onSuccess: (msg) => {
+				console.log(msg);
+			},
+			onFailure: (msg) => {console.log(msg);},
+		}
+		bridge.send(lsRequest);
+	}
+
+  function controlAppClose(){
+    var lsRequest = {
+			service:"luna://com.control.app.service",
+			method:"controlClose",
+			parameters: {subscribe:true},
+			onSuccess: (msg) => {
+				console.log(msg);
+			},
+			onFailure: (msg) => {console.log(msg);},
+		}
+		bridge.send(lsRequest);
+  }
 
   function ledPublishService(ledStateAll){
 		let led = {control: "led", led: ledStateAll}

@@ -10,7 +10,6 @@ const mqtt = require("./mqtt_lib");
 const ip = "3.34.50.139";
 
 service.register("init", function(msg_state) {
-    
     luna.init(service);
 
     mqtt.init(mosquitto);
@@ -34,9 +33,32 @@ service.register("init", function(msg_state) {
     const sub = service.subscribe(`luna://${pkgInfo.name}/heartbeat`, {subscribe: true});
     sub.addListener("response", function(msg) {
         console.log(JSON.stringify(msg.payload));
+        if(msg.payload.event == "initClose"){
+            sub.cancel();
+            console.log("[hearbeat] init(service) closed");
+        }
     });
 
 });
+
+service.register("controlClose", function(msg){
+    initClose();
+    msg.respond({
+        returnValue:true
+    });
+})
+
+function initClose(){
+    for (const i in subscriptions) {
+        if (Object.prototype.hasOwnProperty.call(subscriptions, i)) {
+            const s = subscriptions[i];
+            s.respond({
+                returnValue: true,
+                event: "initClose",
+            });
+        }
+    }
+}
 
 service.register("led", function(msg) {
     mqtt.init(mosquitto);
@@ -62,6 +84,72 @@ service.register("window", function(msg) {
     mqtt.publish("control/window", message);
 })
 
+// reservation service
+var obj = undefined;
+var device_func = undefined;
+var resv_flag = false;
+
+service.register("control", function(message){
+    setTimeout(() => luna.toast("예약이 설정되었습니다"), 100);
+    luna.tts("예약이 설정되었습니다!");
+    device_func = obj.control.device + " " + obj.control.func + "!";
+    var url = "luna://com.control.app.service/reservation";
+    luna.createActivity(url, obj.time.start);
+});
+
+service.register("reservation", function(message){
+    luna.toast(device_func);
+    luna.tts(device_func);
+    mqtt.connect(ip);
+    var level;
+    if(obj.control.func == "on"){
+        level = "5";
+    }
+    else if (obj.control.func == "off"){
+        level = "1";
+    }
+    mqtt.publish("control/" + obj.control.device, level);
+    console.log("control/" + obj.control.device, level);
+});
+
+service.register("resvstart", function(message) {
+    if(resv_flag == false){
+        resv_flag = true;
+        luna.init(service);
+
+        mqtt.init(mosquitto);
+        client = mqtt.connect(ip);
+        mqtt.subscribe(["post/notice"]);
+        mqtt.publish("control/led", "start");
+
+        client.on("message", (topic, message, packet) =>{
+            console.log("[topic] : " + topic);
+            console.log("[message] : " + message);
+
+            if (topic == "post/notice"){
+                obj = JSON.parse(message);
+                console.log(obj.recommend);
+                if(obj.recommend){
+                    control = obj.control;
+                    control_time = obj.time;
+                    console.log(control);
+                    var params = `{ \"message\":\" ${obj.content.title}/${obj.content.body}\",\"buttons\":[{\"label\":\"Yes\",\"onclick\":\"luna://com.control.app.service/control\"}, {"label":"No"}]}`;
+                    luna.alert(params);
+                }
+            }
+        });
+
+        //------------------------- heartbeat 구독 -------------------------
+        const sub = service.subscribe(`luna://${pkgInfo.name}/heartbeat`, {subscribe: true});
+        sub.addListener("response", function(msg) {
+            console.log(JSON.stringify(msg.payload));
+        });
+        message.respond({
+            returnValue:true
+        });
+    }
+});
+
 //----------------------------------------------------------------------heartbeat----------------------------------------------------------------------
 // handle subscription requests
 const subscriptions = {};
@@ -85,7 +173,7 @@ function sendResponses() {
             const s = subscriptions[i];
             s.respond({
                 returnValue: true,
-                event: "watching led"
+                event: "control app hearbeat"
             });
         }
     }
