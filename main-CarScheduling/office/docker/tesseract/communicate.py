@@ -2,12 +2,9 @@
 
 from paho.mqtt import client as mqtt_client
 from multiprocessing import Process
-from dotenv import load_dotenv
 import os
 
-load_dotenv()
-
-MQTT = os.environ(['MQTT'])
+MQTT = os.environ['MQTT']
 port = 1883
 
 class Mqtt():

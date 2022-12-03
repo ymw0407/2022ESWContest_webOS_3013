@@ -2,14 +2,11 @@ from pymongo import MongoClient
 from communicate import Mqtt
 from dateutil import parser
 from datetime import date, datetime
-from dotenv import load_dotenv
 import ocr
 import argparse
 import os
 
-load_dotenv()
-
-Mongo_URI = os.environ.get("Mongo_URI")
+Mongo_URI = os.environ["MongoURI"]
 conn = MongoClient(Mongo_URI)
 db = conn.esw
 cars = db.cars
