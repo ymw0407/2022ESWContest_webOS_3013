@@ -13,7 +13,7 @@ const mqtt = require("./mqtt_lib");
 
 const kindID = "com.log.db:3";
 const MQTT_IP = process.env.MQTT_BROKER;
-const EXPRESS_IP = process.env.EXPRESS_SERVER;
+const EXPRESS_IP = "http://" + process.env.EXPRESS_SERVER;
 var jsonMsg = undefined;
 
 const putKind = (msg) => {
