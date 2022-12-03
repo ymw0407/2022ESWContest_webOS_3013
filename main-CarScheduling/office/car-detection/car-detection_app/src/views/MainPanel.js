@@ -14,12 +14,6 @@ const MainPanel = () => {
       status: "차량 정보",
       permission: "통과 여부",
     },
-    {
-      time: "날짜",
-      carNumber: "차량 번호",
-      status: "차량 정보",
-      permission: "통과 여부",
-    },
   ]);
   const bridge = new LS2Request();
 
@@ -57,7 +51,6 @@ const MainPanel = () => {
     let lst = [];
     const results = res.results;
     for (let i in results) {
-      // let result = `${results[i].time.slice(0, -7)} | ${results[i].carNumber} | `
       let status = "";
       let permission = "";
       if (results[i].status === "register") {
@@ -76,7 +69,7 @@ const MainPanel = () => {
         time: results[i].time.slice(0, -7),
         carNumber: results[i].carNumber,
         status: status,
-        permisson: permission,
+        permission: permission,
       };
       lst.unshift(result);
     }
