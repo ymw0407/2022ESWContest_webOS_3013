@@ -78,6 +78,8 @@ service.register("install", (msg) => {
       download.addListener("response", (m) => {
         console.log("[download] " + m.payload.statusValue);
         if (m.payload.statusValue == 30) {
+          sub.cancel();
+          download.cancel();
           msg.respond({
             reply: "install success",
             returnValue: true,
@@ -145,6 +147,8 @@ service.register("remove", function (msg) {
     removing.addListener("response", (m) => {
       console.log("[remove]" + m.payload.statusValue);
       if (m.payload.statusValue == 31) {
+        sub.cancel();
+        removing.cancel();
         msg.respond({
           reply: "remove success",
           returnValue: true,
