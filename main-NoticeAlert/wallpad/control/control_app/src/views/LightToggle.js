@@ -75,18 +75,18 @@ const LightToggle = () => {
 		bridge.send(lsRequest);
 	}
 
-  function controlAppClose(){
-    var lsRequest = {
-			service:"luna://com.control.app.service",
-			method:"controlClose",
-			parameters: {subscribe:true},
-			onSuccess: (msg) => {
-				console.log(msg);
-			},
-			onFailure: (msg) => {console.log(msg);},
-		}
-		bridge.send(lsRequest);
-  }
+  // function controlAppClose(){
+  //   var lsRequest = {
+	// 		service:"luna://com.control.app.service",
+	// 		method:"controlClose",
+	// 		parameters: {subscribe:true},
+	// 		onSuccess: (msg) => {
+	// 			console.log(msg);
+	// 		},
+	// 		onFailure: (msg) => {console.log(msg);},
+	// 	}
+	// 	bridge.send(lsRequest);
+  // }
 
   function ledPublishService(ledStateAll){
 		let led = {control: "led", led: ledStateAll}

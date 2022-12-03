@@ -14,7 +14,7 @@ const Main = () => {
     var lsRequest = {
       service: "luna://com.control.app.service",
       method: "closeApp",
-      parameters: {},
+      parameters: {app_id: "com.control.app"},
       onSuccess: (msg) => {
         console.log(msg);
       },

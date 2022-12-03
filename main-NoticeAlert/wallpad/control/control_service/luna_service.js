@@ -45,13 +45,13 @@ function launchApp(app_id){
     ls2.call(launchApp_url, launchApp_params, callback);
 }
 
-function launchApp(app_id){
+function closeApp(app_id){
     let launchApp_url = "luna://com.webos.service.applicationmanager/close";
     let launchApp_params = {
         id: app_id
     };
     let callback = (m) =>{
-        console.log("[launch app] called : "+ app_id);
+        console.log("[close app] called : "+ app_id);
     }
     ls2.call(launchApp_url, launchApp_params, callback);
 }
@@ -157,6 +157,7 @@ exports.init = init;
 exports.toast = toast;
 exports.tts = tts;
 exports.launchApp = launchApp;
+exports.closeApp = closeApp;
 exports.cameraReady =cameraReady;
 exports.cameraCapture = cameraCapture;
 exports.createActivity = createActivity;

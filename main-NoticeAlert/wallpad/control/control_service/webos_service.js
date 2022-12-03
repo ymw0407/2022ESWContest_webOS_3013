@@ -41,14 +41,16 @@ service.register("init", function(msg_state) {
 
 });
 
-service.register("controlClose", function(msg){
+service.register("closeApp", (msg) => {
+    luna.init(service);
+    console.log(msg.payload);
     initClose();
-    msg.respond({
-        returnValue:true
-    });
-})
+    luna.closeApp(msg.payload.app_id);
+    luna.launchApp("com.webos.app.home");
+    msg.respond({ returnValue: true });
+  });
 
-function initClose(){
+  function initClose(){
     for (const i in subscriptions) {
         if (Object.prototype.hasOwnProperty.call(subscriptions, i)) {
             const s = subscriptions[i];
@@ -83,14 +85,6 @@ service.register("window", function(msg) {
     message = Buffer.from(String(msg.payload.window.state), 'utf-8')
     mqtt.publish("control/window", message);
 })
-
-service.register("closeApp", (msg) => {
-    luna.init(service);
-    console.log(msg.payload);
-    luna.closeApp(msg.payload.app_id);
-    luna.launchApp("com.webos.app.home");
-    msg.respond({ returnValue: true });
-  });
 
 // reservation service
 var obj = undefined;
@@ -157,14 +151,6 @@ service.register("resvstart", function(message) {
         });
     }
 });
-
-service.register("closeApp", (msg) => {
-    luna.init(service);
-    console.log(msg.payload);
-    luna.closeApp(msg.payload.app_id);
-    luna.launchApp("com.webos.app.home");
-    msg.respond({ returnValue: true });
-  });
 
 //----------------------------------------------------------------------heartbeat----------------------------------------------------------------------
 // handle subscription requests
