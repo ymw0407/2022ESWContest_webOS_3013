@@ -18,10 +18,9 @@ const Frontdoor = ({ children }) => {
         </div>
       </div>
       <div className="content">
-        <img src="http://192.168.1.28/" style={{margin:'auto', display:'block', backgroundColor:'white', width:'70%'}}/> 
+        <img src="http://192.168.1.28/" style={{margin:'auto', display:'block', backgroundColor:'white', width:'100%'}}/> 
       </div>
-  </div>
-      
+    </div>  
   );
 };
 

@@ -16,12 +16,11 @@ const Parking = ({ children }) => {
             <li><Link to='/parking'>주차장</Link></li>
           </ul>
         </div>
-      </div>
+      </div> 
       <div>
-        <img src="/cctv.png" style={{margin:'auto', display:'block', backgroundColor:'white', width:'70%'}} /> 
-      </div>
-  </div>
-      
+        <img src="http://192.168.1.109" style={{margin:'auto', display:'block', backgroundColor:'white', width:'100%'}} /> 
+      </div> 
+    </div>
   );
 };
 

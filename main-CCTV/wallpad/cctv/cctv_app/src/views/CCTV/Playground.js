@@ -6,7 +6,7 @@ const Playground = ({ children }) => {
   return (
     
     <div className="Cctv">
-      <button className="button btnPush xbutton" style={{width: '90px', height:'90px', marginRight: '100px', float:'right'}}><img src={require("./x.png")} style={{width:'50px', height:'50px'}} /></button>
+      <button className="button btnPush xbutton" style={{width: '90px', height:'90px', marginTop: '100px', marginRight: '100px', float:'right'}}><img src={require("./x.png")} style={{width:'50px', height:'50px'}} /></button>
       <div className="app-title">CCTV</div>
       <div className="tem">
         <div className="app-list">
@@ -20,8 +20,7 @@ const Playground = ({ children }) => {
       <div className="content">
         <img src="http://192.168.1.110/" style={{margin:'auto', display:'block', backgroundColor:'white', width:'100%'}}/>  
       </div>
-    </div>
-      
+    </div>  
   );
 };
 
