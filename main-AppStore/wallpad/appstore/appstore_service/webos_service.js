@@ -33,6 +33,9 @@ service.register("appSetUp", (msg) => {
   });
 });
 
+/**
+ * 설치된 모든 앱 이름 문자열 배열을 가져옴
+ */
 service.register("getInstalledApps", (msg) => {
   const AppinstallPath = "/media/developer/apps/usr/palm/applications/";
   let installedApps = [];
@@ -48,6 +51,9 @@ service.register("getInstalledApps", (msg) => {
   });
 });
 
+/**
+ * 파일 서버에서 설치하려는 앱의 ipk파일을 다운로드 후 설치함.
+ */
 service.register("install", (msg) => {
   luna.init(service);
   console.log(msg.payload);
@@ -91,22 +97,22 @@ service.register("install", (msg) => {
 
   //----------------------------앱별 추가 설치------------------------------
 
-  if (msg.payload.app_name == "배달") {
+  if (msg.payload.app_name === "배달") {
     console.log("배달 앱은 추가로 설치되는 환경 설정이 없습니다!");
   }
 
-  if (msg.payload.app_name == "차량") {
+  if (msg.payload.app_name === "차량") {
     console.log("임시 차량 등록 앱은 추가로 설치되는 환경이 없습니다!"); // client가 아닌 경비실용 차량 앱은 환경 설정이 필요하지만 해당 앱은 client에게 제공되는 앱입니다
   }
-  if (msg.payload.app_name == "CCTV") {
+  if (msg.payload.app_name === "CCTV") {
     console.log("CCTV 앱은 추가로 설치되는 환경 설정이 없습니다!");
   }
 
-  if (msg.payload.app_name == "가전제어") {
+  if (msg.payload.app_name === "가전제어") {
     // console.log("가전제어 앱은 bareapp을 수정하여 사용합니다!")
   }
 
-  if (msg.payload.app_name == "운동보조") {
+  if (msg.payload.app_name === "운동보조") {
     console.log(
       "운동보조 앱은 추가로 mediapipe 관련 환경 설정, camera2 및 media LS2 API 설정이 필요합니다!"
     );
@@ -127,6 +133,9 @@ service.register("install", (msg) => {
   //------------------------- heartbeat 구독 -------------------------
 });
 
+/**
+ * 앱을 삭제하고 ipk 파일을 제거
+ */
 service.register("remove", function (msg) {
   luna.init(service);
   console.log(msg.payload);

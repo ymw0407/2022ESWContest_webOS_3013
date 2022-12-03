@@ -164,8 +164,6 @@ const Btn = ({ app, installedApps, installState, setInstallState }) => {
         opStatus = "삭제 중"
       }
       console.log("다른 앱 " + opStatus + " 입니다.")
-      // toast("다른 앱 " + opStatus + " 입니다.")
-      // tts("다른 앱 " + opStatus + " 입니다.")
     }
   }
 

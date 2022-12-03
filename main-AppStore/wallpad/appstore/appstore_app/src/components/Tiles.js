@@ -32,7 +32,7 @@ const Tiles = ({ apps, installedApps }) => {
   ));
   return (
     <div>
-      <div>{installState}</div>
+      {/* <div>{installState}</div> */}
       <div>{appList}</div>
     </div>
   );
