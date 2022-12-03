@@ -8,8 +8,8 @@ import { init } from "../../../control_service/luna_service";
 
 const bridge = new LS2Request();
 const ToggleBtn = styled.button`
-  width: 80px;
-  height: 40px;
+  width: 60px;
+  height: 30px;
   border-radius: 30px;
   border: none;
   cursor: pointer;
@@ -22,8 +22,8 @@ const ToggleBtn = styled.button`
 `;
 const Circle = styled.div`
   background-color: white;
-  width: 30px;
-  height: 30px;
+  width: 20px;
+  height: 20px;
   border-radius: 50px;
   position: absolute;
   left: 5%;
@@ -31,7 +31,7 @@ const Circle = styled.div`
   ${(props) =>
     props.toggle &&
     css`
-      transform: translate(40px, 0);
+      transform: translate(30px, 0);
       transition: all 0.5s ease-in-out;
     `}
 `;
@@ -107,10 +107,10 @@ const LightToggle = () => {
     return (
       <div style={{backgroundColor: 'rgb(37, 100, 101)'}}>
 		    {  ledState.ledState1 === 1
-			    ? <img src={img_ln} style={{ width: '130px', height: '130px', backgroundColor: 'rgb(37, 100, 101)'}}/>
-          : <img src={img_lf} style={{ width: '130px', height: '130px', backgroundColor: 'rgb(37, 100, 101)' }}/>
+			    ? <img src={img_ln} style={{ width: '100px', height: '100px', backgroundColor: 'rgb(37, 100, 101)'}}/>
+          : <img src={img_lf} style={{ width: '100px', height: '100px', backgroundColor: 'rgb(37, 100, 101)' }}/>
 		    }
-        <div style={{marginBottom:'80px'}} />
+        <div style={{marginBottom:'40px'}} />
 	    </div>
     )
   }
@@ -119,10 +119,10 @@ const LightToggle = () => {
     return (
       <div style={{backgroundColor: 'rgb(37, 100, 101)'}}>
 		    {  ledState.ledState2 === 1
-			    ? <img src={img_ln} style={{ width: '130px', height: '130px', backgroundColor: 'rgb(37, 100, 101)'}}/>
-          : <img src={img_lf} style={{ width: '130px', height: '130px', backgroundColor: 'rgb(37, 100, 101)' }}/>
+			    ? <img src={img_ln} style={{ width: '100px', height: '100px', backgroundColor: 'rgb(37, 100, 101)'}}/>
+          : <img src={img_lf} style={{ width: '100px', height: '100px', backgroundColor: 'rgb(37, 100, 101)' }}/>
 		    }
-        <div style={{marginBottom:'80px'}} />
+        <div style={{marginBottom:'40px'}} />
 	    </div>
     )
   }
@@ -131,10 +131,10 @@ const LightToggle = () => {
     return (
       <div style={{backgroundColor: 'rgb(37, 100, 101)'}}>
 		    {  ledState.ledState3 === 1
-			    ? <img src={img_ln} style={{ width: '130px', height: '130px', backgroundColor: 'rgb(37, 100, 101)'}}/>
-          : <img src={img_lf} style={{ width: '130px', height: '130px', backgroundColor: 'rgb(37, 100, 101)' }}/>
+			    ? <img src={img_ln} style={{ width: '100px', height: '100px', backgroundColor: 'rgb(37, 100, 101)'}}/>
+          : <img src={img_lf} style={{ width: '100px', height: '100px', backgroundColor: 'rgb(37, 100, 101)'}}/>
 		    }
-        <div style={{marginBottom:'80px'}} />
+        <div style={{marginBottom:'40px'}} />
 	    </div>
     )
   }
@@ -187,5 +187,4 @@ const LightToggle = () => {
 
   )
 }
-
 export default LightToggle;
