@@ -12,8 +12,8 @@ const luna = require("./luna_service");
 const mqtt = require("./mqtt_lib");
 
 const kindID = "com.log.db:3";
-const MQTT_IP = process.env.MQTT_BROKER;
-const EXPRESS_IP = "http://" + process.env.EXPRESS_SERVER;
+const MQTT = process.env.MQTT;
+const fileServer = "http://" + process.env.fileServer;
 var jsonMsg = undefined;
 
 const putKind = (msg) => {
@@ -96,7 +96,7 @@ const find = (msg) => {
 
 service.register("delVid", (msg) => {
   const options = {
-    uri: EXPRESS_IP + `/package/${jsonMsg.time}.mp4`,
+    uri: fileServer + `/package/${jsonMsg.time}.mp4`,
   };
   request.delete(options, (err, res, body) => {
     if (!err && res.statusCode == 200) {
@@ -111,7 +111,7 @@ service.register("delVid", (msg) => {
 
 service.register("getVids", (msg) => {
   const options = {
-    uri: EXPRESS_IP + "/vidlist",
+    uri: fileServer + "/vidlist",
     headers: { app: "package" },
   };
 
@@ -146,7 +146,7 @@ service.register("loop", async (msg) => {
   luna.init(service);
   luna.toast("배달 물품이 현관에 도착했습니다.");
   mqtt.init(mosquitto);
-  client = mqtt.connect(MQTT_IP);
+  client = mqtt.connect(MQTT);
   mqtt.subscribe(["delivery/arrived", "delivery/received"]);
 
   client.on("message", (topic, message, packet) => {
