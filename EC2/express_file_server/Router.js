@@ -261,6 +261,7 @@ router.post("/exercise/", async (req, res) => {
             });
             mqtt.init(mosquitto);
             client = mqtt.connect(MQTT);
+            mqtt.publish("exercise/next", "1")
         })
         .saveToFile("./resource/exercise/output/output.mp4");
 });
