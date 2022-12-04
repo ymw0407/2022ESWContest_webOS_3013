@@ -53,7 +53,7 @@ with mp_pose.Pose(
         vid_time = cap.get(cv2.CAP_PROP_POS_MSEC) / 1000
         # print(vid_time)
         if vid_time != 0:
-            end_time = vid_time
+            # end_time = vid_time
             if vid_time - temp_time >= 5 and temp_time != 0:
                 print(temp_cnt)
                 graph_y.append(temp_cnt)
@@ -142,6 +142,7 @@ with mp_pose.Pose(
                     cnt += 1
                     temp_cnt += 1
                     # print("완료! 횟수: %d" % cnt)
+                    end_time = cap.get(cv2.CAP_PROP_POS_MSEC) / 1000
                     step = 0
                 elif waist_angle < 150:
                     # print("허리 피라고")
