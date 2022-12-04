@@ -7,8 +7,9 @@ const mqtt = require("./mqtt_lib");
 const service = new Service(pkgInfo.name); // Create service by service name on package.json
 const logHeader = "[" + pkgInfo.name + "]";
 const exec = require("child_process").exec;
+require("dotenv").config();
 
-const ip = "3.34.1.95";
+const ip = process.env.MQTT
 
 // service.register("windowOn", function(message){
 //     var setWindow = exec("/usr/sbin/camera_window_manager_exporter 0 0 1920 1080 &");
