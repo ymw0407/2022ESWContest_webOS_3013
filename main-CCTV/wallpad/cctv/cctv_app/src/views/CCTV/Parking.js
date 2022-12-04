@@ -25,20 +25,24 @@ const Parking = () => {
   };
 
   const launchApp = (app_id) => {
-    let lsRequest = {
-      service: "luna://com.webos.service.applicationmanager",
-      method: "launch",
-      parameters: {
-        id: app_id,
-      },
-      onSuccess: (msg) => {
-        console.log(msg);
-      },
-      onFailure: (msg) => {
-        console.log(msg);
-      },
-    };
-    bridge.send(lsRequest);
+    return new Promise((resolve, reject) => {
+      let lsRequest = {
+        service: "luna://com.webos.service.applicationmanager",
+        method: "launch",
+        parameters: {
+          id: app_id,
+        },
+        onSuccess: (msg) => {
+          console.log(msg);
+          resolve();
+        },
+        onFailure: (msg) => {
+          console.log(msg);
+          reject();
+        },
+      };
+      bridge.send(lsRequest);
+    });
   };
 
   return (
@@ -53,8 +57,8 @@ const Parking = () => {
           float: "right",
         }}
         onClick={() => {
-          closeApp("com.cctv.app");
           launchApp("com.webos.app.home");
+          closeApp("com.cctv.app");
         }}
       >
         <img

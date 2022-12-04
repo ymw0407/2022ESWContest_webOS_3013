@@ -53,8 +53,8 @@ const Playground = () => {
           float: "right",
         }}
         onClick={() => {
-          closeApp("com.cctv.app");
           launchApp("com.webos.app.home");
+          closeApp("com.cctv.app");
         }}
       >
         <img

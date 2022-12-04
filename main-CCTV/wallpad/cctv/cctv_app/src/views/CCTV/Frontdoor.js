@@ -6,7 +6,7 @@ import LS2Request from "@enact/webos/LS2Request";
 const bridge = new LS2Request();
 
 const Frontdoor = () => {
-
+  
   const closeApp = (app_id) => {
     let lsRequest = {
       service: "luna://com.webos.service.applicationmanager",
@@ -40,6 +40,7 @@ const Frontdoor = () => {
     };
     bridge.send(lsRequest);
   };
+
   return (
     <div className="Cctv">
       <button
@@ -52,8 +53,8 @@ const Frontdoor = () => {
           float: "right",
         }}
         onClick={() => {
-          closeApp("com.cctv.app");
           launchApp("com.webos.app.home");
+          closeApp("com.cctv.app");
         }}
       >
         <img
