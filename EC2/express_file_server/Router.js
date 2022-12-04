@@ -111,7 +111,8 @@ router.get("/package/*", (req, res) => {
 });
 
 router.delete("/package/*", (req, res) => {
-    fs.unlink("resource/" + vidName, (err) => {
+    const vidPath = url.parse(req.url, true);
+    fs.unlink("resource" + vidPath, (err) => {
         if (err) throw err;
         console.log("file deleted");
         res.sendStatus(200).send("file deleted");
