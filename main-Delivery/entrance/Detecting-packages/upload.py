@@ -1,8 +1,11 @@
 import requests
 import argparse
+from dotenv import load_dotenv
+import os
 
 def upload(vid):
-    url = "http://3.34.50.139:8000/package/"
+    load_dotenv()
+    url = "http://" + os.environ.get("fileServer") + "/package/"
     # url = "http://localhost:8000/package/"
     data = {'title':'metadata','timeDuration':120}
     file = open("vids/"+vid, 'rb')
