@@ -13,9 +13,10 @@
 .app-title {
   color: white;
   font-size: 5rem;
+  font-weight: 700;
   padding-left: 10rem;
-  padding-top: 15rem;
-  padding-bottom: 5rem;
+  padding-top: 10rem;
+  padding-bottom: 2rem;
   margin-right: 6rem;
 }
 
@@ -42,12 +43,10 @@
 
 
 .tem {
-  margin-top: 2rem;
   background-color: rgb(42, 182, 163);
 }
 .lbox1 {
-  margin-right: 5rem;
-  margin-left: 10rem;
+  margin-left: 5rem;
   border: 2px rgb(37, 100, 101) solid;
   border-radius: 50px;
   background-color: rgb(37, 100, 101);
@@ -74,12 +73,10 @@
 .window {
   display: flex;
   float: left;
-  margin-top: 490px;
-  margin-left: 100px;
+  margin-top: 420px;
+  margin-left: 150px;
 }
 .window1 {
-  margin-left: 200px;
-  margin-top: 2px;
   border: 2px rgb(37, 100, 101) solid;
   border-radius: 50px;
   background-color: rgb(37, 100, 101);
@@ -93,7 +90,6 @@
   padding-top: 50px;
   padding-bottom: 4rem;
   text-align: center;
-  margin-left: 40px;
   color: white;
   background-color: rgb(37, 100, 101);
 }
@@ -101,11 +97,10 @@
 .blind {
   display: flex;
   float: left;
-  margin-top: 300px;
-  margin-left: 100px;
+  margin-top: 420px;
+  margin-left: 150px;
 }
 .blind1 {
-  margin-left: 300px;
   border: 2px rgb(37, 100, 101) solid;
   border-radius: 50px;
   background-color: rgb(37, 100, 101);
@@ -125,6 +120,6 @@
 }
 
 .footer {
-  margin-top: 50rem;
-  margin-right: 20rem;
+  margin-top: 30rem;
+  margin-right: 7rem;
 }

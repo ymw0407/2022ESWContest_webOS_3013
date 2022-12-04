@@ -89,7 +89,7 @@ void callback(char* topic, byte* payload, unsigned int uLen) {
     step1 += move_step;
   }
   else if((String)topic == "control/blind"){
-    int move_step = ((B_STEP-1) * (String(message[0]).toInt()-1)) - step2;
+    int move_step = (B_STEP * (String(message[0]).toInt()-1)) - step2;
     Serial.print("move_step: "); Serial.println(move_step);
     blind.step(move_step);
     step2 += move_step;
