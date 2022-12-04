@@ -103,7 +103,7 @@ service.register("delVid", (msg) => {
       console.log("[delVid] " + body);
       console.log("[delVid] " + res.statusCode);
     } else {
-      console.log("[delVid] " + body);
+      console.log("[delVid] " + err);
       console.log("[delVid] " + res.statusCode);
     }
   });

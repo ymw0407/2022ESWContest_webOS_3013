@@ -46,16 +46,17 @@ const LogPanel = ({ onClick }) => {
   const findHandler = (res) => {
     let lst = [];
     const results = res.results;
-    let time = res.time;
+    let time = "";
     let status = "";
     for (let i in results) {
+      time = results[i].time;
       if (results[i].status === "arrived") {
         status = "도착";
       }
       if (results[i].status == "received") {
         status = "수령";
       }
-      lst.unshift({time: time, status: status});
+      lst.unshift({ time: time, status: status });
     }
     setLogs(lst);
     console.log("[findHandler] " + lst);
@@ -108,7 +109,7 @@ const LogPanel = ({ onClick }) => {
         영상 조회
       </Button>
       <Scroller>
-        <Logs logs={logs}/>
+        <Logs logs={logs} />
       </Scroller>
     </Panel>
   );
