@@ -8,7 +8,7 @@ const service = new Service(pkgInfo.name); // Create service by service name on 
 const logHeader = "[" + pkgInfo.name + "]";
 const exec = require("child_process").exec;
 
-const ip = "3.34.50.139";
+const ip = "3.34.1.95";
 
 // service.register("windowOn", function(message){
 //     var setWindow = exec("/usr/sbin/camera_window_manager_exporter 0 0 1920 1080 &");
@@ -34,17 +34,24 @@ service.register("child", function(message) {
     luna.toast("녹화가 종료되었습니다!");
     mqtt.init(mosquitto);
     client = mqtt.connect(ip);
-    mqtt.subscribe(['exercise/result']);
+    mqtt.subscribe(['exercise/result', 'exercise/next']);
     var py_pro = exec("python3 video.py");
 
     client.on("message", (topic, msg) => {
         console.log("[message] : " + String(msg));
         console.log("[topic] : " + topic);
-        message.respond({
-            reply: String(msg)
-        });
-        client.end();
-        sub.cancel();
+        if(topic == "exercise/next"){
+            message.respond({
+                reply: "nextPage"
+            })
+            client.end();
+            sub.cancel();
+        }
+        else{
+            message.respond({
+                reply: String(msg)
+            });
+        }
     });
 
     client.on("close", () => {
