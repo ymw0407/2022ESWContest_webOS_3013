@@ -5,3 +5,4 @@ node_modules
 output.mp4
 input.mp4
 progress.mp4
+.env
