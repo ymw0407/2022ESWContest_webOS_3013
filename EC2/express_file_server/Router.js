@@ -7,6 +7,11 @@ const url = require("url");
 const fs = require("fs");
 const { get } = require("http");
 const exec = require("child_process").exec;
+const mosquitto = require("mqtt");
+const mqtt = require("./mqtt_lib");
+require("dotenv").config();
+
+const MQTT = process.env.MQTT
 
 router.get("/vidlist", (req, res) => {
     const DATA = "resource/" + req.headers.app;
@@ -254,7 +259,8 @@ router.post("/exercise/", async (req, res) => {
                 if (err) throw err;
                 console.log("[ffmpeg] " + vidPath + vidName + " file deleted");
             });
-	    mqtt
+            mqtt.init(mosquitto);
+            client = mqtt.connect(MQTT);
         })
         .saveToFile("./resource/exercise/output/output.mp4");
 });
