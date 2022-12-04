@@ -7,7 +7,7 @@ const logHeader = "[" + pkgInfo.name + "]";
 const mosquitto = require("mqtt");
 const mqtt = require("./mqtt_lib");
 
-const ip = "3.34.50.139";
+const ip = "3.34.130.16";
 
 service.register("init", function(msg_state) {
     luna.init(service);
