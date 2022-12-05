@@ -102,7 +102,7 @@ const MainPanel = () => {
 
   return (
     <Panel className={css.bg}>
-      <Header title="log app" noCloseButton={true} />
+      <Header className={css.appTitle} title="방문 차량 출입 기록" noCloseButton={true} />
       <Scroller>
         <Logs cars={cars}/>
       </Scroller>
