@@ -1,12 +1,10 @@
 import React, { useEffect, useState } from "react";
-import styled, {css} from 'styled-components';
-import './Final.css';
+import Panel from "@enact/sandstone/Panels";
+import styled, { css } from "styled-components";
+import "./Final.css";
 
 const Final = () => {
-  return (
-    <div className="final">
-    </div>
-  )
-}
+  return <Panel className="final" onClose={() => console.log("close")}></Panel>;
+};
 
 export default Final;

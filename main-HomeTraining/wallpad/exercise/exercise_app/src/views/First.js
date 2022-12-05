@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
-import styled, {css} from 'styled-components';
+import { Header, Panel } from "@enact/sandstone/Panels";
+import styled, { css } from "styled-components";
 import { useHistory } from "react-router-dom";
 import LS2Request from "@enact/webos/LS2Request";
-import './First.css';
-
+import "./First.css";
 
 const StyledButton = styled.button`  
   font-size: 40px;
@@ -23,7 +23,6 @@ const StyledButton = styled.button` 
 `;
 
 const First = () => {
-
   const [ch, setch] = useState(false);
   const history = useHistory();
   const bridge = new LS2Request();
@@ -39,16 +38,16 @@ const First = () => {
         console.log(msg);
       },
       onFailure: (err) => {
-        console.log(err)
-      }
+        console.log(err);
+      },
     };
     bridge.send(lsRequest);
   }, []);
   const changeBut = () => {
-    const butText = document.getElementById('but');
+    const butText = document.getElementById("but");
     butText.innerText = "녹화 종료";
     console.log("녹화 종료");
-    setch(prevch => !prevch);
+    setch((prevch) => !prevch);
     let params = {};
     let lsRequest = {
       service: "luna://com.exercisedemo.app.service",
@@ -59,30 +58,39 @@ const First = () => {
       },
       onFailure: (err) => {
         console.log(err);
-      }
+      },
     };
     bridge.send(lsRequest);
   };
   const ifbut = () => {
     console.log("페이지 이동");
-    history.push('/load');
+    history.push("/load");
   };
-  
+
   return (
-    <div className="first">
-      <div className="app-title">운동 보조</div>
+    <Panel className="first">
+      <Header
+        title="운동 보조"
+        className="app-title"
+        onClose={() => console.log("close")}
+      />
       <div className="tem">
         <div className="but">
-          <StyledButton id="but" onClick={ ch ? ifbut : changeBut} >녹화 시작</StyledButton>
+          <StyledButton id="but" onClick={ch ? ifbut : changeBut}>
+            녹화 시작
+          </StyledButton>
         </div>
         <div className="content">
-          <p>step1 : 허리 펴기</p>
-          <p>step2 : 팔 굽히기</p>
-          <p>step3 : 팔 펴기</p>
+          <h2 className="exercise-name">팔 굽혀 펴기</h2>
+          <div className="exercise-steps">
+            <p>step1 : 허리 펴기</p>
+            <p>step2 : 팔 굽히기</p>
+            <p>step3 : 팔 펴기</p>
+          </div>
         </div>
       </div>
-    </div>
-  )
-}
+    </Panel>
+  );
+};
 
 export default First;
