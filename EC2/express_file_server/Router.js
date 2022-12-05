@@ -250,8 +250,8 @@ router.post("/exercise/", async (req, res) => {
       fs.unlink("./resource/exercise/progress/" + vidName, (err) => {
         if (err) throw err;
         console.log("[ffmpeg] " + vidPath + vidName + " file deleted");
+	setTimeout(()=>{exec("node mqttsend.js")}, 10000)
       });
-      exec("node mqttsend.js");
     })
     .saveToFile("./resource/exercise/output/output.mp4");
 });
