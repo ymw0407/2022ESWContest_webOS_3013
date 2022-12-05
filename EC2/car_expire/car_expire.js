@@ -1,5 +1,7 @@
 // const schedule = require('node-schedule');
 
+const KR_TIME_DIFF = 9 * 60 * 60 * 1000;
+
 function carSchema(mongoose, collection) {
     carModel = mongoose.Schema({
         category: { type: String, require: true },
@@ -21,12 +23,14 @@ function showCarData(Car) {
             console.log(cars);
             for (let car of cars) {
                 if (
-                    Date.now() >=
+                    Date.now() + KR_TIME_DIFF >
                     Date.parse(car.expireAt.split("T")[0]) + 86400000
                 ) {
                     console.log(car + " deleted!");
                     deleteCarData(car, car._id);
                 }
+		console.log(Date.now() + KR_TIME_DIFF)
+		console.log(Date.parse(car.expireAt.split("T")[0]) + 86400000)
             }
         });
 }
