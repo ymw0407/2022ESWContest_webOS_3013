@@ -14,7 +14,7 @@ service.register("mainInit", async function (message) {
   let connect = await mongo
     .connectDB()
     .then((result) => {
-      console.log("[mainInit] " + result);
+      console.log("[mainInit]", result);
     })
     .catch((error) => {
       console.log("[mainInit]", error);
@@ -58,22 +58,28 @@ service.register("registerCar", async function (message) {
   let connect = await mongo
     .connectDB()
     .then((result) => {
-      console.log("[registerCar] " + result);
+      console.log("[registerCar]", result);
     })
     .catch((error) => {
-      console.log("[registerCar] " + error);
+      console.log("[registerCar]", error);
     });
+  let startAt = new Date(message.payload.put.startAt);
+  let endAt = new Date(message.payload.put.endAt);
+  startAt = new Date(startAt.getTime() - startAt.getTimezoneOffset() * 60000);
+  endAt = new Date(endAt.getTime() - endAt.getTimezoneOffset() * 60000);
+  console.log(typeof startAt.toISOString(), startAt.toISOString());
+  console.log(typeof endAt.toISOString(), endAt.toISOString());
   // -------------------------------------
   // DB에 임시 등록 차량 등록
   let register = await mongo
     .createRegisterCar(
       Car,
       message.payload.put.carNumber,
-      message.payload.put.startAt,
-      message.payload.put.endAt
+      startAt.toISOString(),
+      endAt.toISOString(),
     )
     .then((result) => {
-      console.log("[registerCar] " + result);
+      console.log("[registerCar]", result);
       luna.tts(message.payload.put.carNumber + " 차량이 임시등록 되었습니다");
       luna.toast(message.payload.put.carNumber + " 차량이 임시등록 되었습니다");
       console.log("[registerCar] Register Successed!");
