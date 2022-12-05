@@ -11,18 +11,18 @@
 #define IN6 22
 #define IN7 14
 #define IN8 12
-#define W_STEP 685
+#define W_STEP 510
 #define B_STEP 3125
 
 const int stepsPerRevolution = 64;  // change this to fit the number of steps per revolution
 
 // initialize the stepper library
 Stepper window(stepsPerRevolution, IN1, IN3, IN2, IN4);
-Stepper blind(stepsPerRevolution, IN5, IN7, IN6, IN8);
+//Stepper blind(stepsPerRevolution, IN5, IN7, IN6, IN8);
 
 const char* ssid = "koss"; //사용하는 Wifi 이름
 const char* password = "a123456789!"; // 비밀번호
-const char* mqtt_server = "3.34.50.139"; // MQTT broker ip
+const char* mqtt_server = "3.34.1.95"; // MQTT broker ip
 const char* clientName = "wbController"; // client 이름
 
 WiFiClient espClient; // 인터넷과 연결할 수 있는 client 생성
@@ -83,17 +83,17 @@ void callback(char* topic, byte* payload, unsigned int uLen) {
   Serial.println(message[0]); // 1 or 0
 
   if((String)topic == "control/window"){
-    int move_step = (-W_STEP * (String(message[0]).toInt()-1)) - step1;
+    int move_step = (W_STEP * (String(message[0]).toInt()-1)) - step1;
     Serial.print("move_step: "); Serial.println(move_step);
     window.step(move_step);
     step1 += move_step;
   }
-  else if((String)topic == "control/blind"){
-    int move_step = (B_STEP * (String(message[0]).toInt()-1)) - step2;
-    Serial.print("move_step: "); Serial.println(move_step);
-    blind.step(move_step);
-    step2 += move_step;
-  }
+//  else if((String)topic == "control/blind"){
+//    int move_step = (B_STEP * (String(message[0]).toInt()-1)) - step2;
+//    Serial.print("move_step: "); Serial.println(move_step);
+//    blind.step(move_step);
+//    step2 += move_step;
+//  }
 }
 
 void setup() {
@@ -102,7 +102,7 @@ void setup() {
   setup_wifi();
 
   window.setSpeed(300);
-  blind.setSpeed(300);
+  //blind.setSpeed(300);
   
   client.setServer(mqtt_server, 1883); //mqtt 서버와 연결(ip, 1883)
   client.setCallback(callback); //callback 함수 세팅
@@ -113,35 +113,26 @@ void loop() {
   client.loop(); //연결을 계속해서 유지하고 들어오는 메시지를 확인할 수 있도록 함
   int x = analogRead(36);
   int y = analogRead(39);
-  if(x > 3000 && step1 >= -W_STEP * 4){
+  
+  if(x > 3000 && step1 >= 0){
     window.step(-1);
     step1--;
     Serial.println("X-- ");
   }
-  else if(x < 1000 && step1 <= 0){
+  else if(x < 1000 && step1 <= W_STEP * 4){
     window.step(1);
     step1++;
     Serial.println("X++ ");
   }
-  else if(y > 3000 && step2 >= 0){
-    blind.step(-1);
-    step2--;
-    Serial.println("y-- ");
-  }
-  else if(y < 1000 && step2 <= B_STEP * 4){
-    blind.step(1);
-    step2++;
-    Serial.println("y++ ");
-  }
-//  else if (prev1 != step1 || prev2 != step2){
-//    char wbMessage[100] = "";
-//    sprintf(wbMessage, "{'control': 'wb', 'wb': {'window1':%d, 'blind1':%d}}", step1, step2);
-//    Serial.print("Publish message: ");
-//    Serial.println(wbMessage);
-//    client.publish("status/wb", wbMessage);
-//    prev1 = step1;
-//    prev2 = step2;
+//  else if(y > 3000 && step2 >= 0){
+//    blind.step(-1);
+//    step2--;
+//    Serial.println("y-- ");
 //  }
+//  else if(y < 1000 && step2 <= B_STEP * 4){
+//    blind.step(1);
+//    step2++;
+//    Serial.println("y++ ");
 //  Serial.print("X: ");
 //  Serial.print(x);
 //  Serial.print(" Y: ");
