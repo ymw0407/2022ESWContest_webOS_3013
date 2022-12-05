@@ -4,10 +4,13 @@ import Panel from "@enact/sandstone/Panels";
 import LS2Request from "@enact/webos/LS2Request";
 import PropTypes from "prop-types";
 import { useState, useEffect } from "react";
+// require("dotenv").config();
 
 const Player = ({ index, backBtn }) => {
   const [vids, setVids] = useState([]);
   const vid_index = index;
+  // const fileServer = "http://" + process.env.fileServer;
+  const fileServer = "http://3.34.1.95:8000";
   console.log(vid_index);
 
   const bridge = new LS2Request();
@@ -36,7 +39,7 @@ const Player = ({ index, backBtn }) => {
   return (
     <VideoPlayerBase title={vids[vid_index]} onBack={backBtn}>
       <source
-        src={"http://3.34.50.139:8000/package/" + vids[vid_index] + ".mp4"}
+        src={fileServer + "/package/" + vids[vid_index] + ".mp4"}
         // src={"http://3.34.50.139:8000/package/koss.mp4"}
         type="video/mp4"
       />
