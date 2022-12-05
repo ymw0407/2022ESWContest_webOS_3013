@@ -3,6 +3,7 @@ require("dotenv").config();
 
 const MongoURI = process.env.MongoURI;
 const APT_NUMBER = process.env.APT_NUMBER;
+const KR_TIME_DIFF = 9 * 60 * 60 * 1000;
 
 console.log("[MongoURI] " + MongoURI);
 // mongoDB와 연결
@@ -71,7 +72,7 @@ function showRegisterCarData(Car) {
         let carArray = [];
         for (car of cars) {
           let status;
-          Date.parse(car.startAt.split("T")[0]) <= Date.now()
+          Date.parse(car.startAt.split("T")[0]) <= Date.now() + KR_TIME_DIFF
             ? (status = "activate")
             : (status = "deactivate");
 
