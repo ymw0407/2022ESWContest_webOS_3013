@@ -1,7 +1,6 @@
 import { Header, Panel } from "@enact/sandstone/Panels";
-import Button from "@enact/sandstone/Button";
 import Scroller from "@enact/ui/Scroller";
-import Logs from "./Logs";
+import Logs from "../components/Logs";
 import LS2Request from "@enact/webos/LS2Request";
 import { useEffect, useState } from "react";
 import css from "./MainPanel.module.less";
@@ -102,9 +101,12 @@ const MainPanel = () => {
 
   return (
     <Panel className={css.bg}>
-      <Header className={css.appTitle} title="방문 차량 출입 기록" noCloseButton={true} />
+      <Header
+        title="방문 차량 출입 기록"
+        noCloseButton={true}
+      />
       <Scroller>
-        <Logs cars={cars}/>
+        <Logs cars={cars} />
       </Scroller>
     </Panel>
   );
