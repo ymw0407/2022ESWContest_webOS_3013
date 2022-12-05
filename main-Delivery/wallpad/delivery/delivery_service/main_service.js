@@ -14,7 +14,8 @@ const mqtt = require("./mqtt_lib");
 const kindID = "com.log.db:3";
 const MQTT = process.env.MQTT;
 const fileServer = "http://" + process.env.fileServer;
-var jsonMsg = undefined;
+let jsonMsg = undefined;
+let delVidName = undefined;
 
 const putKind = (msg) => {
   service.call(
@@ -96,7 +97,7 @@ const find = (msg) => {
 
 service.register("delVid", (msg) => {
   const options = {
-    uri: fileServer + `/package/${jsonMsg.time}.mp4`,
+    uri: fileServer + `/package/${delVidName}.mp4`,
   };
   request.delete(options, (err, res, body) => {
     if (!err && res.statusCode == 200) {
@@ -154,6 +155,9 @@ service.register("loop", async (msg) => {
     console.log("[loop] topic : " + topic);
     jsonMsg = JSON.parse(String(message));
     console.log("[loop] " + jsonMsg);
+    if (jsonMsg === "arrived"){
+      delVidName = jsonMsg.time;
+    }
     put(jsonMsg, msg);
 
     if (topic == "delivery/arrived") {
