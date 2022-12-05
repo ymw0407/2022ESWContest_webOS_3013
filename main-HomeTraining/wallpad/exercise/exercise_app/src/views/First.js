@@ -27,6 +27,24 @@ const First = () => {
   const history = useHistory();
   const bridge = new LS2Request();
 
+  const closeApp = (app_id) => {
+    var lsRequest = {
+      service: "luna://com.exercise.app.service",
+      method: "close",
+      parameters: {
+        app_id: app_id,
+        subscribe: true,
+      },
+      onSuccess: (msg) => {
+        console.log(msg);
+      },
+      onFailure: (msg) => {
+        console.log(msg);
+      },
+    };
+    bridge.send(lsRequest);
+  };
+
   useEffect(() => {
     console.log("cam on");
     let params = {};
@@ -68,12 +86,8 @@ const First = () => {
   };
 
   return (
-    <Panel className="first">
-      <Header
-        title="운동 보조"
-        className="app-title"
-        onClose={() => console.log("close")}
-      />
+    <Panel className="first" onClose={() => closeApp("com.exercise.app")}>
+      <Header title="운동 보조" className="app-title" />
       <div className="tem">
         <div className="but">
           <StyledButton id="but" onClick={ch ? ifbut : changeBut}>

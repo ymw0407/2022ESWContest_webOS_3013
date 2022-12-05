@@ -35,6 +35,17 @@ function toast(msg){
     ls2.call(toast_url, toast_params, callback);
 }
 
+function closeApp(app_id){
+    let launchApp_url = "luna://com.webos.service.applicationmanager/close";
+    let launchApp_params = {
+        id: app_id
+    };
+    let callback = (m) =>{
+        console.log("[close app] called : "+ app_id);
+    }
+    ls2.call(launchApp_url, launchApp_params, callback);
+}
+
 function launchApp(app_id){
     let launchApp_url = "luna://com.webos.service.applicationmanager/launch";
     let launchApp_params = {
@@ -305,6 +316,7 @@ function cameraCapture(path){
 exports.init = init;
 exports.toast = toast;
 exports.tts = tts;
+exports.closeApp = closeApp;
 exports.launchApp = launchApp;
 exports.cameraReady = cameraReady;
 exports.startRecord = startRecord;

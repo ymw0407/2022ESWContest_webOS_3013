@@ -4,6 +4,7 @@ import styled, { css } from "styled-components";
 import "./Main.css";
 import { useHistory } from "react-router-dom";
 import { useLocation } from "react-router-dom";
+import LS2Request from "@enact/webos/LS2Request";
 
 const StyledButton = styled.button`
   font-size: 40px;
@@ -25,7 +26,26 @@ const StyledButton = styled.button`
 const Main = () => {
   const location = useLocation();
   const history = useHistory();
+  const bridge = new LS2Request();
   console.log(location.state.count);
+
+  const closeApp = (app_id) => {
+    var lsRequest = {
+      service: "luna://com.exercise.app.service",
+      method: "close",
+      parameters: {
+        app_id: app_id,
+        subscribe: true,
+      },
+      onSuccess: (msg) => {
+        console.log(msg);
+      },
+      onFailure: (msg) => {
+        console.log(msg);
+      },
+    };
+    bridge.send(lsRequest);
+  };
 
   const mainPage = () => {
     history.push({ pathname: "/video" });
@@ -36,7 +56,7 @@ const Main = () => {
       <Header
         title="운동 보조"
         className="app-title"
-        onClose={() => console.log("close")}
+        onClose={() => closeApp("com.exercise.app")}
       />
       <div className="tem">
         <div className="analysis">
@@ -45,13 +65,13 @@ const Main = () => {
           <p>5초당 최대 횟수 : {location.state.max}</p>
           <p>5초당 최소 횟수 : {location.state.min}</p>
         </div>
-        <div className="png">
+        <div className="png-box">
           <img
             src={`data:image/png;base64,${location.state.img.slice(2, -1)}`}
           ></img>
-        </div>
-        <div className="but">
-          <StyledButton onClick={mainPage}>녹화영상보기</StyledButton>
+          <StyledButton className="but" onClick={mainPage}>
+            녹화 영상 보기
+          </StyledButton>
         </div>
       </div>
     </Panel>

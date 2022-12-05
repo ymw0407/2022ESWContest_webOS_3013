@@ -128,3 +128,11 @@ heartbeat.on("cancel", function(message) {
         heartbeatinterval = undefined;
     } 
 });
+
+service.register("close", (msg) => {
+    luna.init(service);
+    console.log(msg.payload);
+    luna.launchApp("com.webos.app.home");
+    luna.closeApp(msg.payload.app_id);
+    msg.respond({ returnValue: true });
+  });
