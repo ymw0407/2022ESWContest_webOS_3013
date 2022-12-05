@@ -11,7 +11,7 @@ const Player = ({ index, backBtn }) => {
   const vid_index = index;
   // const fileServer = "http://" + process.env.fileServer;
   const fileServer = "http://3.34.1.95:8000";
-  console.log(vid_index);
+  console.log(`playing video No.${vid_index + 1}`);
 
   const bridge = new LS2Request();
 

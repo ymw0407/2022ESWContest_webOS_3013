@@ -29,7 +29,7 @@ const putKind = (msg) => {
       ],
     },
     (res) => {
-      console.log("[putKind] " + res.payload);
+      console.log("[putKind]", res.payload);
       putPermissions(msg);
     }
   );
@@ -54,7 +54,7 @@ const putPermissions = (msg) => {
       ],
     },
     (res) => {
-      console.log("[putPermissions] " + res.payload);
+      console.log("[putPermissions]", res.payload);
       find(msg);
     }
   );
@@ -73,7 +73,7 @@ const put = (res, msg) => {
       ],
     },
     (res) => {
-      console.log("[put] " + res);
+      console.log("[put]", res);
       find(msg);
     }
   );
@@ -89,7 +89,7 @@ const find = (msg) => {
     },
     (res) => {
       let results = res.payload.results;
-      console.log("[find] " + results);
+      console.log("[find]", results);
       msg.respond({ returnValue: true, results: results });
     }
   );
@@ -101,11 +101,11 @@ service.register("delVid", (msg) => {
   };
   request.delete(options, (err, res, body) => {
     if (!err && res.statusCode == 200) {
-      console.log("[delVid] " + body);
-      console.log("[delVid] " + res.statusCode);
+      console.log("[delVid]", body);
+      console.log("[delVid]", res.statusCode);
     } else {
-      console.log("[delVid] " + err);
-      console.log("[delVid] " + res.statusCode);
+      console.log("[delVid]", err);
+      console.log("[delVid]", res.statusCode);
     }
   });
 });
@@ -118,12 +118,12 @@ service.register("getVids", (msg) => {
 
   request.get(options, (err, res, body) => {
     if (err) {
-      console.log("[getVids] " + err);
+      console.log("[getVids]", err);
       msg.respond({ returnValue: false });
     } else {
-      console.log("[getVids] " + body);
+      console.log("[getVids]", body);
       let vidlist = JSON.parse(body).vidlist;
-      console.log("[getVids] " + vidlist);
+      console.log("[getVids]", vidlist);
       msg.respond({ returnValue: true, vidlist: vidlist });
     }
   });
@@ -150,24 +150,18 @@ service.register("loop", async (msg) => {
   mqtt.subscribe(["delivery/arrived", "delivery/received"]);
 
   client.on("message", (topic, message, packet) => {
-    console.log("[loop] message : " + message);
-    console.log("[loop] topic : " + topic);
+    let toastMessage = "";
+    console.log("[loop] message", message);
+    console.log("[loop] topic", topic);
     jsonMsg = JSON.parse(String(message));
-    console.log("[loop] " + jsonMsg);
-    if (jsonMsg === "arrived"){
-      delVidName = jsonMsg.time;
-    }
     put(jsonMsg, msg);
 
-    if (topic == "delivery/arrived") {
-      luna.tts("배달 물품이 현관에 도착했습니다.");
-      luna.toast("배달 물품이 현관에 도착했습니다.");
-      console.log("[loop] 배달 물품이 현관에 도착했습니다.");
+    if (topic === "delivery/arrived") {
+      toastMessage = "배달 물품이 현관에 도착했습니다.";
+      delVidName = jsonMsg.time;
     }
-    if (topic == "delivery/received") {
-      luna.tts("배달 물품이 현관에서 사라졌습니다.");
-      luna.toast("배달 물품이 현관에서 사라졌습니다.");
-      console.log("[loop] 배달 물품이 현관에서 사라졌습니다.");
+    if (topic === "delivery/received") {
+      toastMessage = "배달 물품이 현관에서 사라졌습니다.";
       let params = `{ \"message\":\" ${jsonMsg.time}에 배달 물품을 수령하셨습니까?",\"buttons\":[{\"label\":\"Yes\",\"onclick\":\"luna://com.delivery.app.service/delVid\"}, {"label":"No"}]}`;
       luna.alert(params);
       msg.respond({
@@ -176,6 +170,9 @@ service.register("loop", async (msg) => {
         status: jsonMsg.status,
       });
     }
+    luna.tts(toastMessage);
+    luna.toast(toastMessage);
+    console.log("[loop] " + toastMessage);
   });
 
   //------------------------- heartbeat 구독 -------------------------

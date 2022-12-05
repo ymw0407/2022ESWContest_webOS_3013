@@ -32,7 +32,7 @@ const LogPanel = ({ onClick }) => {
         onSuccess: (msg) => {
           findHandler(msg);
           resolve();
-          console.log("[init] " + msg);
+          console.log("[init]", msg);
         },
         onFailure: (err) => {
           console.log(err);
@@ -53,13 +53,13 @@ const LogPanel = ({ onClick }) => {
       if (results[i].status === "arrived") {
         status = "도착";
       }
-      if (results[i].status == "received") {
+      if (results[i].status === "received") {
         status = "수령";
       }
       lst.unshift({ time: time, status: status });
     }
     setLogs(lst);
-    console.log("[findHandler] " + lst);
+    console.log("[findHandler]", lst);
   };
 
   const loop = () => {
