@@ -86,7 +86,7 @@ const First = () => {
   };
 
   return (
-    <Panel className="first" onClose={() => closeApp("com.exercise.app")}>
+    <Panel className="first" onClose={() => closeApp("com.exercisedemo.app")}>
       <Header title="운동 보조" className="app-title" />
       <div className="tem">
         <div className="but">

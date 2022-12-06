@@ -25,7 +25,7 @@ const Final = () => {
   };
 
   return (
-    <Panel className="final" onClose={() => closeApp("com.exercise.app")}>
+    <Panel className="final" onClose={() => closeApp("com.exercisedemo.app")}>
       <Header />
     </Panel>
   );

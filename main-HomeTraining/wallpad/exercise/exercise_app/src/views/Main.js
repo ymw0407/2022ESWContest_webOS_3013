@@ -56,7 +56,7 @@ const Main = () => {
       <Header
         title="운동 보조"
         className="app-title"
-        onClose={() => closeApp("com.exercise.app")}
+        onClose={() => closeApp("com.exercisedemo.app")}
       />
       <div className="tem">
         <div className="analysis">

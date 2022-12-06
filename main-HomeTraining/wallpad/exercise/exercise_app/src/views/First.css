@@ -21,6 +21,11 @@
   border: 10px solid #0c7ac3;
   border-radius: 50px;
   padding: 200px;
+  margin-left: 500px;
+}
+
+.but{
+  margin-right: 500px;
 }
 
 p {
