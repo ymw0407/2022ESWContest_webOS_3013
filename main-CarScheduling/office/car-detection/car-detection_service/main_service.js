@@ -125,14 +125,14 @@ service.register("loop", (msg) => {
   let log2 = exec("docker start tesseract");
   console.log(log2 + "")
   luna.toast("서비스 시작!");
-  //luna.tts("서비스 시작!");
+  luna.tts("서비스 시작!");
   luna.cameraReady("camera1");
 
   client.on("message", (topic, message, packet) => {
     console.log("[message] : " + message);
     console.log("[topic] : " + topic);
     if (topic == "car/detect" && message == "recognized"){ // ESP8266으로부터 차량이 도착한 정보를 받으면 사진을 찍어 tesseract에 넘긴다.
-      //luna.tts("차량이 도착했습니다.");
+      luna.tts("차량이 도착했습니다.");
       luna.toast("차량이 도착했습니다.");
       tesseract();
     }
@@ -146,10 +146,10 @@ service.register("loop", (msg) => {
       let jsonMsg = JSON.parse(messageParse);
       put(jsonMsg, msg);
       if (jsonMsg.category == "register" || jsonMsg.category == "general"){
-        //luna.tts("등록된 차량입니다. 환영합니다.");
+        luna.tts("등록된 차량입니다. 환영합니다.");
         luna.toast("등록된 차량입니다. 환영합니다.");
       } else {
-        //luna.tts("미등록 차량입니다.");
+        luna.tts("미등록 차량입니다.");
         luna.toast("미등록 차량입니다.");
       }
     }
