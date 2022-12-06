@@ -193,7 +193,7 @@ def run(
             s += f"({n}, {cnt}, {cam}) "
 
             # Trigger for recording
-            if cnt > 30:
+            if cnt > 20:
                 if not cam and n != 0:
                     cam = True
                 if cam and n == 0:
