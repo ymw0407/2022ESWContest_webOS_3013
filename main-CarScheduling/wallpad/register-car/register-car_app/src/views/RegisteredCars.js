@@ -26,19 +26,21 @@ const RegisteredCars = ({ cars, mainInit }) => {
 
   const Logs = cars.map((car) => (
     <li key={cars.indexOf(car)}>
-      <div className={css.log}>
-        <div>{car.carNumber}</div>
-        <div>{car.startAt}</div>
-        <div>~</div>
-        <div>{car.expireAt}</div>
-        <div>{car.status}</div>
-        <Button
-          onClick={() => {
-            deleteCarData(car.carNumber);
-          }}
-        >
-          remove
-        </Button>
+      <div className={css.bor}>
+        <div className={css.log}>
+          <div>{car.carNumber}</div>
+          <div>{car.startAt}</div>
+          <div>~</div>
+          <div>{car.expireAt}</div>
+          <div>{car.status}</div>
+          <Button
+            onClick={() => {
+              deleteCarData(car.carNumber);
+            }}
+          >
+            remove
+          </Button>
+        </div>
       </div>
     </li>
   ));

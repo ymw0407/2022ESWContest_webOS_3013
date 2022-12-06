@@ -39,8 +39,23 @@ const MainPanel = ({ onClick, title, ...rest }) => {
       parameters: {},
       onSuccess: (msg) => {
         console.log(msg);
-        setRegisterLogs(msg.carData.register);
-        setGeneralLogs(msg.carData.general);
+        if (msg.carData.register === []) {
+          setRegisterLogs([
+            {
+              carNumber: "임시 등록 차량",
+              startAt: "시작 시간",
+              expireAt: "종료 시간",
+              status: "상태",
+            },
+          ]);
+        } else {
+          setRegisterLogs(msg.carData.register);
+        }
+        if (msg.carData.general === []) {
+          setGeneralLogs([{ carNumber: "일반 등록 차량" }]);
+        } else {
+          setGeneralLogs(msg.carData.general);
+        }
       },
       onFailure: (msg) => {
         console.log(msg);
