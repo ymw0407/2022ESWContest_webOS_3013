@@ -2,42 +2,24 @@ const pkgInfo = require('./package.json');
 const Service = require('webos-service');
 const luna = require("./luna_service");
 const { resourceLimits } = require('worker_threads');
+const mosquitto = require("mqtt");
+const mqtt = require("./mqtt_lib");
 const service = new Service(pkgInfo.name); // Create service by service name on package.json
 const logHeader = "[" + pkgInfo.name + "]";
-const spawn = require("child_process").spawn;
 const exec = require("child_process").exec;
+require("dotenv").config();
+
+const ip = process.env.MQTT
 
 // service.register("windowOn", function(message){
 //     var setWindow = exec("/usr/sbin/camera_window_manager_exporter 0 0 1920 1080 &");
 //     console.log("setWindow");
 // })
+
 service.register("serviceStart", function(message) {
     luna.init(service);
-    var setWindow = exec("/usr/sbin/camera_window_manager_exporter 0 0 1920 1080 &");
-    setWindow.stdout.on("data", function (data) {
-        console.log(data.toString()); // 버퍼 형태로 전달됩니다.
-      });
-      
-      // 표준 에러
-    setWindow.stderr.on("data", function (data) {
-        console.error(data.toString()); // 버퍼 형태로 전달됩니다.
-      });
-    console.log("setWindow");
     luna.cameraReady("camera1");
-    //------------------------- heartbeat 구독 -------------------------
-    const sub = service.subscribe(`luna://${pkgInfo.name}/heartbeat`, {subscribe: true});
-    const max = 10000; //heart beat 횟수 /// heart beat가 꺼지면, 5초 정도 딜레이 생김 --> 따라서 이 녀석도 heart beat를 무한히 돌릴 필요가 있어보임.
-    let count = 0;
-    sub.addListener("response", function(msg) {
-        console.log(JSON.stringify(msg.payload));
-        if (++count >= max) {
-            sub.cancel();
-            setTimeout(function(){
-                console.log(max+" responses received, exiting...");
-                process.exit(0);
-            }, 1000);
-        }
-    });
+    console.log("camera on");
 });
 
 service.register("record", function(message){
@@ -50,41 +32,50 @@ service.register("record", function(message){
 service.register("child", function(message) {
     luna.cameraEnd();
     console.log("camera End");
-    luna.toast("녹화가 종료되었습니다!")
-    var py_pro = spawn("python3", ["pushup.py"]);
-    var cnt = 0;
-    py_pro.stdout.on("data", function (data) {
-        result = data.toString();
-        console.log(result);
-        cnt++;
-        if(cnt == 4)
-        {
-            message.respond({
-                reply:result
-            }); 
-        }
-    }); // 실행 결과
-      
-    py_pro.stderr.on("data", function (data) {
-        console.error(data.toString());
-    }); // 실행 >에러
+    luna.toast("녹화가 종료되었습니다!");
+    mqtt.init(mosquitto);
+    client = mqtt.connect(ip);
+    mqtt.subscribe(['exercise/result', 'exercise/next']);
+    var py_pro = exec("python3 video.py");
 
-    py_pro.on("close", function(code){
-        console.log("close");
+    client.on("message", (topic, msg) => {
+        console.log("[message] : " + String(msg));
+        console.log("[topic] : " + topic);
+        if(topic == "exercise/next"){
+            message.respond({
+                reply: "nextPage"
+            })
+            client.end();
+            sub.cancel();
+        }
+        else{
+            message.respond({
+                reply: String(msg)
+            });
+        }
     });
+
+    client.on("close", () => {
+        console.log("mqtt closed");
+    })
+   
     //------------------------- heartbeat 구독 -------------------------
     const sub = service.subscribe(`luna://${pkgInfo.name}/heartbeat`, {subscribe: true});
-    const max = 10000; //heart beat 횟수 /// heart beat가 꺼지면, 5초 정도 딜레이 생김 --> 따라서 이 녀석도 heart beat를 무한히 돌릴 필요가 있어보임.
+    const max = 100; //heart beat 횟수 /// heart beat가 꺼지면, 5초 정도 딜레이 생김 --> 따라서 이 녀석도 heart beat를 무한히 돌릴 필요가 있어보임.
     let count = 0;
     sub.addListener("response", function(msg) {
         console.log(JSON.stringify(msg.payload));
-        if (++count >= max) {
-            sub.cancel();
-            setTimeout(function(){
-                console.log(max+" responses received, exiting...");
-                process.exit(0);
-            }, 1000);
-        }
+        // if (count >= max) {
+        //     sub.cancel();
+        //     setTimeout(function(){
+        //         console.log(max+" responses received, exiting...");
+        //         process.exit(0);
+        //     }, 1000);
+        // }
+        // setTimeout(function(){
+        //     console.log(max+" responses received, exiting...");
+        //     process.exit(0);
+        // }, 1000);
     });
 });
 
@@ -92,7 +83,6 @@ service.register("child", function(message) {
 // handle subscription requests
 const subscriptions = {};
 let heartbeatinterval;
-let x = 1;
 function createHeartBeatInterval() {
     if (heartbeatinterval) {
         return;
@@ -112,11 +102,10 @@ function sendResponses() {
             const s = subscriptions[i];
             s.respond({
                 returnValue: true,
-                event: "beat " + x
+                event: "beat "
             });
         }
     }
-    x++;
 }
 
 var heartbeat = service.register("heartbeat");
@@ -140,3 +129,10 @@ heartbeat.on("cancel", function(message) {
     } 
 });
 
+service.register("close", (msg) => {
+    luna.init(service);
+    console.log(msg.payload);
+    luna.launchApp("com.webos.app.home");
+    luna.closeApp(msg.payload.app_id);
+    msg.respond({ returnValue: true });
+  });

@@ -2,3 +2,5 @@ node_modules
 *.ipk
 com.*
 dist
+.env
+.eslintcache

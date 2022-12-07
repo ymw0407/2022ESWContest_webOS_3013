@@ -1,9 +1,9 @@
 {
-  "id": "com.exercise.app.service",
+  "id": "com.exercisedemo.app.service",
   "description": "HelloWorld Service",
   "services": [
     {
-      "name": "com.exercise.app.service"
+      "name": "com.exercisedemo.app.service"
     }
   ]
 }

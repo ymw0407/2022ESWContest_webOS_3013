@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
-import styled, {css} from 'styled-components';
+import { Header, Panel } from "@enact/sandstone/Panels";
+import styled, { css } from "styled-components";
 import { useHistory } from "react-router-dom";
 import LS2Request from "@enact/webos/LS2Request";
-import './First.css';
-
+import "./First.css";
 
 const StyledButton = styled.button`  
   font-size: 40px;
@@ -23,35 +23,52 @@ const StyledButton = styled.button` 
 `;
 
 const First = () => {
-
   const [ch, setch] = useState(false);
   const history = useHistory();
   const bridge = new LS2Request();
+
+  const closeApp = (app_id) => {
+    var lsRequest = {
+      service: "luna://com.exercise.app.service",
+      method: "close",
+      parameters: {
+        app_id: app_id,
+        subscribe: true,
+      },
+      onSuccess: (msg) => {
+        console.log(msg);
+      },
+      onFailure: (msg) => {
+        console.log(msg);
+      },
+    };
+    bridge.send(lsRequest);
+  };
 
   useEffect(() => {
     console.log("cam on");
     let params = {};
     let lsRequest = {
-      service: "luna://com.exercise.app.service",
+      service: "luna://com.exercisedemo.app.service",
       method: "serviceStart",
       parameters: params,
       onSuccess: (msg) => {
         console.log(msg);
       },
       onFailure: (err) => {
-        console.log(err)
-      }
+        console.log(err);
+      },
     };
     bridge.send(lsRequest);
   }, []);
   const changeBut = () => {
-    const butText = document.getElementById('but');
+    const butText = document.getElementById("but");
     butText.innerText = "녹화 종료";
     console.log("녹화 종료");
-    setch(prevch => !prevch);
+    setch((prevch) => !prevch);
     let params = {};
     let lsRequest = {
-      service: "luna://com.exercise.app.service",
+      service: "luna://com.exercisedemo.app.service",
       method: "record",
       parameters: params,
       onSuccess: (msg) => {
@@ -59,30 +76,35 @@ const First = () => {
       },
       onFailure: (err) => {
         console.log(err);
-      }
+      },
     };
     bridge.send(lsRequest);
   };
   const ifbut = () => {
     console.log("페이지 이동");
-    history.push('/load');
+    history.push("/load");
   };
-  
+
   return (
-    <div className="first">
-      <div className="app-title">운동 보조</div>
+    <Panel className="first" onClose={() => closeApp("com.exercisedemo.app")}>
+      <Header title="운동 보조" className="app-title" />
       <div className="tem">
         <div className="but">
-          <StyledButton id="but" onClick={ ch ? ifbut : changeBut} >녹화 시작</StyledButton>
+          <StyledButton id="but" onClick={ch ? ifbut : changeBut}>
+            녹화 시작
+          </StyledButton>
         </div>
         <div className="content">
-          <p>step1 : 허리 펴기</p>
-          <p>step2 : 팔 굽히기</p>
-          <p>step3 : 팔 펴기</p>
+          <h2 className="exercise-name">팔 굽혀 펴기</h2>
+          <div className="exercise-steps">
+            <p>step1 : 허리 펴기</p>
+            <p>step2 : 팔 굽히기</p>
+            <p>step3 : 팔 펴기</p>
+          </div>
         </div>
       </div>
-    </div>
-  )
-}
+    </Panel>
+  );
+};
 
 export default First;

@@ -11,20 +11,20 @@ const Loading = (props) => {
   var res, obj;
   useEffect(() => {
     console.log("effect");
-    let params = {};
+    let params = {subscribe:true};
     let lsRequest = {
-      service: "luna://com.exercise.app.service",
+      service: "luna://com.exercisedemo.app.service",
       method: "child",
       parameters: params,
       onSuccess: (msg) => {
         res = msg.reply;
         console.log(res);
-        console.log(typeof res);
-        obj = JSON.parse(res);
-        console.log(typeof obj);
-        console.log(obj.img);
-        //console.log(res.count)
-        nextPage();
+        if(res == "nextPage"){
+          nextPage();
+        }
+        else{
+          obj = JSON.parse(res);
+        }
       },
       onFailure: (err) => {
         console.log(err)
@@ -35,6 +35,7 @@ const Loading = (props) => {
 
   const nextPage = () => {
     history.push({pathname: '/main', state: obj});
+    //history.push('/main');
   }
 
   return (
