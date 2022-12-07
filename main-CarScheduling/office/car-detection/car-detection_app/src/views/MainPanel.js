@@ -1,17 +1,23 @@
 import { Header, Panel } from "@enact/sandstone/Panels";
-import Button from "@enact/sandstone/Button";
 import Scroller from "@enact/ui/Scroller";
-import Logs from "./Logs";
+import Logs from "../components/Logs";
 import LS2Request from "@enact/webos/LS2Request";
 import { useEffect, useState } from "react";
 import css from "./MainPanel.module.less";
 
 const MainPanel = () => {
-  const [logs, setLogs] = useState(["날짜 | 차량 번호 | 차량 정보 | 통과 여부"]);
+  const [cars, setCars] = useState([
+    {
+      time: "날짜",
+      carNumber: "차량 번호",
+      status: "차량 정보",
+      permission: "통과 여부",
+    },
+  ]);
   const bridge = new LS2Request();
 
   async function start() {
-    let ret = await init();
+    await init();
     loop();
   }
 
@@ -44,23 +50,35 @@ const MainPanel = () => {
     let lst = [];
     const results = res.results;
     for (let i in results) {
-      let text = `${results[i].time.slice(0, -7)} | ${results[i].carNumber} | `
+      let status = "";
+      let permission = "";
       if (results[i].status === "register") {
-        text += "임시 등록 차량 | 통과";
+        status = "임시 등록 차량";
+        permission = "통과";
       }
       if (results[i].status === "unknown") {
-        text += "미등록 차량 | 거부";
+        status = "미등록 차량";
+        permission = "거부";
       }
       if (results[i].status === "general") {
-        text += "입주민 차량 | 통과";
+        status = "입주민 차량";
+        permission = "통과";
       }
-      lst.unshift(text);
+      let result = {
+        time: results[i].time.slice(0, -7),
+        carNumber: results[i].carNumber,
+        status: status,
+        permission: permission,
+      };
+      lst.unshift(result);
     }
-    setLogs(lst.sort((a, b) => {
-      if (a > b) return -1;
-      else if (b > a) return 1;
-      else return 0;
-    }));
+    setCars(
+      lst.sort((a, b) => {
+        if (a > b) return -1;
+        else if (b > a) return 1;
+        else return 0;
+      })
+    );
     console.log(lst);
   };
 
@@ -83,9 +101,12 @@ const MainPanel = () => {
 
   return (
     <Panel className={css.bg}>
-      <Header title="log app" />
+      <Header
+        title="방문 차량 출입 기록"
+        noCloseButton={true}
+      />
       <Scroller>
-        <Logs>{logs}</Logs>
+        <Logs cars={cars} />
       </Scroller>
     </Panel>
   );

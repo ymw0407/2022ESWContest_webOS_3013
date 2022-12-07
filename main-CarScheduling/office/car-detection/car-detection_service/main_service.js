@@ -7,10 +7,11 @@ const { exec } = require("child_process");
 const execSync = require("child_process").execSync;
 const service = new Service(pkgInfo.name); // Create service by service name on package.json
 const logHeader = "[" + pkgInfo.name + "]";
+require("dotenv").config();
 
-const kindID = "com.log.db:1";
+const kindID = "com.log.db:2";
 
-const ip = "3.34.50.139";
+const MQTT = process.env.MQTT
 // mosquitto_pub -h 3.34.50.139 -t "car" -m "{\"time\":\"123\", \"carNumber\":\"123\", \"status\":\"registered\"}"
 
 const putKind = (msg) => {
@@ -104,7 +105,7 @@ async function tesseract(){
   let latest_file_name = parsed_file_name[parsed_file_name.length - 2]
   console.log(file_name + "")
   console.log(latest_file_name + "")
-  console.log("docker exec tesseract python3.9 /root/tesseract-ocr/app.py --vid " + String(latest_file_name))
+   console.log("docker exec tesseract python3.9 /root/tesseract-ocr/app.py --vid " + String(latest_file_name))
   execSync("docker exec tesseract python3.9 /root/tesseract-ocr/app.py --vid " + String(latest_file_name))
 }
 
@@ -116,7 +117,7 @@ service.register("loop", (msg) => {
   luna.init(service);
 
   mqtt.init(mosquitto);
-  client = mqtt.connect(ip);
+  client = mqtt.connect(MQTT);
   mqtt.subscribe(["car/detect", "car/data"]);
 
   let log = exec("systemctl restart docker");
@@ -160,18 +161,10 @@ service.register("loop", (msg) => {
   const sub = service.subscribe(`luna://${pkgInfo.name}/heartbeat`, {
     subscribe: true,
   });
-  const max = 10000; //heart beat 횟수 /// heart beat가 꺼지면, 5초 정도 딜레이 생김 --> 따라서 이 녀석도 heart beat를 무한히 돌릴 필요가 있어보임.
-  let count = 0;
+
   sub.addListener("response", function (msg) {
     console.log(JSON.stringify(msg.payload));
-    if (++count >= max) {
-      sub.cancel();
-      setTimeout(function () {
-        console.log(max + " responses received, exiting...");
-        process.exit(0);
-      }, 1000);
-    }
-  });
+    });
 
   //------------------------- heartbeat 구독 -------------------------
 });
@@ -180,7 +173,6 @@ service.register("loop", (msg) => {
 // handle subscription requests
 const subscriptions = {};
 let heartbeatinterval;
-let x = 1;
 function createHeartBeatInterval() {
   if (heartbeatinterval) {
     return;
@@ -202,11 +194,10 @@ function sendResponses() {
       const s = subscriptions[i];
       s.respond({
         returnValue: true,
-        event: "beat " + x,
+        event: "beat ",
       });
     }
   }
-  x++;
 }
 
 var heartbeat = service.register("heartbeat");
