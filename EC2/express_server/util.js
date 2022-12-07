@@ -19,6 +19,7 @@ util.parseError = function(errors){
 }
 
 util.time = function(time){
+  console.log("util.time")
   hour = time.slice(0,2)
   minute = time.slice(3,5)
   month = time.slice(6,8)

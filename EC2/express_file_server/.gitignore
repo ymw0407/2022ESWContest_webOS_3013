@@ -1,3 +1,8 @@
 resource/package/*
-resource/exercise/*
 node_modules
+
+# mp4
+output.mp4
+input.mp4
+progress.mp4
+.env

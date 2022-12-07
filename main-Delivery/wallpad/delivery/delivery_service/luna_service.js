@@ -33,16 +33,35 @@ function toast(msg) {
     ls2.call(toast_url, toast_params, callback);
 }
 
-function launchApp(app_id) {
+/**
+ * 해당 앱을 실행
+ * @param {string} app_id 실행시킬 앱 아이디
+ */
+ function launchApp(app_id) {
     let launchApp_url = "luna://com.webos.service.applicationmanager/launch";
     let launchApp_params = {
-        id: app_id,
+      id: app_id,
     };
     let callback = (m) => {
-        console.log("[luna] launchApp : " + app_id);
+      console.log("[launch app] called : " + app_id);
     };
     ls2.call(launchApp_url, launchApp_params, callback);
-}
+  }
+  
+  /**
+   * 해당 앱을 종료
+   * @param {string} app_id 종료시킬 앱 아이디
+   */
+  function closeApp(app_id) {
+    let closeApp_url = "luna://com.webos.service.applicationmanager/close";
+    let closeApp_params = {
+      id: app_id,
+    };
+    let callback = (m) => {
+      console.log("[close app] called : " + app_id);
+    };
+    ls2.call(closeApp_url, closeApp_params, callback);
+  }
 
 function alert(params) {
     var string_ = `luna-send -n 1 -f -a com.webos.surfacemanager luna://com.webos.notification/createAlert '${params}'`;
@@ -54,4 +73,5 @@ exports.init = init;
 exports.toast = toast;
 exports.tts = tts;
 exports.launchApp = launchApp;
+exports.closeApp = closeApp;
 exports.alert = alert;

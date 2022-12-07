@@ -1,75 +1,125 @@
+@import url('https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=Do+Hyeon&family=Nanum+Gothic:wght@700&family=Sunflower:wght@300;500&display=swap');
+
+* {
+  margin: 0;
+  padding: 0;
+  background-color: rgb(42, 182, 163);
+  font-family: 'Nanum Gothic', sans-serif;
+}
 .first {
-  position: absolute;
-  left: 0;
-  top: 0;
-  bottom: 0;
-  right: 0;
-  display: flex;
-  /*flex-direction: column;*/
-  height: 100vh;
-  background-image: url(../img/control_back.jpg);
+  width: 100%;
   background-size: cover;
 } 
 .app-title {
   color: white;
-  font-size: 200px;
-  margin-top: 200px;
-  margin-left: 350px;
-  margin-bottom: 30px;
+  font-size: 5rem;
+  font-weight: 700;
+  padding-left: 10rem;
+  padding-top: 10rem;
+  padding-bottom: 2rem;
+  margin-right: 6rem;
 }
+
+.xbutton{
+  width: 200px;
+  height: 200px;
+  border-color: black;
+  border-radius: 15px;
+}
+.xbutton :hover{
+  background: rgb(255, 255, 255);
+}
+
+.button {
+  background: rgb(42, 182, 163);
+  border: rgb(42, 182, 163);
+}
+
+.btnPush:hover {
+  background: rgb(255, 255, 255);
+  box-shadow: 0px 70px 70px 15px rgb(115, 114, 114);
+}
+
+
+
 .tem {
-  margin-top: 100px;
+  background-color: rgb(42, 182, 163);
 }
 .lbox1 {
-  padding-right: 200px;
+  margin-left: 5rem;
+  border: 2px rgb(37, 100, 101) solid;
+  border-radius: 50px;
+  background-color: rgb(37, 100, 101);
+  padding: 2rem 3rem;
+  box-shadow: 0 0 1.5rem 0 rgb(87, 90, 90);
 }
 .lbox1 p {
   font-size: 130px;
   font-weight: 600;
   padding-top: 50px;
   padding-bottom: 250px;
-  margin-left: 30px;
-  color: white;
+  color: rgb(51, 51, 51);
 }
 .light {
   display: flex;
   float: left;
   text-align: center;
   margin-top: 500px;
-  margin-left: -740px;
+}
+
+.tem2{
+  vertical-align: baseline;
 }
 .window {
   display: flex;
   float: left;
-  margin-top: 490px;
-  margin-left: 100px;
+  margin-top: 420px;
+  margin-left: 150px;
 }
 .window1 {
-  margin-left: 200px;
-  margin-top: 2px;
+  border: 2px rgb(37, 100, 101) solid;
+  border-radius: 50px;
+  background-color: rgb(37, 100, 101);
+  padding: 2rem 3rem;
+  padding-bottom: 3rem;
+  box-shadow: 0 0 1.5rem 0 rgb(87, 90, 90);
 }
 .window1 p {
   font-size: 130px;
   font-weight: 600;
   padding-top: 50px;
-  margin-left: 160px;
+  padding-bottom: 4rem;
+  text-align: center;
   color: white;
+  background-color: rgb(37, 100, 101);
 }
 
 .blind {
   display: flex;
   float: left;
-  margin-top: 490px;
-  margin-left: 100px;
+  margin-top: 420px;
+  margin-left: 150px;
 }
 .blind1 {
-  margin-left: 300px;
+  border: 2px rgb(37, 100, 101) solid;
+  border-radius: 50px;
+  background-color: rgb(37, 100, 101);
+  padding: 2rem 3rem;
+  padding-bottom: 4rem;
+  box-shadow: 0 0 1.5rem 0 rgb(87, 90, 90);
 }
 .blind1 p {
   font-size: 130px;
   font-weight: 600;
   padding-top: 50px;
+  padding-bottom: 4rem;
+  text-align: center;
   margin-left: 40px;
   color: white;
+  background-color: rgb(37, 100, 101);
 }
 
+.footer {
+  margin-top: 30rem;
+  margin-right: 7rem;
+}

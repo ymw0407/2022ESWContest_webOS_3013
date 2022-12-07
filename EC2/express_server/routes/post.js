@@ -5,7 +5,7 @@ var util = require('../util');
 const mosquitto = require("mqtt");
 const mqtt = require("./mqtt_lib");
 
-const ip = "3.34.50.139";
+const MQTT = process.env.MQTT;
 mqtt.init(mosquitto);
 /*---------------------------notice------------------------- */
 // Index 
@@ -26,7 +26,6 @@ router.get('/notice/new', function(req, res){
 
 // create
 router.post('/', function(req, res){
-  console.log(req.body);
   //post 받으면 정리 이 데이터만 데베에 저장
   var noticeRequest = new Object();
   noticeRequest.selectbox = 'notice';
@@ -46,25 +45,20 @@ router.post('/', function(req, res){
   //알림 체크한 경우
   if (req.body.notification == 'on'){ 
     noticeRequest.startTime = util.time(req.body.startTime);
-    noticeRequest.endTime = util.time(req.body.endTime);
     var noticeSend = {
       content: {title:noticeRequest.title, body:noticeRequest.body}, 
       recommend: true,
       control: {device:req.body.appliance, func: req.body.operation},
-      time: {start:noticeRequest.startTime, end:noticeRequest.endTime},
-      
+      time: {start:noticeRequest.startTime, end:noticeRequest.endTime}, 
     };
   } else {
-    noticeRequest.startTime = util.time(req.body.startTime);
-    noticeRequest.endTime = util.time(req.body.endTime);
     var noticeSend = {
       content: {title:noticeRequest.title, body:noticeRequest.body}, 
       recommend: false,
     };
   }
-  console.log(noticeSend)
   var jsonString = JSON.stringify(noticeSend);      //jsonString:  [{"title":"r","content":"ew"},{"start":"2022-09-13 03:35:00","end":"2022-09-29 15:23:00"},{"appliance":"blind","operation":"on"}]
-  mqtt.connect(ip);
+  mqtt.connect(MQTT);
   mqtt.publish("post/notice", jsonString);
 });
 
@@ -72,7 +66,7 @@ router.post('/', function(req, res){
 router.get('/notice/:id', function(req, res){
   Post.findOne({_id:req.params.id}, function(err, post){
     if(err) return res.json(err);
-    res.render('posts/show', {post:post});
+    res.render('posts/notice/show', {post:post});
   });
 });
 
@@ -80,13 +74,13 @@ router.get('/notice/:id', function(req, res){
 router.get('/:id/edit', function(req, res){
   Post.findOne({_id:req.params.id}, function(err, post){
     if(err) return res.json(err);
-    res.render('posts/edit', {post:post});
+    res.render('posts/notice/edit', {post:post});
   });
 });
 
 // update
 router.put('/posts/:id', function(req, res){
-    if(pass == req.body.password){
+    if(req.body.password == "notice"){
         req.body.updatedAt = Date.now(); 
         Post.findOneAndUpdate({_id:req.params.id}, req.body)
             .exec(function(err, post){
@@ -97,6 +91,11 @@ router.put('/posts/:id', function(req, res){
         //비번 틀렸다는 알림 띄우기
         res.redirect("/notice/"+req.params.id);
     }
+});
+
+//update에서 back 눌렀을 경우
+router.get('/posts/:id', function(req, res){
+  res.redirect("/notice/"+req.params.id);
 });
 
 // destroy
@@ -138,17 +137,27 @@ router.post('/general', function(req, res){
       });
     }
     else{
-      res.redirect('/');
+      res.redirect('/general');
     }
   });
 
 // show
+// 글 상세보기
 router.get('/general/:id', function(req, res){
     Post.findOne({_id:req.params.id}, function(err, post){
       if(err) return res.json(err);
-      res.render('posts/show', {post:post});
+      res.render('posts/general/show', {post:post});
     });
   });
+
+// edit
+// 글 편집하기
+router.get('/general/posts/:id', function(req, res){
+  Post.findOne({_id:req.params.id}, function(err, post){
+    if(err) return res.json(err);
+    res.render('posts/general/edit', {post:post});
+  });
+});
 
 // update
 router.put('/general/posts/:id', function(req, res){
@@ -163,6 +172,11 @@ router.put('/general/posts/:id', function(req, res){
         //비번 틀렸다는 알림 띄우기
         res.redirect("/general/"+req.params.id);
     }
+});
+
+//update에서 back 눌렀을 경우
+router.get('/general/posts/:id', function(req, res){
+  res.redirect("/general/"+req.params.id);
 });
 
 // destroy

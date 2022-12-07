@@ -1,22 +1,21 @@
 import Button from "@enact/sandstone/Button";
 import { useState, useEffect } from "react";
 import LS2Request from "@enact/webos/LS2Request";
-import css from "../components/Tile.module.less";
+import css from "../components/Tiles.module.less";
 import Proptypes from "prop-types";
 
 const bridge = new LS2Request();
 
-const Btn = ({ app, installedApps }) => {
-  const [state, setState] = useState("install");
+const Btn = ({ app, installedApps, installState, setInstallState }) => {
+  const [btnState, setBtnState] = useState("install");
 
   useEffect(() => {
     btnInit();
   }, [installedApps]);
 
   function btnInit() {
-    console.log(app, installedApps);
     if (installedApps.includes(app.id)) {
-      setState("remove");
+      setBtnState("remove");
     }
   }
 
@@ -59,11 +58,11 @@ const Btn = ({ app, installedApps }) => {
   }
 
   function appInstall(app_name, app_id, app_file) {
+    setInstallState("installing");
     console.log("[install] " + app_name);
-    console.log("Installing...");
-    toast("Installing...");
-    tts("Installing...");
-    var lsRequest = {
+    toast(app_name + "앱을 설치합니다.");
+    tts(app_name + "앱을 설치합니다.");
+    let lsRequest = {
       service: "luna://com.appstore.app.service",
       method: "install",
       parameters: {
@@ -73,27 +72,30 @@ const Btn = ({ app, installedApps }) => {
         subscribe: true,
       },
       onSuccess: (msg) => {
+        toast(app_name + "앱 설치가 완료되었습니다.");
+        tts(app_name + "앱이 설치되었습니다.");
         console.log(msg.reply);
-        setState("remove");
+        setBtnState("remove");
+        setInstallState("idle");
       },
-      onFailure: (msg) => {
-        console.log(msg);
-        console.log("error");
-        setState("Failed to install");
+      onFailure: (err) => {
+        console.log(err);
+        setBtnState("Failed to install");
         setTimeout(() => {
-          setState("install");
+          setBtnState("install");
         }, 500);
+        setInstallState("idle");
       },
     };
     bridge.send(lsRequest);
   }
 
   function appRemove(app_name, app_id, app_file) {
+    setInstallState("removing");
     console.log("[remove] " + app_name);
-    console.log("Removing...");
-    toast("Removing...");
-    tts("Removing...");
-    var lsRequest = {
+    toast(app_name + "앱을 삭제합니다.");
+    tts(app_name + "앱을 삭제합니다.");
+    let lsRequest = {
       service: "luna://com.appstore.app.service",
       method: "remove",
       parameters: {
@@ -103,16 +105,19 @@ const Btn = ({ app, installedApps }) => {
         subscribe: true,
       },
       onSuccess: (msg) => {
+        toast(app_name + "앱 삭제가 완료되었습니다.");
+        tts(app_name + "앱이 삭제되었습니다.");
         console.log(msg.reply);
-        setState("install");
+        setBtnState("install");
+        setInstallState("idle");
       },
-      onFailure: (msg) => {
-        console.log(msg);
-        console.log("error");
-        setState("Failed to remove");
+      onFailure: (err) => {
+        console.log(err);
+        setBtnState("Failed to remove");
         setTimeout(() => {
-          setState("remove");
+          setBtnState("remove");
         }, 500);
+        setInstallState("idle");
       },
     };
     bridge.send(lsRequest);
@@ -138,21 +143,34 @@ const Btn = ({ app, installedApps }) => {
 
   const app_file = app.id + "_1.0.0_all.ipk";
   function buttonOnClick() {
-    // install
-    if (state === "install") {
-      setState("Installing...");
-      appInstall(app.name, app.id, app_file);
-      // remove
-    } else if (state === "remove") {
-      setState("Removing...");
-      appRemove(app.name, app.id, app_file);
+    // 다른 앱 설치나 삭제 중이 아닐 때
+    if (installState == "idle") {
+      // install
+      if (btnState === "install") {
+        setBtnState("Installing...");
+        appInstall(app.name, app.id, app_file);
+        // remove
+      } else if (btnState === "remove") {
+        setBtnState("Removing...");
+        appRemove(app.name, app.id, app_file);
+      }
+      // 다른 앱 설치나 삭제 중일 때
+    } else {
+      let opStatus = "";
+      if (installState == "installing"){
+        opStatus = "설치 중"
+      }
+      if (installState == "removing"){
+        opStatus = "삭제 중"
+      }
+      console.log("다른 앱 " + opStatus + " 입니다.")
     }
   }
 
   return (
     <div className={css.btn}>
-      <Button onClick={() => buttonOnClick()}>{state}</Button>
-      {state === "remove" && (
+      <Button onClick={() => buttonOnClick()}>{btnState}</Button>
+      {btnState === "remove" && (
         <Button onClick={() => appOpen(app.id)}>open</Button>
       )}
     </div>
@@ -160,8 +178,10 @@ const Btn = ({ app, installedApps }) => {
 };
 
 Btn.propTypes = {
-  app: Proptypes.string,
+  app: Proptypes.object,
   installedApps: Proptypes.array,
+  setInstallState: Proptypes.func,
+  installState: Proptypes.string,
 };
 
 export default Btn;

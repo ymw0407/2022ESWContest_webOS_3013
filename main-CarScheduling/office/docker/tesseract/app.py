@@ -6,9 +6,9 @@ import ocr
 import argparse
 import os
 
-MONGODB_URI = "mongodb://3.34.50.139:27017/DB"
-conn = MongoClient(MONGODB_URI)
-db = conn.DB
+Mongo_URI = os.environ["MongoURI"]
+conn = MongoClient(Mongo_URI)
+db = conn.esw
 cars = db.cars
 
 def run(vid):

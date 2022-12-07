@@ -1,6 +1,5 @@
 const exec = require("child_process").exec;
 var ls2 = undefined;
-const EC2_IP = "3.34.50.139:8000";
 
 /**
  * luna 서비스 호출 모듈한테 자신을 호출하는 메인 서비스 객체를 등록
@@ -73,58 +72,8 @@ function closeApp(app_id) {
   ls2.call(closeApp_url, closeApp_params, callback);
 }
 
-/**
- * 기기 내 ipk 파일을 설치
- * @param {string} app_id 설치할 파일의 아이디
- * @param {string} path ipk 파일이 저장되는 경로
- */
-function appDownload(app_id, path) {
-  // ipk 파일 다운로드
-  exec(
-    'wget -P ./apps/ "http://' +
-      EC2_IP +
-      "/apps/" +
-      app_id +
-      "_1.0.0_all.ipk" +
-      '"',
-    (err) => {
-      if (err) {
-        console.log(err);
-      }
-      let appDownload_url = "luna://com.webos.appInstallService/dev/install";
-      let appDownload_params = {
-        id: app_id,
-        ipkUrl: path,
-        subscribe: true,
-      };
-      var callback = (m) => {
-        console.log("[app install] called : " + app_id);
-      };
-      ls2.call(appDownload_url, appDownload_params, callback);
-    }
-  );
-}
-
-/**
- * 해당 앱을 삭제
- * @param {string} app_id 삭제할 앱 아이디
- */
-function appRemove(app_id) {
-  let appRemove_url = "luna://com.webos.appInstallService/dev/remove";
-  let appRemove_params = {
-    id: app_id,
-    subscribe: true,
-  };
-  var callback = (m) => {
-    console.log("[app remove] called : " + app_id);
-  };
-  ls2.call(appRemove_url, appRemove_params, callback);
-}
-
 exports.init = init;
 exports.toast = toast;
 exports.tts = tts;
 exports.launchApp = launchApp;
 exports.closeApp = closeApp;
-exports.appDownload = appDownload;
-exports.appRemove = appRemove;

@@ -1,4 +1,5 @@
 const { MqttClient } = require("mqtt");
+const exec = require("child_process").exec;
 
 var ls2 = undefined;
 var handle = undefined;
@@ -25,7 +26,7 @@ function toast(msg){
     let toast_url = "luna://com.webos.notification/createToast";
     let toast_params = {
         message: msg,
-        persistent:true
+        //persistent:true
     };
     let callback = (m) =>{
         console.log("[Toast] called : "+ msg);
@@ -40,6 +41,17 @@ function launchApp(app_id){
     };
     let callback = (m) =>{
         console.log("[launch app] called : "+ app_id);
+    }
+    ls2.call(launchApp_url, launchApp_params, callback);
+}
+
+function closeApp(app_id){
+    let launchApp_url = "luna://com.webos.service.applicationmanager/close";
+    let launchApp_params = {
+        id: app_id
+    };
+    let callback = (m) =>{
+        console.log("[close app] called : "+ app_id);
     }
     ls2.call(launchApp_url, launchApp_params, callback);
 }
@@ -110,9 +122,43 @@ function cameraCapture(path){
     });
 }
 
+function createActivity(url, time){
+    let createActivity_url = "luna://com.webos.service.activitymanager/create";
+    let createActivity_params = {
+        "activity": {
+          "name": "ScheduledActivityWithCallback",
+          "description": "Test create of scheduled activity with callback",
+          "type": { "foreground": true },
+          "callback": {
+            "method": `${url}`
+          },
+          "schedule": { "start": `${time}` }
+        },
+        "start": true,
+        "replace":true,
+        "subscribe": false
+      }
+    console.log(createActivity_params);
+    // var string_ = `luna-send -f -i luna://com.webos.service.activitymanager/create '{\"activity\": {\"name\": \"ScheduledActivityWithCallback\",\"description\": \"Test create of scheduled activity with callback\",\"type\": { \"foreground\": true },\"callback\": {\"method\": \"${url}\"}, \"schedule\": { \"start\": \"${time}\" }},\"start\": true,\"subscribe\": true}'`;
+    // console.log(string_);
+    // var pro = exec(string_);
+    ls2.call(createActivity_url, createActivity_params, (msg) => {
+        console.log("[CreateActivity]" + JSON.stringify(msg));
+    })
+}
+
+function alert(params){
+    var string_ = `luna-send -n 1 -f -a com.webos.surfacemanager luna://com.webos.notification/createAlert '${params}'`;
+    console.log(string_);
+    var pro = exec(string_);
+}
+
 exports.init = init;
 exports.toast = toast;
 exports.tts = tts;
 exports.launchApp = launchApp;
+exports.closeApp = closeApp;
 exports.cameraReady =cameraReady;
 exports.cameraCapture = cameraCapture;
+exports.createActivity = createActivity;
+exports.alert = alert;
