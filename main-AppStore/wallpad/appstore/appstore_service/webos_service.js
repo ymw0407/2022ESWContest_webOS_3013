@@ -10,6 +10,26 @@ const PWD = __dirname;
 const exec = require("child_process").exec;
 require("dotenv").config();
 
+const fileServer = process.env.fileServer;
+
+service.register("appSetUp", (msg) => {
+  let appList = [];
+  request.get("http://192.168.1.9:8000/apps/list", (err, res, body) => {
+    appList = JSON.parse(body);
+    console.log(appList);
+    msg.respond({ appList: appList, returnValue: true });
+  });
+  const IpkinstallPath =
+    "/media/developer/apps/usr/palm/sevices/com.appstore.app.service/";
+  fs.mkdir(IpkinstallPath, (err) => {
+    if (err && err.code == "EEXIST") {
+      console.log("already exists");
+    }
+  });
+  // console.log(appList);
+});
+
+
 const fileServer = "http://" + process.env.fileServer;
 
 /**

@@ -38,7 +38,7 @@ const MainPanel = ({ ...rest }) => {
           console.log(err);
         },
       };
-      bridge.send(lsRequest);
+          console.log("getInstalledApps", msg.installedApps);
     });
   };
 

@@ -1,8 +1,15 @@
 const WebOSApp = require("./WebOSApp");
 const router = require("express").Router();
 const ffmpeg = require("fluent-ffmpeg");
+const WebOSApp = require("./WebOSApp");
+const ffmpegInstaller = require("@ffmpeg-installer/ffmpeg");
+ffmpeg.setFfmpegPath(ffmpegInstaller.path);
 const url = require("url");
 const fs = require("fs");
+
+const { get } = require("http");
+const exec = require("child_process").exec;
+
 
 router.get("/vidlist", (req, res) => {
   const DATA = "resource/" + req.headers.app;
@@ -107,10 +114,10 @@ router.get("/package/*", (req, res) => {
 });
 
 router.delete("/package/*", (req, res) => {
-  fs.unlink("resource/" + vidName, (err) => {
+  const vidPath = url.parse(req.url, true);
+  fs.unlink("resource" + vidPath.path, (err) => {
     if (err) throw err;
-    console.log("file deleted");
-    res.sendStatus(200).send("file deleted");
+    res.sendStatus(200);
   });
 });
 
@@ -147,7 +154,7 @@ router.get("/exercise/", (req, res) => {
   res.send("upload succuess!");
 });
 
-router.get("/exercise/*", (req, res) => {
+router.get("/exercise/output/*", (req, res) => {
   const { pathname } = url.parse(req.url, true);
   const filepath = `./resource${pathname}`;
 
@@ -181,48 +188,109 @@ router.get("/exercise/*", (req, res) => {
   }
 });
 
-router.post("/exercise/", (req, res) => {
-  const vidPath = "./resource/exercise";
+const analyzeStart = () => {
+  return new Promise((resolve, reject) => {
+    process = exec("python3 pushup.py");
+
+    process.stdout.on("data", (data) => {
+      console.log(data);
+    });
+
+    // process.stderr.on("data", (err) => {
+    //     reject(err);
+    // });
+
+    process.on("exit", (code) => {
+      resolve(code);
+    });
+  });
+};
+
+router.post("/exercise/", async (req, res) => {
   const file = req.files.file;
-  const vidName = file.name;
+  var vidPath = "./resource/exercise/input/";
+  var vidName = file.name;
 
-  console.log(file);
+  console.log("[exerise post] :" + file);
 
-  file.mv("resource/" + vidName, (err) => {
-    if (err) return res.sendStatus(500).send(err);
-    console.log("File Uploaded successfully");
+  file.mv("resource/exercise/input/" + vidName, (err) => {
+    if (err) {
+      console.log("[mvFile] error : " + err);
+      return res.sendStatus(500).send(err);
+    }
+    console.log("[mvFile] success : File Uploaded successfully");
+    console.log("[mvFile] file path : " + vidPath + vidName);
+    return res.sendStatus(200).send(err);
   });
 
-  try {
-    fs.unlinkSync("resource/exercise/output.mp4");
-    console.log("deleted old one");
-  } catch (err) {
-    (err) => {
-      console.log("this is error but not an error");
-      console.log("upload success");
-    };
-  }
+  await analyzeStart()
+    .then((result) => {
+      console.log("[analyzeStart] exit : " + result);
+      vidName = "progress.mp4";
+      vidPath = "./resource/exercise/progress/";
+      console.log("[analyzeStart] file path : " + vidPath + vidName);
+    })
+    .catch((err) => {
+      fs.unlink(vidPath + vidName, (err) => {
+        if (err) throw err;
+        console.log("[analyzeStart] " + vidPath + vidName + " file deleted");
+      });
+      console.log("[analyzeStart] err : " + err);
+    });
 
-  ffmpeg("resource/" + vidName)
+  ffmpeg("./resource/exercise/progress/progress.mp4")
     .videoCodec("libx264")
     .withOutputFormat("mp4")
     .on("error", (err) => {
       console.log(err.message);
-      fs.unlink("resource/" + vidName, (err) => {
+      fs.unlink("./resource/exercise/progress/" + vidName, (err) => {
         if (err) throw err;
-        console.log("file deleted");
+        console.log("[ffmpeg] " + vidPath + vidName + " file deleted");
       });
     })
     .on("end", () => {
       console.log("upload complete");
-
-      fs.unlink("resource/" + vidName, (err) => {
+      fs.unlink("./resource/exercise/progress/" + vidName, (err) => {
         if (err) throw err;
-        console.log("file deleted");
+        console.log("[ffmpeg] " + vidPath + vidName + " file deleted");
+	setTimeout(()=>{exec("node mqttsend.js")}, 10000)
       });
-      res.send("upload success!");
     })
-    .saveToFile(`${vidPath}/${vidName}`);
+    .saveToFile("./resource/exercise/output/output.mp4");
+});
+router.get("/apps/list/", (req, res) => {
+  res.send([
+    new WebOSApp(
+      "배달",
+      "com.delivery.app",
+      "택배 상자 인식을 통한 배달 도난 방지 기능",
+      "delivery.png"
+    ),
+    new WebOSApp(
+      "차량",
+      "com.registercar.app",
+      "방문 차량 접수도 간단하게! 차량 스케줄링 기능",
+      "registercar.png"
+    ),
+    new WebOSApp(
+      "CCTV",
+      "com.cctv.app",
+      "우리 아이 안전한가요...? CCTV 기능",
+      "CCTV.png"
+    ),
+    new WebOSApp(
+      "가전제어",
+      "com.control.app",
+      "터치 한번으로 간편하게!",
+      "control.png"
+    ),
+    new WebOSApp(
+      "운동보조",
+      "com.exercise.app",
+      "집에서도 운동하자! 홈 트레이닝 도우미 기능",
+      "exercise.png"
+    ),
+  ]);
 });
 
 router.get("/apps/list/", (req, res) => {

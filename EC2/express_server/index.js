@@ -6,12 +6,12 @@ var methodOverride = require("method-override");
 var flash = require("connect-flash");
 var session = require("express-session");
 var app = express();
-const schedule = require("node-schedule");
-var path = require("path");
-var car = require("./car_expire/car_expire");
 
+const MongoURI = process.env.MongoURI;
+
+console.log(MongoURI)
 // DB setting
-mongoose.connect("mongodb://3.34.50.139:27017/DB");
+mongoose.connect(MongoURI);
 var db = mongoose.connection;
 db.once("open", function () {
     console.log("DB connected");
@@ -40,12 +40,4 @@ app.use("/", require("./routes/post"));
 var port = 8080;
 app.listen(port, function () {
     console.log("server on! http://localhost:" + port);
-    var CAR = car.carSchema(mongoose, "cars");
-
-    schedule.scheduleJob("1 * * * * *", function () {
-        // console.log(new Date() + ' scheduler running!');
-        console.log("---------------------------------------");
-
-        car.showCarData(CAR);
-    });
 });
