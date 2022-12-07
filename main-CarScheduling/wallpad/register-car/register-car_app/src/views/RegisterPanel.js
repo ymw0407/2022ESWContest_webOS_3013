@@ -128,17 +128,42 @@ const RegisterPanel = kind({
     next: PropTypes.string,
     onClick: PropTypes.func,
     title: PropTypes.string,
+    closeApp: PropTypes.func,
   },
 
   computed: {
     text: ({ next }) => `To ${next} Panel`,
   },
 
-  render: ({ title, ...rest }) => {
+  handlers: {
+    closeApp: (app_id) => {
+      var lsRequest = {
+        service: "luna://com.registercar.app.service",
+        method: "close",
+        parameters: {
+          app_id: app_id,
+          subscribe: true,
+        },
+        onSuccess: (msg) => {
+          console.log(msg.reply);
+        },
+        onFailure: (msg) => {
+          console.log(msg);
+        },
+      };
+      bridge.send(lsRequest);
+    },
+  },
+
+  render: ({ title, closeApp, ...rest }) => {
     delete rest.next;
     return (
       <Panel className={css.custom} {...rest}>
-        <Header className={css.custom} title={title} />
+        <Header
+          className={css.custom}
+          title={title}
+          onClose={() => closeApp("com.registercar.app")}
+        />
         <InputCarNum />
       </Panel>
     );

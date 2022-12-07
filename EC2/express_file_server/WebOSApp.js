@@ -11,3 +11,4 @@ class WebOSApp {
 }
 
 module.exports = WebOSApp;
+

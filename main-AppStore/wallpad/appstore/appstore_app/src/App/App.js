@@ -2,7 +2,7 @@ import kind from "@enact/core/kind";
 import ThemeDecorator from "@enact/sandstone/ThemeDecorator";
 import Panels from "@enact/sandstone/Panels";
 
-import Tiles from "../views/Tiles";
+import MainPanel from "../views/MainPanel";
 import css from "./App.module.less";
 
 const AppBase = kind({
@@ -16,7 +16,7 @@ const AppBase = kind({
   render: ({ ...rest }) => (
     <div {...rest}>
       <Panels>
-        <Tiles />
+        <MainPanel />
       </Panels>
     </div>
   ),

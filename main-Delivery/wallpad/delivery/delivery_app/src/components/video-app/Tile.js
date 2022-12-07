@@ -23,7 +23,7 @@ const TileBase = kind({
   },
 
   defaultProps: {
-    size: 200,
+    size: 250,
   },
 
   handlers: {
@@ -39,7 +39,7 @@ const TileBase = kind({
     return (
       <SpottableDiv {...rest} onClick={onSelect}>
         <img src={thumbnail} width={size} height={size} />
-        <div>{children}</div>
+        <div className={css.vidName}>{children}</div>
       </SpottableDiv>
     );
   },

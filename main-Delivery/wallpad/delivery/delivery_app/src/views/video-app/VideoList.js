@@ -26,7 +26,7 @@ const VideoList = ({ onSelectVid, onClick, ...rest }) => {
                 console.log(err);
                 setTimeout(() => {
                     console.log(
-                        "[getVids] waiting for 1 seconds to reconnect fileServer"
+                        "[getVids] waiting for 1 second to reconnect fileServer"
                     );
                     getVids();
                 }, 1000);

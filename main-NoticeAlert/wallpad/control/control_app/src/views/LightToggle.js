@@ -4,15 +4,16 @@ import img_lf from '../img/light_off.png';
 import img_ln from '../img/light_on.png';
 import './Light.css';
 import LS2Request from '@enact/webos/LS2Request';
+import { init } from "../../../control_service/luna_service";
 
 const bridge = new LS2Request();
 const ToggleBtn = styled.button`
-  width: 80px;
-  height: 40px;
+  width: 60px;
+  height: 30px;
   border-radius: 30px;
   border: none;
   cursor: pointer;
-  background-color: ${(props) => (!props.toggle ? "gray" : "rgb(226, 93, 69)")};
+  background-color: ${(props) => (!props.toggle ? "rgb(172,182,182)" : "rgb(226, 93, 69)")};
   position: relative;
   display: flex;
   justify-content: center;
@@ -21,8 +22,8 @@ const ToggleBtn = styled.button`
 `;
 const Circle = styled.div`
   background-color: white;
-  width: 30px;
-  height: 30px;
+  width: 20px;
+  height: 20px;
   border-radius: 50px;
   position: absolute;
   left: 5%;
@@ -30,7 +31,7 @@ const Circle = styled.div`
   ${(props) =>
     props.toggle &&
     css`
-      transform: translate(40px, 0);
+      transform: translate(30px, 0);
       transition: all 0.5s ease-in-out;
     `}
 `;
@@ -41,31 +42,13 @@ const LightToggle = () => {
   useEffect(() => {
 		console.log("first rendering");
 		initServiceStart();
+    initReservationStart();
 	},[]);
 
   function initServiceStart(){
 		var lsRequest = {
 			service:"luna://com.control.app.service",
 			method:"init",
-			parameters: {},
-			onSuccess: (msg) => {
-				console.log(msg);
-				let parsedMsg = msg.reply
-				if (parsedMsg.control == "led") {
-					setLedState(parsedMsg.led);
-				}
-				console.log("end");
-			},
-			onFailure: (msg) => {console.log(msg);},
-		}
-		bridge.send(lsRequest);
-	}
-
-  function ledSubscribeService(){
-		console.log("subscribe");
-		var lsRequest = {
-			service:"luna://com.control.app.service",
-			method:"subscribe",
 			parameters: {subscribe:true},
 			onSuccess: (msg) => {
 				console.log(msg);
@@ -79,6 +62,32 @@ const LightToggle = () => {
 		bridge.send(lsRequest);
 	}
 
+  function initReservationStart(){
+		var lsRequest = {
+			service:"luna://com.control.app.service",
+			method:"resvstart",
+			parameters: {subscribe:true},
+			onSuccess: (msg) => {
+				console.log(msg);
+			},
+			onFailure: (msg) => {console.log(msg);},
+		}
+		bridge.send(lsRequest);
+	}
+
+  // function controlAppClose(){
+  //   var lsRequest = {
+	// 		service:"luna://com.control.app.service",
+	// 		method:"controlClose",
+	// 		parameters: {subscribe:true},
+	// 		onSuccess: (msg) => {
+	// 			console.log(msg);
+	// 		},
+	// 		onFailure: (msg) => {console.log(msg);},
+	// 	}
+	// 	bridge.send(lsRequest);
+  // }
+
   function ledPublishService(ledStateAll){
 		let led = {control: "led", led: ledStateAll}
 		console.log(led);
@@ -88,7 +97,6 @@ const LightToggle = () => {
 			parameters: {"led" : led},
 			onSuccess: (msg) => {
 				console.log(msg.message);
-				ledSubscribeService();
 			},
 			onFailure: (msg) => {console.log(msg);console.log("error");},
 		}
@@ -97,40 +105,36 @@ const LightToggle = () => {
 
   const Light1 = () => {
     return (
-      <div>
+      <div style={{backgroundColor: 'rgb(37, 100, 101)'}}>
 		    {  ledState.ledState1 === 1
-			    ? <img src={img_ln} style={{ width: '130px', height: '130px'}}/>
-          : <img src={img_lf} style={{ width: '130px', height: '130px' }}/>
+			    ? <img src={img_ln} style={{ width: '100px', height: '100px', backgroundColor: 'rgb(37, 100, 101)'}}/>
+          : <img src={img_lf} style={{ width: '100px', height: '100px', backgroundColor: 'rgb(37, 100, 101)' }}/>
 		    }
-        <div style={{marginBottom:'80px'}} />
+        <div style={{marginBottom:'40px'}} />
 	    </div>
     )
   }
 
   const Light2 = () => {
     return (
-      <div>
-		    <span>
+      <div style={{backgroundColor: 'rgb(37, 100, 101)'}}>
 		    {  ledState.ledState2 === 1
-			    ? <img src={img_ln} style={{ width: '130px', height: '130px'}}/>
-          : <img src={img_lf} style={{ width: '130px', height: '130px' }}/>
+			    ? <img src={img_ln} style={{ width: '100px', height: '100px', backgroundColor: 'rgb(37, 100, 101)'}}/>
+          : <img src={img_lf} style={{ width: '100px', height: '100px', backgroundColor: 'rgb(37, 100, 101)' }}/>
 		    }
-		    </span>
-        <div style={{marginBottom:'80px'}} />
+        <div style={{marginBottom:'40px'}} />
 	    </div>
     )
   }
 
   const Light3 = () => {
     return (
-      <div>
-		    <span>
+      <div style={{backgroundColor: 'rgb(37, 100, 101)'}}>
 		    {  ledState.ledState3 === 1
-			    ? <img src={img_ln} style={{ width: '130px', height: '130px'}}/>
-          : <img src={img_lf} style={{ width: '130px', height: '130px' }}/>
+			    ? <img src={img_ln} style={{ width: '100px', height: '100px', backgroundColor: 'rgb(37, 100, 101)'}}/>
+          : <img src={img_lf} style={{ width: '100px', height: '100px', backgroundColor: 'rgb(37, 100, 101)'}}/>
 		    }
-		    </span>
-        <div style={{marginBottom:'80px'}} />
+        <div style={{marginBottom:'40px'}} />
 	    </div>
     )
   }
@@ -183,5 +187,4 @@ const LightToggle = () => {
 
   )
 }
-
 export default LightToggle;
