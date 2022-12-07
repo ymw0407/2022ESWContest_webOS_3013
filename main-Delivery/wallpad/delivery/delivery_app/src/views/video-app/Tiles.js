@@ -20,15 +20,14 @@ const Tiles = kind({
 
   render: ({ children, onSelectVid, ...rest }) => (
     <div {...rest}>
-      <div className={css.tiles}>
-        <Repeater
-          childComponent={Tile}
-          indexProp="index"
-          itemProps={{ onSelect: onSelectVid }}
-        >
-          {children}
-        </Repeater>
-      </div>
+      <Repeater
+        className={css.tiles}
+        childComponent={Tile}
+        indexProp="index"
+        itemProps={{ onSelect: onSelectVid }}
+      >
+        {children}
+      </Repeater>
     </div>
   ),
 });

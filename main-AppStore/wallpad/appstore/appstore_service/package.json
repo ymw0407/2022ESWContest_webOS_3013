@@ -8,5 +8,9 @@
   },
   "author": "",
   "license": "BSD",
-  "keywords": []
+  "keywords": [],
+  "dependencies": {
+    "dotenv": "^16.0.3",
+    "request": "^2.88.2"
+  }
 }
