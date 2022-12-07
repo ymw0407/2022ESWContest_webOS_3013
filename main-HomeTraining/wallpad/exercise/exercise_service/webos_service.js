@@ -140,3 +140,10 @@ heartbeat.on("cancel", function(message) {
     } 
 });
 
+service.register("close", (msg) => {
+    luna.init(service);
+    console.log(msg.payload);
+    luna.closeApp(msg.payload.app_id);
+    luna.launchApp("com.webos.app.home");
+    msg.respond({ returnValue: true });
+  });

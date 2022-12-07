@@ -1,34 +1,28 @@
-.first {
-  position: absolute;
-  left: 0;
-  top: 0;
-  bottom: 0;
-  right: 0;
-  display: flex;
-  flex-direction: column;
-  height: 100vh;
-  width: auto;
-  background-image: url(../../img/exer_back1.jpg);
+*{
+  margin: 0;
+  padding: 0;
+  background-color: #54bdee;;
+}
+.First {
   background-size: cover;
-} 
+  width: 100%;
+}
 .app-title {
   color: white;
-  font-size: 200px;
+  font-size: 100px;
   margin-top: 200px;
   margin-left: 350px;
 }
-.tem {
-  margin-left: 350px;
-}
-.but {
-  margin-top: 30px;
-}
-.content {
-  margin-top: 350px;
-  margin-left: -500px;
-  color: white;
-  font-size: 70px;
-  border: 10px solid white;
+.content{
+  width: 15%;
+  margin-top: 10rem;
+  margin-left: 8rem;
+  font-size: 1.3rem;
+  line-height: 2rem;
+  border: 10px solid #0c7ac3;
   border-radius: 50px;
-  padding: 30px 150px;
+  padding: 2rem 2rem
+}
+p {
+  color: white;
 }
