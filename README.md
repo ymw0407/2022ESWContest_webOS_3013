@@ -18,12 +18,12 @@
 
 ## 기능
 
-- <a href="https://github.com/ymw0407/2022ESWContest_webOS_3013/tree/master/main-AppStore">앱 스토어</a>
-- <a href="https://github.com/ymw0407/2022ESWContest_webOS_3013/tree/master/main-Delivery">배달 도난 방지 기능</a>
-- <a href="https://github.com/ymw0407/2022ESWContest_webOS_3013/tree/master/main-CCTV">CCTV 기능</a>
-- <a href="https://github.com/ymw0407/2022ESWContest_webOS_3013/tree/master/main-HomeTraining">운동 보조 기능</a>
-- <a href="https://github.com/ymw0407/2022ESWContest_webOS_3013/tree/master/main-NoticeAlert">가전 제어 기능 & 게시판 기능</a>
-- <a href="https://github.com/ymw0407/2022ESWContest_webOS_3013/tree/master/main-CarScheduling">차량 스케줄링 기능</a>
+- <a href="https://github.com/ymw0407/2022ESWContest_webOS_3013/tree/master-Demo/main-AppStore">앱 스토어</a>
+- <a href="https://github.com/ymw0407/2022ESWContest_webOS_3013/tree/master-Demo/main-Delivery">배달 도난 방지 기능</a>
+- <a href="https://github.com/ymw0407/2022ESWContest_webOS_3013/tree/master-Demo/main-CCTV">CCTV 기능</a>
+- <a href="https://github.com/ymw0407/2022ESWContest_webOS_3013/tree/master-Demo/main-HomeTraining">운동 보조 기능</a>
+- <a href="https://github.com/ymw0407/2022ESWContest_webOS_3013/tree/master-Demo/main-NoticeAlert">가전 제어 기능 & 게시판 기능</a>
+- <a href="https://github.com/ymw0407/2022ESWContest_webOS_3013/tree/master-Demo/main-CarScheduling">차량 스케줄링 기능</a>
 ---
 - <a href="https://github.com/ymw0407/2022ESWContest_webOS_3013/tree/master/EC2">EC2 서버</a>
 
